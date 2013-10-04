@@ -1,0 +1,131 @@
+\section{Caso diffusione-trasporto-reazione scalare}
+
+Siano $I=(0,1)$, $q\in Q=H^2(I)\cap H^1_0(I)$ e
+\begin{equation*}
+ \Omega_q=\{(x,y)\in \mathds{R}^2\ |\ x\in I, y\in(q(x),1)\}
+\end{equation*}
+Consideriamo il problema di ottimizzazione di forma%, con $\Omega_q\subset \mathds{R}^2$  e $I=(0,1)$
+\begin{equation}
+ \min J(q,u)=\frac{1}{2}\|u-u_d\|^2_{L^2(\Omega_q)}+\frac{\alpha}{2}\|q''\|^2_{L^2(I)}+\frac{\beta}{2}\|q'\|^2_{L^2(I)}+\frac{\gamma}{2}\|q\|^2_{L^2(I)}
+ \label{eq:minJ}
+\end{equation}
+\begin{equation}
+\text{sotto il vincolo}\qquad\left\{
+\begin{aligned}
+ -div \left(\mu \nabla u\right) + \mathbf{b}\cdot\nabla u + div (\mathbf{c}u)+\sigma u &= f \qquad in\ \Omega_q\\
+u&=g_D\qquad su\ \Gamma_D \subseteq \partial\Omega_q\\
+\partial_L u &= g_N\qquad su\ \Gamma_N=\partial\Omega_q \backslash \Gamma_D
+\end{aligned}
+\right.
+\label{eq:stato}
+\end{equation}
+La formulazione debole del problema di stato \eqref{eq:stato} \`e
+\begin{equation}
+	\begin{aligned}
+%	Trovare\ u\in V=\{v\ |\ \exists\ v_1\in H^1_{\Gamma_D}(\Omega_q),\ \exists\ v_2\in H^1(\Omega_q): v_2|_{\Gamma_D}=g_D \text{ tali che } v=v_1+v_2\}\ tale\ che\\
+\text{Trovare } u = \hat{u}+\mathcal{R}g_D \text{ con } \mathcal{R}g_D \text{ rilevamento continuo di } g_D \text{ e } \hat{u}\in H^1_{\Gamma_D}(\Omega_q), \text{ tale che } \\
+	 a_q(\hat{u},v)=F_q(v)\qquad\forall\ v\in V\\
+	dove\quad a_q(u,v)=\int_{\Omega_q}{\left[\ \mu\nabla u\cdot\nabla v + \mathbf{b}\cdot\nabla u\ v-\mathbf{c} u \cdot\nabla v+\sigma u v\ \right]}\\
+	\qquad F_q(v) = \int_{\Omega_q}{f v}-\int_{\Gamma_N} {g_N v}-a_q(\mathcal{R}g_D,v)
+	\end{aligned}
+\label{eq:statodeb}
+\end{equation}
+
+Per evitare domini degeneri, sia $\epsilon\in (0,1)$ fissato e consideriamo solo le $q$ in
+\begin{equation*}
+\bar{Q}^{ad} = \{q\in Q\ |\ q(x)\leq 1-\epsilon\ \forall x\in I\}
+\end{equation*}
+cosicch\'e la variabile di stato $u$ sia la soluzione debole di \eqref{eq:stato} $\rightarrow u=\tilde{S}(q)$.\\
+Osserviamo che la norma $\vertiii{q}= \frac{\alpha}{2}\|q''\|^2_{L^2(I)}+\frac{\beta}{2}\|q'\|^2_{L^2(I)}+\frac{\gamma}{2}\|q\|^2_{L^2(I)}$ \`e equivalente alla norma $H^2(I)$ o $H^1(I)$, purch\'e siano non nulli, rispettivamente, $\alpha$ o $\beta$, dacch\'e $Q\subset H^1_0(I)$ \  \footnote{Dimostrazione simile al Lemma 1.1 di Kiniger}. Inoltre, possiamo restringere la nostra ricerca del controllo minimizzante a $Q^{ad} = \{q\in \bar{Q}^{ad}\ |\ \vertiii{q} \leq C\}$, con, ad esempio, $C = j(q\equiv0)=J(0,\tilde{S}(0))$.
+
+\subsection{Esistenza}
+Per garantire il risultato di esistenza che riportato pi\`u avanti, possiamo utilizzare la \emph{Preposition 1.2}, che ridimostriamo nel caso in esame
+\begin{prop}[Continuit\`a di $\tilde{S}$]
+ Siano $q_n,q\in\Q,q_n\to q$ in $L^\infty(I)$ e $u_n=\tilde{S}(q_n)$. Allora $\exists\ \tilde{u}\in H^1_{\Gamma_D}(\hat{\Omega})$ tale che $$\tilde{u_n}\to\tilde{u}\text{ in }H^1_{\Gamma_D}(\hat{\Omega})$$
+e $u=\tilde{u}|_{\Omega_q}=\tilde{S}(q)$.
+\label{p:Scont}
+\end{prop}
+\begin{proof}
+	\`E sufficiente verificare le assunzioni (A1)-(A4) di [13], pp.38 e segg.
+	\begin{itemize}
+		\item[A1] Uniforme continuit\`a di $a_q(u,v)\ \forall q\in Q$\\
+			Basta richiedere che siano $\mu,\sigma\in L^\infty(\hat\Omega),\ \mathbf{b},\mathbf{c}\in. \left[L^\infty(\hat\Omega)\right]^2$
+		\item[A2] Uniforme coercivit\`a di $a_q(u,v)\ \forall q\in Q$\\
+			Basta richiedere che siano $\mu\geq\mu_0>0,\ \sigma-\frac{1}{2}div(\mathbf{b}-\mathbf{c})\geq\gamma_0\geq0$ (con $\gamma_0>0$ nel caso $\Gamma_D=\emptyset$).
+		\item[A3] Simmetria di $a_q(u,v)\ \forall q\in Q$\\Non \`e verificata, ma non \`e necessaria (cfr. \emph{Remark 2.9}).
+		\item[A4] Continuit\`a di $q\mapsto a_q$ (cfr. \emph{Remark 2.9})\\
+			Conseguenza della uniforme continuit\`a, della dipendenza continua dell'integrale dal dominio e della limitatezza di $\|q\|_{H^2(I)}$:\footnote{Per tutti i conti, vedi allegato B}
+			\begin{gather*}
+				a_{q_n}(u,v)-a_q(u,v) =\int_{\Omega_{q_n}\smallsetminus\Omega_q}{(\mu\nabla u\cdot\nabla v + \dots)} - \int_{\Omega_{q_n}\smallsetminus\Omega_q}{(\mu\nabla u\cdot\nabla v +\dots)} \\
+				\Omega_{q_n}\smallsetminus\Omega_q={(x,y)\in\mathds{R}^2: x\in I, q_n(x)\leq y\leq q(x)}
+				|\Omega_{q_n}\smallsetminus\Omega_q| =\int_0^1{(q(x)-q_n(x))\chi_{\{q_n\leq q\}}(x) dx}\leq\|q-q_n\|_{L^\infty(I)}\cdot1\\
+				\text{e analogamente per l'altro termine}\\
+				\text{Pertanto: } q_n\to q\ in\ L^\infty(I) \Rightarrow |\Omega_{q_n}\smallsetminus\Omega_q \cup \Omega_q\smallsetminus\Omega_{q_n}| \to 0 \Rightarrow |a_{q_n}(u,v)-a_q(u,v)|\to 0
+			\end{gather*}
+			
+	\end{itemize}
+	Sotto queste ipotesi, vale il \emph{Lemma 2.12}, [13].
+\end{proof}
+
+Vale, di conseguenza il \emph{Theorem 1.3}, che riportiamo come
+\begin{teor}[Esistenza]
+ Il problema \eqref{eq:minJ}-\eqref{eq:stato} ammette soluzione globale.
+\end{teor}
+\begin{proof}
+ Sia $\bar{j}=\inf_{q\in\Q}j(q)=\inf_{q\in\Q}J(q,\tilde{S(q)})$, che esiste perch\'e $\Q\neq\emptyset$ e $J(q,u)\geq0$, e sia $(q_n)_{n=1}^\infty \subseteq Q^{ad}$, con i corrispondenti $u_n=S(q_n)$, tale che $\bar{j}=\lim_{n\to\infty}j(q_n)$. Essendo $Q^{ad}$ limitato in $H^2$,\footnote{Per questa dimostrazione, serve $\alpha\neq0$, perch\'e dobbiamo stare in $H^2(I)$ per avere un risultato di immersione \textbf{compatta}} per Banach-Alaoglu negli spazi riflessivi e, poi, grazie al fatto che $H^2(I)\subset\subset C^0(I),$\footnote{Immersione di Sobolev $\Rightarrow H^2(I)\subset\subset H^1(I)\hookrightarrow C^0(I)$, perch\'e siamo in 1D} abbiamo che $\exists\ \bar{q}\in \Q$ tale che
+\begin{equation*}
+\begin{aligned}
+ q_{n_k} \weak \bar{q}\qquad &\text{in } H^2(I)\\
+ q_{n_{k_l}} \rightarrow \bar{q}\qquad &\text{in } C^0(I)
+\end{aligned}
+\end{equation*}
+Grazie alla Proposizione \ref{p:Scont} abbiamo anche che $u_{n_{k_l}}=\tilde{S}(q_{n_{k_l}}) \rightarrow \tilde{S}(\bar{q})=\bar{u}\text{  in } V$.\\
+Mostriamo ora la semicontinuit\'a inferiore debole di $j(q)=J(q,\tilde{S(q)})$: i termini nella sola $q$ costituiscono una norma ($\vertiii{q}$), dunque soddisfano la propriet\`a, mentre il primo addendo, $\frac{1}{2}\|\tilde{S(q)}-u_d\|^2_{L^2(\Omega_q)}$ \`e addirittura continuo, sempre grazie alla Proposizione \ref{p:Scont}.
+Abbiamo dunque $$j(\bar{q})\leq\liminf_{l \to \infty} j(q_{n_{k_l}})=\bar{j}$$
+e pertanto $(\bar{q},\bar{u})$ \`e soluzione del problema \eqref{eq:minJ}.
+\end{proof}
+
+\subsection{METTERE TITOLO}
+Scriviamo ora una formulazione alternativa di \eqref{eq:statodeb}, che fa riferimento al dominio $\Omega_0=(0,1)^2$:
+\begin{equation}
+	\begin{aligned}
+\text{Trovare } u = \hat{u}+\mathcal{R}g_D \text{ con } \mathcal{R}g_D \text{ rilevamento continuo di } g_D \text{ e } \hat{u}=\hat{u}^q\circ T_q\text{ con }\hat{u}^q\in H^1_{\Gamma_D}(\Omega_0), \text{ tale che } \\
+	 a_0(q)(\hat{u},v)=F_0(q)(v)\qquad\forall\ v\in V\\
+	dove\quad a_0(q)(u,v)=\int_{\Omega_q}{\left[\ (\mu\circ T_q)\nabla u^TA_q\nabla v +\nabla u^T DT_q^{-1}\ v \gamma_q (\mathbf{b}\circ T_q)-u \nabla v^T DT^{-1}(\mathbf{c}\circ T_q)\gamma_q+(\sigma\circ T_q) u v\gamma_q\ \right]}\\
+	\qquad F_0(q)(v) = \int_{\Omega_q}{(f\circ T_q) v\gamma_q}-\textcolor{red}{\int_{\Gamma_N} {g_N v |V_q|}}-a_0(q)(\mathcal{R}g_D,v)
+	\end{aligned}
+\label{eq:statodebT}
+\end{equation}
+\textcolor{red}{Consideriamo validi i \emph{Lemmi 1.9-1.11} di Kiniger, in quanto trattano di continuit\`a e dunque mi aspetto che siano validi, sotto ipotesi simili a quelle gi\`a poste nella Proposizione \ref{p:Scont} su $\mu,\mathbf{b},\mathbf{c},\sigma$.}\\
+\textcolor{red}{REGOLARITA'?}\\
+Consideriamo la stessa discretizzazione di Kiniger.\\
+
+
+\subsection{Stime a priori}
+Possiamo dare un risultato analogo al \emph{Corollary 3.4} di Kiniger
+\begin{prop} L'operatore $S$ \`e almeno due volte continuamente Fr\'echet-differenziabile.
+\end{prop}
+La dimostrazione ricalca quella del citato corollario: segnaliamo la definizione di $S$ e delle sue derivate, \textcolor{red}{nel caso $g_D=0, g_N=0$, perch\'e non saprei come derivare il rilevamento e il termine di bordo} ($\cdot^q = \cdot\circ T_q$)
+\begin{enumerate}
+ \item $u=S(q)\in V$ \`e soluzione di \eqref{eq:statodebT}
+
+ \item $\delta u=S'(q)(\delta q)$ \`e soluzione di 
+	\begin{align*}
+	 &a_0(q)(\delta u,v)
+	+ (\nabla^Tu,\mu^qA'_{q,\delta q}\nabla v + \nabla\mu^q\cdot \mathbf{V}_{\delta q}A_q\nabla v) + \\
+	&+ (v\nabla u^T,\gamma_q(DT^{-1}_q)'\delta q\ \mathbf{b}^q+\gamma_qDT^{-1}_q(\nabla\mathbf{b}^q\mathbf{V}_{\delta q})+DT^{-1}_q\gamma'_{q,\delta q}\mathbf{b}^q) + \\
+	&- (u\nabla v^T,\gamma_q(DT^{-1}_q)'\delta q\ \mathbf{c}^q+\gamma_qDT^{-1}_q(\nabla\mathbf{c}^q\mathbf{V}_{\delta q})+DT^{-1}_q\gamma'_{q,\delta q}\mathbf{c}^q) + \\
+	&+ (u,v(\gamma_q\nabla\sigma^q\cdot \mathbf{V}_{\delta q} + \sigma^q\gamma'_{q,\delta q})) = \\
+	&=  (\nabla f^q\cdot\mathbf{V}_{\delta q}, v\gamma_q) + (f^q,v\gamma'_{q,\delta q})
+		\qquad\qquad\qquad\forall v\in V
+	\end{align*}
+	\textcolor{red}{MANCA LA PARTE COL RILEVAMENTO!}\\
+	\qquad\emph{\underline{Osservazione}:} Poich\'e siamo in 2D, $DT_q\in\mathds{R}^{2\times2}$ e dunque l'operatore cofattore \`e lineare. Grazie anche alla linearit\`a della trasposizione di matrici, della derivazione e del campo $T_q$ rispetto a $q$, abbiamo
+	$$\gamma_q(DT_q^{-1})'\delta q = \gamma_q\left(\frac{1}{\gamma_q}cof(DT_q)^T\right)'\delta q = \gamma_q \left(DV_{\delta q}^{-1} - \frac{1}{\gamma_q^2}\gamma'_{q,\delta q}DT_q^{-1}\right) = \gamma_q DV_{\delta q}^{-1} - \gamma'_{q,\delta q} DT_q^{-1}$$
+	Inoltre, nello specifico caso di campo di velocit\`a proposto da Kiniger, $\gamma'_{q,\delta q} = div(\mathbf{V}_q) = -\delta q$.
+
+ \item $\delta\tau u=S''(q)(\delta q,\tau q)$ \`e soluzione di 
+	\begin{align*}
+	\end{align*}
+	dove $\tau u = S'(q)(\tau q)$
+\end{enumerate}

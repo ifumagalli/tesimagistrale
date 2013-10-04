@@ -1,0 +1,412 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                   %
+%                           TESI in LaTex                           %
+%                                                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             Preambolo                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Documento pronto da stampare
+\documentclass[a4paper,12pt,oneside]{book}
+% Documento di brutta (al poste delle immagine una X)
+%\documentclass[draft,a4paper,12pt,oneside]{report}
+
+
+% Imposto la lingua italiana
+\usepackage[italian]{babel}
+
+
+% Settaggio dei margini 
+\topmargin 0cm 
+\headsep 1cm 
+\headheight 0.6cm
+\textwidth 14.6cm
+\textheight 21.8cm
+\evensidemargin 1cm 
+\oddsidemargin 1cm
+ 
+
+% Pacchetti da includere per...
+
+% simboli matematici
+\usepackage{amsmath}
+\usepackage{amssymb} 
+\usepackage{dsfont}      
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+% simboli vari
+\usepackage{textcomp}                      
+\usepackage[mathscr]{euscript}
+
+% figure 
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{subfigure}
+
+% tabelle
+
+% cornici
+\usepackage{framed}
+\usepackage{mdframed}
+\mdfdefinestyle{MyFrame}{%
+	%frametitle = {\colorbox{white}{\space#1\space}},
+	innertopmargin = 10pt,
+	roundcorner = 20pt,
+	frametitleaboveskip=\ht\strutbox,
+	frametitlealignment= \center
+	}
+
+% intestazioni
+\usepackage{fancyhdr}
+
+% encoding dei caratteri
+\usepackage[ansinew]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{color}
+
+% ridefinire le didascalie
+\usepackage[footnotesize,hang,bf]{caption2}
+
+% riferimenti cliccabili nel pdf
+\usepackage[pdftex]{hyperref} 
+
+
+
+% Impostazione dei link nel pdf
+%\hypersetup{%
+%    bookmarks=true,%
+%    colorlinks=false,%
+%    citebordercolor=0,%
+%    linkbordercolor=0,%
+%    urlbordercolor=0,%
+%}       
+
+
+% Stile della pagina
+\fancyhead[L]{\chaptername \thechapter}
+\fancyhead[LO]{\thesection} \fancyhead[RO]{\sectionmark}
+\lhead{\slshape Ch. \thechapter}
+
+
+% Configurazioni varie
+
+% nonumchapter serve per introduzioni, prefazioni, ecc.
+% titola come un capitolo ma senza numero
+\def\nonumchapter#1{
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
+}
+
+% estensioni e cartella delle immagini (non necessario...)
+\DeclareGraphicsExtensions{gif,eps,jpeg}
+\graphicspath{{./eps/}}
+
+% crea una nuova lunghezza e gli assegna un valore
+\newlength{\defbaselineskip}
+\setlength{\defbaselineskip}{\baselineskip}
+
+% comando per settare  la variabile \baselineskip come multiplo di \defbaselineskip
+\newcommand{\setlinespacing}[1]%
+           {\setlength{\baselineskip}{#1 \defbaselineskip}}
+
+% permette l'inserimento "rapido" del virgolettato (ad es. per citazioni)
+\newcommand{\virgolette}[1]{``#1''}
+
+% definizione dello stile delle didascalie delle immagini
+\renewcommand{\captionfont}{%
+	\normalfont \sffamily \slshape \footnotesize%
+}
+
+% definizioni e teoremi
+\theoremstyle{definition} 
+\newtheorem{defn}{Definizione}[section]
+
+% questo ambiente serve per i log e codice sorgente:
+% riduce il carattere la dimensione dei font e imposta l'ambiente 
+% come verbatim per evitare l'interpretazione di caratteri speciali
+\newenvironment{logs}{\begin{flushleft}\begin{ttfamily}\scriptsize\setlinespacing{1}}{\end{ttfamily}\end{flushleft}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Inizio Documento                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+% Inizio del Frontespizio
+
+\thispagestyle{empty}
+\enlargethispage{60mm}
+\begin{center}
+\Large{\textsc{Politecnico di Milano}}\\
+%\vspace{5mm}
+%\large{Facolt\`a di Ingegneria}\\
+%\vspace{5mm}
+\large{Corso di Laurea Magistrale in Ingegneria Matematica}\\
+%\large{Dipartimento di Matematica ``F. Brioschi''}\\
+\vspace{12mm}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=25mm]{img/logo-polimi.png}
+\end{center}
+\end{figure}
+\vspace{8mm}
+
+% titolo della tesi
+\begin{LARGE}
+Problemi di \emph{wetting and drying} per acque basse
+\end{LARGE} \\
+\vspace{10mm}
+Progetto del corso di Analisi Numerica delle Equazioni alle Derivate Parziali II \\
+\vspace{1.5cm}
+Prof. Alfio QUARTERONI\\
+Prof.ssa Simona PEROTTO
+
+\vspace{6cm}
+
+% relatore
+%\begin{flushleft}
+%\begin{tabular}{l l }
+%Relatore:    & Prof. Pinco PALLINO\\
+%Correlatore: & Prof. Pallino PINCO\\
+%\end{tabular}
+%\end{flushleft}
+%\vspace{30mm}
+
+% autore/autori
+\begin{flushright}
+\begin{tabular}{l l }
+%Tesi di Laurea di: & \\
+Elena BULGARELLO & Matr. 781536 \\
+Ivan FUMAGALLI & Matr. 781609 \\
+\end{tabular}
+\end{flushright}
+\vspace{2cm}
+{\large Anno Accademico 2012-2013}
+\end{center}
+
+% Fine del Frontespizio
+
+
+\clearpage
+\newpage
+
+
+% Settaggio interlinea 
+\setlinespacing{1.5}
+
+
+% Inizio Numerazione Romana
+%\pagenumbering{Roman}
+
+\frontmatter
+
+% Indice
+\tableofcontents
+\newpage
+\clearpage
+
+
+% Impostazioni della pagina
+\pagestyle{fancy} 
+\headsep=40pt 
+\lhead{} 
+\rhead{\slshape \leftmark} 
+\cfoot{\thepage}
+
+
+% Sommario
+% [Includo il file abstract.tex]
+%\include{abstract}
+
+
+% Inizio Numerazione Araba
+%\pagenumbering{arabic}
+
+
+% Vari Capitoli
+% [Includo i vari file chapterN.tex]
+
+%\frontmatter
+
+%\rhead{\slshape SIMBOLOGIA}
+
+\chapter{Simbologia}
+I simboli principali e la notazione utilizzata nel presente lavoro sono riportati di seguito. Definizioni pi\`u rigorose possono essere trovate all'interno della relazione.\\
+Spazi funzionali e relative norme:
+\begin{itemize}
+\item[] $L^2=\{ v: \Omega \rightarrow \mathds{R}: \int_\Omega{v^2 d\Omega}<\infty\}$
+\item[] $\| v \|_{L^2(\Omega)}=\sqrt{ \int_\Omega{v^2 d\Omega}}$
+\item[] $H^1=\{ v: \Omega \rightarrow \mathds{R}: v\in L^2,\ v'\in L^2\}$, dove $(\cdot) '$ indica la derivata distribuzionale
+\item[] $\| v \|_{H^1(\Omega)}=\sqrt{\| v \|_{L^2(\Omega)}^2+\| v' \|_{L^2(\Omega)}^2}$
+\item[] $L^\infty=\{ v: \Omega \rightarrow \mathds{R}: \text{ess}\sup_\Omega{|v|}<\infty\}$
+\item[] $\| v \|_{L^\infty(\Omega)}=\text{ess}\sup_\Omega{|v|}$
+\end{itemize}
+Variabili e simboli:
+\begin{itemize}
+\item[]$\mathbf u=(u,v)$ velocit\`a dell'acqua
+%\item[]$u$ velocit\`a dell'acqua lungo $x$
+%\item[]$v$ velocit\`a dell'acqua lungo $y$
+\item[]$c=2\sqrt{gh}$ celerit\`a delle piccole perturbazioni
+\item[]$g$ accelerazione di gravit\`a
+\item[]$Z$ altezza del fondo rispetto a un piano di riferimento
+\item[]$h$ altezza dell'acqua rispetto al fondo
+\item[]$H = Z + h$  elevazione totale dell'acqua
+%\item[]$\theta$ angolo di inclinazione del fondo
+\item[]$t$ coordinata temporale
+\item[]$T$ tempo caratteristico
+\item[]$\Omega$ dominio
+\item[]$(x,y)$ coordinate spaziali
+\item[]$L$ lunghezza caratteristica del dominio
+\item[]$N$ numero di nodi lungo $x$
+\item[]$M$ numero di nodi lungo $y$
+\item[]$W=\{nodi\ bagnati\}$
+%\item[]$D=\{nodi\ asciutti\}$
+\item[]$S$ striscia di dominio contenente i nodi a cavallo del fronte
+
+\end{itemize}
+
+% \include{chapter1}   % Introduzione
+\chapter{Introduzione}
+La descrizione del moto a superficie libera dell'acqua \`e un aspetto di interesse per lo studio di molti fenomeni, quali maree, tsunami, piene o l'idrodinamica associata ad una rete idrica pi\`u o meno articolata. 
+%(si pensi ad esempio ad un sistema complesso, quale quello di una laguna).
+Le equazioni che meglio descrivono la dinamica dell'acqua, dal punto di vista modellistico, sono le equazioni di \emph{Navier-Stokes} incomprimibili. Spesso, per\`o, queste ultime risultano computazionalmente troppo onerose per poter essere utilizzate nella pratica: da qui l'interesse ad introdurre modelli semplificati, tra cui quello costituito dalle equazioni delle \emph{acque basse} (\emph{Shallow Water Equations} - SWE), valido nel caso in cui le variazioni dell'altezza dell'acqua siano confrontabili con la profondit\`a della stessa e in caso di superficie superiore libera.\\
+Insenature, estuari, lagune e cos\`i via, hanno superficie libera soggetta alle oscillazioni del moto ondoso dell'acqua, e pu\`o accadere che l'estensione dell'area soggetta al cosiddetto fenomeno del \emph{wetting and drying} (bagnarsi e asciugarsi) sia dello stesso ordine di grandezza dell'area costantemente immersa.
+In tale situazione, la propagazione di fronti asciutti o bagnati non pu\`o essere, dunque, trascurata.\\
+Sono state sviluppate diverse tecniche (si vedano ad esempio \cite{Balzano1998} \cite{Medeiros2012} e \cite{Horritt2002}) pi\`u o meno efficaci,  per gestire gli elementi della griglia computazionale parzialmente bagnati, che si trovano al confine tra le zone bagnate e quelle asciutte, tuttavia spesso le simulazioni numeriche, rivelano alcune instabilit\`a legate, ad esempio,  alla perdita del carattere iperbolico delle SWE quando l'altezza dell'acqua tende a zero.
+
+\mainmatter
+
+%\include{chapter2}   % Le equazioni
+\include{CapEquazioni}
+
+
+%\include{chapter3}   % Lo schema numerico
+\include{CapSchema}
+
+
+%\include{chapter4}   % i casi test e lo sviluppo dei metodi
+\chapter{I casi test  e lo sviluppo dei metodi} \label{Cap:CasiTest}
+Per costruire il metodo per \emph{wetting and drying}, validarlo e verificarne la stabilit\`a, abbiamo eseguito alcuni casi test, che possiamo raggruppare come segue:
+\begin{itemize}
+\item \emph{Dam break} su canale
+	\begin{itemize}
+	\item piano
+	\item inclinato
+	\end{itemize}
+\item Paraboloide concavo in un bacino paraboloidico 
+\item Doppio \emph{dam break} su canale piano
+\item Piano inclinato su bacino paraboloidico
+\end{itemize}
+Per la maggior parte di questi problemi esiste la soluzione analitica con cui confrontare i risultati numerici ottenuti. I casi test vengono presentati nell'ordine sopra esposto per spiegare il filo logico seguito nella costruzione del metodo stesso.
+
+\subsection{Note ai risultati delle simulazioni}	
+Nei grafici presentati per i vari casi test \`e adottata la seguente notazione:
+\begin{itemize}
+	\item[$y_{min}, y_{max}, y_{med}$] Valori relativi ad un segmento di retta $y=\overline{y}$ nel dominio computazionale. Rispettivamente, $\overline{y}$ assume il valore che si ha: un elemento sopra al bordo inferiore del dominio, un elemento sotto al bordo superiore e al centro ($\overline{y}=\nolinebreak0$).
+	\item[bottom$_{med}$] Andamento del fondale lungo la retta $y=y_{med}$.
+	\item[front$_{med}$] Posizione del fronte bagnato--asciutto lungo la retta $y=y_{med}$.
+	\item[$h_n, u_n, v_n$] Soluzione numerica.
+\end{itemize}
+Segnaliamo fin da subito che in tutte le simulazioni abbiamo utilizzato un'accelerazione di gravit\`a $g=1m/s^2$: valori di $g$ dell'ordine di $9.81m/s^2$ porterebbero ad un'evoluzione molto pi\`u rapida dei fenomeni studiati, con conseguente necessit\`a di discretizzazioni spaziali e temporali molto fitte e dunque eccedenti la potenza di calcolo a disposizione.\\
+Ricordiamo, inoltre, che su ogni lato del dominio, in ogni caso imponiamo $\mathbf{u}\cdot\mathbf{n}=0$.\\
+Infine, richiamiamo che in ogni simulazione il parametro $\theta$ del $\theta$-metodo \`e pari a $\frac{2}{3}$: gi\`a nella tesi in cui \`e sviluppato il codice ([\cite{Porta2010a}]) questo valore \`e indicato come ottimale, inoltre abbiamo condotto alcune prove anche sui nostri casi test, variando $\theta$, e non abbiamo ottenuto miglioramenti apprezzabili.
+
+\include{SezCanalePiano}
+
+
+\include{SezCanaleInclinato}
+
+
+\include{SezParaboloide}
+
+
+\include{SezDoppioDamBreak}
+
+
+\include{SezPianoSuBacino}
+
+
+%\include{chapter5}   % Conclusioni e sviluppi futuri
+\chapter{Conclusioni e sviluppi futuri}
+Dal lavoro svolto possiamo confermare che il \emph{wetting and drying} \`e realmente un problema che dipende molto dalla configurazione specifica che si vuole esaminare, infatti, ad ogni caso test analizzato \`e stato necessario introdurre nuove modifiche all'algoritmo risolutivo per risolvere le difficolt\`a legate alle singolarit\`a del fronte bagnato--asciutto (perdita del carattere iperbolico delle SWE, shock in velocit\`a, gradienti spuri nelle variabili discrete).
+
+Il metodo MAX da noi sviluppato si comporta molto bene quando ci si occupa di un fronte bagnato che avanza, ma ha il difetto di dipendere dalle simmetrie della configurazione in esame.\\
+Il metodo FIX, invece, bench\'e nei casi semplici dia risultati (lievemente) peggiori di quelli del MAX, risulta applicabile a problemi senza particolari simmetrie, come nel caso di \emph{dam break} triangolare anisotropo riportato in figura \ref{fig:triangFIX}, in cui valgono le osservazioni fatte nei precedenti casi test.
+
+L'asciugamento, come riscontrato anche in letteratura, rappresenta una condizione di pi\`u difficile gestione, tanto \`e vero che siamo dovuti ricorrere all'ausilio di un \emph{restart} per limitare gli effetti degenerativi di tale condizione, e comunque si sviluppano facilmente delle oscillazioni e rimane un sottile film di acqua in gran parte della zona asciugata. Ciononostante, riteniamo che il metodo FIX possa essere un buon punto di partenza per costruire un algoritmo che sviluppi correttamente anche un fronte \emph{drying}.\\
+
+\begin{figure}[htbp]
+%
+\subfigure[{condizione iniziale}\label{fig:triangFIXinit}]
+{\includegraphics[width=7.5cm]{img/triangFIXinit.jpg}}
+%
+\subfigure[{altezza $h$ a $t=0.4s$}\label{fig:triangFIXh1}]
+{\includegraphics[width=7.5cm]{img/triangFIXh1.jpeg}}
+%
+\subfigure[{altezza $h$ a $t=1.4s$}\label{fig:triangFIXh2}]
+{\includegraphics[width=7.5cm]{img/triangFIXh2.jpeg}}
+%
+\subfigure[{volume nel tempo: perdita di massa inferiore al 5\% al secondo}\label{fig:triangFIXvol}]
+{\includegraphics[width=7.5cm]{img/triangFIXvol.jpeg}}
+%
+\caption[\emph{Dam break} triangolare anisotropo con metodo FIX]{\emph{Dam break} triangolare anisotropo con metodo FIX.\quad Si noti che si ha un buon comportamento anche se la discretizzazione del lato destro \`e poco fine.\label{fig:triangFIX}}
+\end{figure}
+
+Studi futuri potrebbero orientarsi, innanzitutto, verso una migliore gestione dell'asciugamento, ad esempio sviluppando e generalizzando il concetto di \emph{restart} per il caso di fenomeni non periodici, cercando di ripristinare propriet\`a come la conservazione della massa.\\
+Altro obiettivo da considerare potrebbe essere uno studio analitico e numerico per migliorare il trattamento delle condizioni al bordo, in generale e in prossimit\`a del fronte bagnato--asciutto.\\
+Un'ulteriore interessante direzione di indagine pu\`o essere l'utilizzo di griglie adattive che possano seguire il fronte allo scorrere del tempo. Ci\`o darebbe sperabilmente risultati migliori in quanto porterebbe, ad esempio, a ridurre le dimensioni fisiche della striscia $S$ su cui avvengono le correzioni di velocit\`a e a spostare il costo computazionale nella zona di maggiore interesse.\\
+Oltre a sviluppi ulteriori in ambito modellistico e numerico, sarebbero interessanti anche studi su condizioni fisiche differenti, come ad esempio la presenza di attrito sul fondo o topografie del fondale pi\`u complesse e realistiche.
+
+
+%Ringraziamenti
+
+\backmatter
+%\chapter{Ringraziamenti} 
+%Desideriamo ringraziare, innanzitutto, il professore Alfio Quarteroni per l'impeccabilit\`a con cui ha tenuto i corsi di Analisi Numerica e per i numerosi insegnamenti alla base di questo progetto.\\
+%Inoltre, ringraziamo sentitamente la professoressa Simona Perotto ed il Dott. Giovanni Porta, che sono stati sempre disponibili a dirimere i nostri dubbi e a darci consigli e spunti per portare avanti questo lavoro.\\
+
+
+% Bibliografia
+
+% Decommentare per include la bibliografia non citata
+%\newpage\nocite{*}
+\nocite{PortaPerottoBallio}
+\nocite{Horritt2002}
+\nocite{Quarteroni2008}
+\nocite{Quarteroni2008a}
+
+% Stile della bibliografia (obbligatorio!)
+\bibliographystyle{IEEEtranS}
+	%IEEEtranS	-> ordine alfabetico
+	%IEEEtran	-> ordine di citazione
+%\bibliographystyle{unrst}
+%\bibliographystyle{plain}
+%\bibliographystyle{alpha}
+
+\clearpage\addcontentsline{toc}{chapter}{\bibname} \lhead{}
+\rhead{\slshape BIBLIOGRAFIA}
+
+% [prende la bibliografia dal file biblio.bib]
+\bibliography{biblio}  
+
+
+% Elenco delle Figure
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+\clearpage
+
+
+% Fine del documento
+
+\end{document}
+

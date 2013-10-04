@@ -1,0 +1,388 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stima dell'errore di discretizzazione del controllo}
+
+Introduciamo su $(x_0,x_N):=I$ una partizione $\{I_i=(x_{i-1},x_i)\}_{i=1}^N$, con parametro di discretizzazione $\sigma=\max_{i\in\{1,\dots,N\}}|I_i|$. Possiamo così definire uno spazio discreto dei controlli
+$$ \Q_\sigma = \Q\cap Q_\sigma\text{  con  }Q_\sigma=\{q\in C^0(\overline{I})\ | \ q|_{I_i}\in\mathds{P}_3(I_i),\ i\in\{1,\dots,N\}\} $$
+e un problema parzialmente discretizzato
+\beq
+	\text{Minimizzare } j(q_\sigma) = J(q_\sigma,\widetilde{S}(q_\sigma)) \text{ su }q_\sigma\in\Q_\sigma
+\label{eq:minJsigma}
+\eeq
+Osserviamo che tutti i discorsi fatti sul problema continuo valgono anche in \eqref{eq:minJsigma}.
+
+Cosideriamo anche un classico operatore di interpolazione polinomiale di grado $r$ $\Pi^r_\sigma\colon L^2(I)\to Q_\sigma$ ed osserviamo che $\Pi_\sigma(\Q)\subseteq\Q_\sigma$. Grazie al lemma di Bramble-Hilbert abbiamo la stima di interpolazione
+\beq
+	\|q-\Pi_\sigma q\|_{H^2(I)}\leq c \sigma^2|q|_{H^4(I)}\quad\forall q\in H^4(I)
+\label{eq:qinterp}
+\eeq
+e grazie ai risultati di regolarità ottenuti nel paragrafo precedente, possiamo applicare questa stima ad ogni controllo che soddisfi le condizioni di ottimalita \eqref{eq:ottimalita}.\\
+
+Ciò che ci interessa mostrare in questo paragrafo è una stima del tipo
+\beq
+	\|\overline{q}-\overline{q}_\sigma\|_{H^2(I)}\leq\|\overline{q}-\Pi_\sigma\overline{q}\|_{H^2(I)} + \|\Pi_\sigma\overline{q}-\overline{q}_\sigma\|_{H^2(I)}\leq c\sigma^2|\overline{q}|_{H^4(I)}
+\label{eq:stimaerrq}
+\eeq
+dove $\overline{q}$ è la soluzione esatta del problema \eqref{eq:minJ}, mentre $\overline{q}_\sigma$ è la soluzione del problema discreto \eqref{eq:minJsigma}.\\
+Osserviamo che il primo termine è già controllato opportunamente dalla stima \eqref{eq:qinterp}, mentre per il secondo vogliamo seguire il ragionamento riportato in \cite{Kinigera}, pp.19--20.\\
+Per fare questo, notiamo che è il ragionamento risulta autocontenuto, quindi applicabile senza modifiche al nostro problema, purché si ritengano valide le Assunzioni 1.5, 3.1 di \cite{Kinigera} e si mostri che valgono i Lemmi 3.8,3.15 di \cite{Kinigera}: riportiamo di seguito ciò che serve per avere la validità di tali risultati nel nostro caso.
+\begin{assunzione}[Assumption 1.5 \cite{Kinigera}]
+	In corrispondenza della soluzione ottima $\overline{q}$ il vincolo $q\leq1-\varepsilon$ non è attivo, ossia
+	$$ \exists\delta>0\text{ tale che }\overline{q}(x)\leq1-\varepsilon-\delta\quad\forall x\in I$$
+\label{ass:noeps}
+\end{assunzione}
+\begin{assunzione}[Assumption 3.1 \cite{Kinigera}]
+	In ogni minimo locale $\overline{q}$ di \eqref{eq:minJ} supponiamo che
+	$$j''(\overline{q})(\dq,\dq)>0\quad\forall\dq\in H^2(I)\cap H^1_0(I)\setminus\{0\}$$
+\label{ass:jpos}
+\end{assunzione}
+\begin{prop}
+	Siano $q,r\in\Q,\ \dq\in Q,\ (\v,\pi),(\z,\rho)\in V\times P$.
+%	\begin{equation*}\begin{aligned}
+%	(\u,p)=S(q),\ \ (\du,\delta p)=S'(q)(\dq),\ \ (\delta\du,\delta\delta p)=S''(q)(\dq,\dq)\\
+%	(\z,s)=S(r),\ \ (\delta\z,\delta s)=S'(r)(\dq),\ \ (\delta\delta\z,\delta\delta s)=S''(r)(\dq,\dq)
+%	\end{aligned}\end{equation*}
+	Allora, sotto le ipotesi della Proposizione \ref{th:dotcont}, si ha
+	\begin{equation*}\begin{split}
+	|a(q)(\v,\z)-a(r)(\v,\z)|&\leq c\|q-r\|_{H^2(I)}\|\nabla\v\|\|\nabla\z\|\\
+	|\dot{a}(q,\dq)(\v,\z)-\dot{a}(r,\dq)(\v,\z)|&\leq c\|q-r\|_{H^2(I)}\|\nabla\v\|\|\nabla\z\|\|\dq\|_{H^2(I)}\\
+	|\ddot{a}(q,\dq,\dq)(\v,\z)-\ddot{a}(r,\dq,\dq)(\v,\z)|&\leq c\|q-r\|_{H^2(I)}\|\nabla\v\|\|\nabla\z\|\|\dq\|_{H^2(I)}^2\\
+	\end{split}\end{equation*}
+	ed analoghi risultati valgono per le altre forme e i funzionali che compaiono in \eqref{eq:StokesdebT},\eqref{eq:dS},\eqref{eq:d2S}.
+\label{th:q-r}
+\end{prop}
+\begin{proof}
+	Il risultato discende direttamente dalla limitatezza e lipschitzianità in $q$ dei coefficienti delle forme e dei funzionali considerati, insieme al Teorema Fondamentale del Calcolo applicato a $q,q'\in AC(\overline{I})$.
+\end{proof}
+%
+\begin{lemma}
+	Nell'ipotesi
+	\beq
+		\alpha_c-\frac{M_bM}{\beta_B}>0
+	\label{eq:Hpcoeff}
+	\eeq
+	abbiamo che $\forall q,r\in \Q,\ \forall\dq\in H^2(I)\cap H^1_0(I)$
+	\begin{enumerate}
+	\item $\|S(q)-S(r)\|_{V\times P}\leq c\|q-r\|_{H^2(I)}$
+	\item $\|S'(q)(\dq)-S'(r)(\dq)\|_{V\times P}\leq c\|q-r\|_{H^2(I)}\|\dq\|_{H^2(I)}$
+	\item $\|S''(q)(\dq,\dq)-S''(r)(\dq,\dq)\|_{V\times P}\leq c\|q-r\|_{H^2(I)}\|\dq\|_{H^2(I)}^2$
+	\end{enumerate}
+\label{th:SLip}
+\end{lemma}
+\begin{proof}
+	Per semplicità di notazione, siano $(\u,p)=S(q),\ (\z,s)=S(r)$ e analoghe definizioni valgano per le derivate di $S$. Inoltre, faremo largo uso della Proposizione \ref{th:q-r} senza segnalarlo.
+	\begin{enumerate}
+     \item
+	Introduciamo la coppia intermedia $(\widehat{\u},\widehat{p})\in V\times P$, soluzione di
+	\begin{equation*}
+	\left\{
+	\begin{aligned}
+		a(q)(\widehat{\u},\mathbf{v}) + b(r)(\mathbf{v},\widehat{p}+p) &= F(q)(\mathbf{v})\qquad&\forall\ \mathbf{v}\in  V\\
+		b(r)(\widehat{\u},\pi) &= G(q)(\pi) \qquad&\forall\ \pi \in P\\
+	\end{aligned}\right.\\
+	\end{equation*}
+	Possiamo allora spezzare la differenza da stimare in due contributi:
+	\beq
+		\|S(q)-S(r)\|_{V\times P}\leq\|S(q)-(\widehat{\u},\widehat{p})\|_{V\times P}+\|(\widehat{\u},\widehat{p})-S(r)\|_{V\times P}
+	\label{eq:Sq-Sr}
+	\eeq
+	Per il primo termine, procediamo inizialmente con la differenza in velocità:
+	\begin{equation*}\begin{split}
+	&\alpha_c\|\nabla\u-\nabla\widehat{\u}\|^2\leq a(q)(\u-\widehat{\u},\u-\widehat{\u})=\\
+	&=-b(q)(\u-\widehat{\u},p)+b(r)(\u-\widehat{\u},\widehat{p}+p)=\\
+	&= b(r)(\u-\widehat{\u},p)-b(q)(\u-\widehat{\u},p)+b(r)(\u-\widehat{\u},\widehat{p})\leq\\
+	&\leq c\|r-q\|_{H^2(I)}\|\nabla\u-\nabla\widehat{\u}\|\|p\|+M_b\|\nabla\u-\nabla\widehat{\u}\|\|\widehat{p}\|\\
+	&\Rightarrow\quad \|\nabla\u-\nabla\widehat{\u}\|\leq \frac{c}{\alpha_c}\|r-q\|_{H^2(I)}+\frac{M_b}{\alpha_c}\|\widehat{p}\|
+	\end{split}\end{equation*}
+	Ancora una volta, per stimare la pressione utilizziamo la condizione \emph{inf-sup}:
+	\begin{equation*}\begin{split}
+	&\|\widehat{p}\|\leq \sup_{\v\in V}\frac{b(r)(\v,\widehat{p})}{\beta_B\|\nabla\v\|} = \sup_{\v\in V}\frac{-b(r)(\v,p)-a(q)(\widehat{\u},\v)+F(q)(\v)}{\beta_B\|\nabla\v\|}=\\
+	&=\sup_{\v\in V}\frac{1}{\beta_B\|\nabla\v\|}\left[b(q)(\v,p)-b(r)(\v,p)+a(q)(\u,\v)-a(q)(\widehat{u},\v)\right]\leq\\
+	&\leq \frac{c}{\beta_B}\|q-r\|_{H^2(I)}\|p\|+\frac{M}{\beta_B}\|\nabla\u-\nabla\widehat{\u}\|
+	\end{split}\end{equation*}
+	Per avere $\|(\u,p)-(\widehat{\u},\widehat{p})\|_{V\times P}\leq c\|q-r\|_{H^2(I)}$ dunque, possiamo usare il Corollario \ref{th:SLim}, applicabile anche a $(\widehat{\u},\widehat{p})$, e l'ipotesi \eqref{eq:Hpcoeff}.\\
+
+	Possiamo ora passare al secondo addendo della \eqref{eq:Sq-Sr}, lavorando in maniera simile a quanto appena fatto:
+	\begin{equation*}\begin{split}
+	&\alpha_c\|\nabla\widehat{\u}-\nabla\z\|^2\leq a(r)(\widehat{\u}-\z,\widehat{\u}-\z)=\\
+	&=a(r)(\widehat{\u},\widehat{\u}-z)-F(r)(\widehat{\u}-z)+b(r)(\widehat{\u}-z,s)+\\
+	&+F(q)(\widehat{\u}-z)-a(q)(\widehat{\u},\widehat{\u}-\z)-b(r)(\widehat{\u}-z,\widehat{p}+p)%=\\
+%	&\leq c\|r-q\|_{H^2(I)}\|\nabla\u-\nabla\widehat{\u}\|\|p\|+M_b\|\nabla\u-\nabla\widehat{\u}\|\|\widehat{p}\|\\
+%	&\Rightarrow\quad \|\nabla\u-\nabla\widehat{\u}\|\leq \frac{c}{\alpha_c}\|r-q\|_{H^2(I)}+\frac{M_b}{\alpha_c}\|\widehat{p}\|
+	\end{split}\end{equation*}
+	Grazie alla Proposizione \ref{th:q-r}, al Corollario \ref{th:SLim} e alla continuità di $b(r)$, ci basta controllare quanto segue:
+	\begin{equation*}\begin{split}
+	&\|\widehat{p}+p-s\|\leq \sup_{\v\in V}\frac{b(r)(\v,\widehat{p}+p-s)}{\beta_B\|\nabla\v\|} =\\
+	&=\sup_{\v\in V}\frac{1}{\beta_B\|\nabla\v\|}\left[F(q)(\v)-a(q)(\widehat{\u},\v)-F(r)(\v)+a(r)(\z,\v)\right]=\\
+	&=\sup_{\v\in V}\frac{1}{\beta_B\|\nabla\v\|}\left[a(r)(\z-\widehat{\u},\v)+a(r)(\widehat{\u},\v)-a(q)(\widehat{\u},\v)+F(q)(\v)-F(r)(\v)\right]\leq\\
+	&\leq \frac{M}{\beta_B}\|\nabla\z-\nabla\widehat{\u}\| + \frac{c}{\beta_B}\|q-r\|_{H^2(I)}(\|\nabla\widehat{\u}\|+1)
+	\end{split}\end{equation*}
+	Pertanto, di nuovo nell'ipotesi \eqref{eq:Hpcoeff}, la stima cercata è verificata.
+     \item[2-3.] Si procede nello stesso modo, sempre sotto l'ipotesi \eqref{eq:Hpcoeff}, introducendo una coppia intermedia e sfruttando gli enunciati \ref{th:dotcont}, \ref{th:SLim}, \ref{th:q-r}.
+	\end{enumerate}
+\end{proof}
+\begin{oss}
+	Per vedere se la richiesta \eqref{eq:Hpcoeff} sia soddisfatta almeno in casi semplici, vediamo cosa succede nel caso a viscosità omogenea $\nu$, con $\eta=0$. Dalle definizioni \eqref{eq:contcoerc}, la condizione si riscrive come
+	$$ \nu\overline{\lambda}-\frac{(1+d_1+d_2)\nu}{\beta_B\overline{\lambda}}>0\quad \Longleftrightarrow \quad \beta_B>(1+d_1+d_2)\max_{q\in\Q}\rho(A_q)^2$$
+	\qquad E' UNA RICHIESTA TROPPO RESTRITTIVA?\\
+\end{oss}
+%
+\begin{lemma}[Lemma 3.8 \cite{Kinigera}]
+	$\forall q,r\in \Q,\ \forall\dq\in H^2(I)\cap H^1_0(I)$
+	\begin{enumerate}
+	\item $|j(q)-j(r)|\leq c\|q-r\|_{H^2(I)}$
+	\item $|j'(q)(\dq)-j'(r)(\dq)|\leq c\|q-r\|_{H^2(I)}\|\dq\|_{H^2(I)}$
+	\item $|j''(q)(\dq,\dq)-j''(r)(\dq,\dq)|\leq c\|q-r\|_{H^2(I)}\|\dq\|_{H^2(I)}^2$
+	\end{enumerate}
+\label{th:jLip}
+\end{lemma}
+\begin{proof}
+	Siano $q,r\in\Q$ fissate: per semplicità di notazione definiamo $(\u,p)=S(q),\ (\z,s)=S(r)$, e analoghe variabili per le derivate dell'operatore $S$.
+%	\begin{enumerate}
+%	\item 	SALTO
+%	\item 	SALTO
+%	\item 	SALTO
+%	\end{enumerate}
+	Mostriamo solo che la stima vale per i termini più complessi del punto 3, dal momento che il resto è trattabile allo stesso modo, o anche in maniera più semplice.\\
+	Il primo termine che consideriamo mostra come trattare tutti gli addendi dei funzionali $j,j',j''$ in cui una variabile (nel caso che segue, $A''_{q,\dq,\dq}$) compare in modo lineare, mentre un'altra ($\nabla\u$) in maniera quadratica:
+	\begin{equation*}\begin{split}
+	&|\left(\nabla\u A''_{q,\dq,\dq},\nabla\u\right)-\left(\nabla\z A''_{r,\dq,\dq},\nabla\z\right)|=\\
+	&=|\left((\nabla\u-\nabla\z)A''_{q,\dq,\dq},\nabla\u+\nabla\z\right)+\left(\nabla\z(A''_{q,\dq,\dq}-A''_{r,\dq,\dq}),\nabla\z\right)|\leq\\
+	&\leq\|A''_{q,\dq,\dq}\|_\infty\left(\|\nabla\u\|+\|\nabla\z\|\right)\|\nabla\u-\nabla\z\|+\|\nabla\z\|^2\|A''_{q,\dq,\dq}-A''_{r,\dq,\dq}\|_\infty\leq\\
+	&\leq c\|\dq\|_{H^2(I)}^2
+	\end{split}\end{equation*}
+	dove abbiamo utilizzato le stime dei Lemmi \ref{th:regolaritaS}, \ref{th:SLip}, e il Lemma 1.7 di \cite{Kinigera} per $\|A''_{q,\dq,\dq}\|_\infty$.\\
+	Nel prossimo, invece, vediamo come trattare la comparsa di tre variabili differenti in un prodotto scalare:
+	\begin{equation*}\begin{split}
+	&|\left(\nabla\du\,A'_{q,\dq},\nabla\u\right)-\left(\nabla\delta\z\,A'_{r_\dq},\nabla\z\right)|=\\
+	&=|\left((\nabla\du-\nabla\delta\z)A'_{q,\dq},\nabla\u\right)+\left(\nabla\delta\z(A'_{q,\dq}-A'_{r,\dq}),\nabla\u\right)+\left(\nabla\delta\z\, A'_{r,\dq},\nabla\u-\nabla\z\right)|
+	\end{split}\end{equation*}
+	e poi si possono usare stime analoghe a quelle utilizzate sopra.
+\end{proof}
+%
+\begin{lemma}[Lemma 3.9 \cite{Kinigera}]
+	Siano $q\in\Q,\dq\in Q,\{\dq_n\}_{n\in\mathds{N}}\subset Q$. Se $\dq_n\to\dq$ in $C^1(\overline{I})$, allora
+	\begin{enumerate}
+	\item $S'(q)(\dq_n)\to S'(q)(\dq)$ in $V\times P$
+	\item $S''(q)(\dq_n,\dq_n)\to S'(q)(\dq,\dq)$ in $V\times P$
+	\end{enumerate}
+\label{th:KinVex39}
+\end{lemma}
+\begin{proof}
+	Per la linearità e la buona positura dei problemi \eqref{eq:dS}, \eqref{eq:d2S}, è sufficiente mostrare che i termini forzanti convergono in $V'\times P'$, e ciò vale grazie alla lipschizianità di $\dot{F}(q,\cdot)(\v),\dot{a}(q,\cdot)(\u,\v)$ e affini.\\
+	Diamo un esempio dei passaggi da seguire, da un termine di $\ddot{a}(q,\dq\dq)(\u,\v)$:
+	\begin{equation*}\begin{split}
+	&|\left(\nabla\nu^q\cdot V_{\dq_n}\nabla\u\,A'_{q,\dq_n},\nabla\v\right)-\left(\nabla\nu^q\cdot V_\dq\nabla\u\,A'_{q,\dq},\nabla\v\right)\leq\\
+	&\leq|\left(\nabla\nu^q\cdot V_{\dq_n}\nabla\u(A'_{q,\dq_n}-A'_{q,\dq}),\nabla\v\right)-\left(\nabla\nu^q\cdot (V_{\dq_n}-V_\dq)\nabla\u\,A'_{q,\dq},\nabla\v\right)\leq\\
+	&\leq\|\nu\|_{W^{1,\infty}(\hat{\Omega})}\|\nabla\u\|\|\nabla\v\|\left(\|A'_{q,\dq_n}-A'_{q,\dq}\|_\infty\|V_{\dq_n}\|_\infty+\|V_{\dq_n}-V_\dq\|_\infty\|A'_{q,\dq}\|_\infty\right)
+	\end{split}\end{equation*}
+	La convergenza in $C^1(\overline{I})$ di $\dq_n$ implica la convergenza uniforme dei due fattori contenenti una differenza (dal momento che la dipendenza da $\dq$ passa solo attraverso $\dq$ stesso e $\dq'$); inoltre si ha che $\|V_{\dq_n}\|_\infty$ è limitato uniformemente grazie alla limitatezza uniforme della successione convergente $\dq_n$.
+\end{proof}
+%
+\begin{cor}[Lemma 3.10 \cite{Kinigera}]
+	Siano $m(q)(\dq)=j'(q)(\dq)-\alpha(q'',\dq'')_I$ e $n(q)(\dq)=j''(q)(\dq,\dq)-\alpha(\dq'',\dq'')_I$. Allora
+	$$ m(q)(\dq_n)\to m(q)(\dq)\qquad n(q)(\dq_n)\to n(q)(\dq)$$
+\label{th:KinVex310}
+\end{cor}
+\begin{proof}
+	\begin{equation*}\begin{split}
+	&|m(q)(\dq_n)-m(q)(\dq)|\leq\frac{1}{2}\left|\left(\nabla\u (A'_{q,\dq_n}-A'_{q,\dq}),\nabla\u\right)\right|+|\left((\nabla\du_n-\nabla\du)A_q,\nabla\u\right)|+\\
+	&+\beta\left|\int_Iq(x)dx-\overline{V}\right|\left|\int_I(\dq_n(x)-\dq(x))dx\right|
+	\end{split}\end{equation*}
+	Per $n(q)(\dq)$ abbiamo un'analoga forma e per entrambi la tesi segue dal teorema di convergenza dominata e dal Lemma \ref{th:KinVex39}.
+\end{proof}
+%
+Con i risultati finora mostrati sono valide senza modifiche anche le dimostrazioni degli enunciati 3.11--3.15 di \cite{Kinigera}, dunque basta seguire i risultati delle pagine 19--20 di \cite{Kinigera} e la stima di discretizzazione del controllo \eqref{eq:stimaerrq} è soddisfatta.\\
+%\begin{lemma}
+%IL 3.13
+%\end{lemma}
+%\begin{lemma}[Lemma 3.14 \cite{Kinigera}]
+%	Sia $\overline{q}$ una soluzione locale di \eqref{eq:minJ} che soddisfi l'Ipotesi \ref{ass:jpos}. Allora esiste una $\delta>0$ tale che $\forall r\in\Q\colon\ \|r-\overline{q}\|_{H^2(I)}\leq\delta$ si ha che
+%	$$j''(r)(\dq,\dq)\geq\frac{\beta}{2}\|\dq\|_{H^2(I)}^2\quad\forall\dq\in H^2(I)\cap H^1_0(I)$$
+%\label{th:j''coercivo}
+%\end{lemma}
+%\begin{lemma}[Lemma 3.15 \cite{Kinigera}]
+%\footnote{Si utilizza il punto 3. del Lemma \ref{th:jLip}.}
+%	Sia $\overline{q}$ un minimo locale di \eqref{eq:minJ} in cui valgono le Ipotesi \ref{ass:noeps}, \ref{ass:jpos}. Allora esiste $\delta>0$ tale che $\forall r\in\Q\colon\ \|\overline{q}-r\|_{H^2(I)}\leq\delta$ si ha
+%	$$j(r)\geq j(\overline{q})+\frac{\beta}{2}\|\overline{q}-r\|_{H^2(I)}^2$$
+%\label{th:315}
+%\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stima dell'errore di discretizzazione delle variabili di stato}
+
+Introduciamo una triangolazione regolare $\mathcal{T}_h$ su $\O$, con parametro di discretizzazione $h=\max_{K\in\mathcal{T}_h}|K|$, e gli spazi discreti $V_h,P_h$ rispetto a $\O$, per cui supponiamo valida la condizione LBB per la forma $b(q)(\mathbf v_h,\pi_h)$ uniformemente in $q\in\Q$ e in $h\in[0,\overline{h}]$. Definiamo l'operatore soluzione e il funzionale discreti
+$$ S_h:\Q\to V_h\times P_h:q\mapsto(\u_h,p_h)\qquad j_h\colon\Q\to\mathds{R}\colon q\mapsto J(q,S_h(q)\circ T_q^{-1})$$
+Per la buona positura del problema di stato discreto valgono i discorsi fatti sul problema continuo.\\
+Anche qui introduciamo due operatori di proiezione negli spazi discreti $V_h,P_h$, per cui consideriamo valide le usuali stime di interpolazione: con abuso di notazione, indicheremo sempre con $\Pi^r_h$ i tre interpolatori a valori in $V_h,P_h,V_h\times P_h$.\\
+
+%In questa trattazione saranno utilizzati i risultati di limitatezza e dipendenza continua da $q$ ottenuti precedentemente su $S$, $j$ e derivate: mostriamo la validità di analoghi risultati per $S_h$ e $j_h$, limitandoci a quelli che ci serviranno per la stima finale di discretizzazione.
+A partire da un risultato di limitatezza per l'operatore soluzione discreto, mostriamo le stime di convergenza di $S,j$ e derivate rispetto alla discretizzazione del problema di stato.
+\begin{lemma}
+	$\forall q\in \Q,\dq\in H^2(I)\cap H^1(I)$\\$\|S_h(q)\|_{V\times P}\leq c,\qquad\|S'_h(q)(\dq)\|_{V\times P}\leq c \|\dq\|_{H^2(I)}$
+\label{th:SShlim}
+\end{lemma}
+\begin{proof}
+	%Dal Teorema 10.6 di \cite{Quarteroni2008}: per la stima di $S_h'$ si utilizza anche la Proposizione \ref{th:dotcont}.
+	Analoga al Corollario \ref{th:SLim}.
+\end{proof}
+\begin{lemma}
+	$\forall q\in \Q_\sigma,\dq\in H^2(I)\cap H^1(I)$
+	\begin{enumerate}
+		\item $\|S(q_\sigma)-S_h(q_\sigma)\|_{V\times P} \leq ch$
+		\item $\|S'(q_\sigma)(\dq)-S'_h(q_\sigma)(\dq)\|_{V\times P} \leq ch\|\dq\|_{H^2(I)}$
+		\item $\|S''(q_\sigma)(\dq,\dq)-S''_h(q_\sigma)(\dq,\dq)\|_{V\times P} \leq ch\|\dq\|_{H^2(I)}^2$
+	\end{enumerate}
+	dove per la seconda stima è necessario che valga
+	\beq
+%		\exists \widehat{C}>0 \text{ tale che } \alpha_c-\frac{M}{\beta_h}\geq\widehat{C}
+		\alpha_c-\frac{M_bM}{\beta_h} > 0
+	\label{eq:Hpcoeffh}
+	\eeq
+\label{th:SShcont}
+\end{lemma}
+\begin{proof}\
+	\begin{enumerate}
+	\item Dal Teorema 10.6 \cite{Quarteroni2008} e dalla definizione di estremo inferiore, con le ipotesi addotte nell'introduzione del problema di stato discreto, poiché le costanti di continuità, coercività e della LBB non dipendono da $q$ né da $h$, otteniamo
+	$$\|S(q_\sigma)-S_h(q_\sigma)\|_{V\times P} \leq c(\|\u-\Pi^2_h\u\|_V+\|p-\Pi^1_h\|_P) \leq ch$$
+	dove nell'ultima disuguaglianza abbiamo usato le stime dell'errore di interpolazione e l'uniforme limitatezza di $S(q_\sigma)$ in $[H^2(\O)]^2\times H^1(\O)$.\\
+
+	\item Per dimostrare la stima dell'errore nella derivata dell'operatore soluzione dobbiamo introdurre alcune ipotesi aggiuntive sui dati, per poter avere la validità delle ipotesi del Teorema 10.6 \cite{Quarteroni2008} anche sul problema \eqref{eq:dS} in $(\du,\delta p)$, e conseguentemente anche sulla sua controparte discreta:
+	$$ \eta,\nu\in W^{1,\infty}(\hat{\Omega})$$
+	(per $\mathbf f$ non serve ulteriore regolarità, dal momento che $\mathbf f \in[L^2(\hat{\Omega})]^2,\gamma_q\in C^0(\overline{\O}),V_\dq\in [C^0(\overline{\O})]^2\ \Rightarrow\ \gamma_q\nabla\mathbf f^q V_\dq\in H^{-1}(\O)$)\\
+	Introduciamo la ``derivata intermedia'' $(\delta\hat{\u}_h,\delta\hat{p}_h)$, soluzione in $V_h\times P_h$ del problema
+%	Introduciamo due ``derivate intermedie'' $(\delta\hat{\u}_h,\delta\hat{p}_h),(\delta\check{\u}_h,\delta\check{p}_h)$ che siano le soluzioni in $V_h\times P_h$ rispettivamente dei problemi
+	\begin{equation}
+		\left\{
+		\begin{aligned}
+		a(q)(\delta\hat{\u}_h,\mathbf{v}_h) + b(q)(\mathbf{v}_h,\delta\hat{p}_h) &= \dot{F}(q,\dq)(\mathbf{v}_h) - \dot{a}(q,\dq)(\u,\mathbf v_h) - \dot{b}(q,\dq)(\mathbf v_h, p)\qquad&\forall\ \mathbf{v}_h\in  V_h\\
+		b(q)(\delta\hat{\u}_h,\pi_h) &= 0 \qquad&\forall\ \pi_h \in P_h\\
+		\end{aligned}\right.\\
+	\label{eq:dSinterm}
+	\end{equation}
+%	\begin{equation}
+%		\left\{
+%		\begin{aligned}
+%		a(q)(\delta\check{\u}_h,\mathbf{v}_h) + b(q)(\mathbf{v}_h,\delta\check{p}_h) &= \dot{F}(q,\dq)(\mathbf{v}_h) - \dot{a}(q,\dq)(\u,\mathbf v_h) - \dot{b}(q,\dq)(\mathbf v_h, p)\qquad&\forall\ \mathbf{v}_h\in  V_h\\
+%		b(q)(\delta\check{\u}_h,\pi_h) &= \dot{G}(q,\dq)(\pi_h)-\dot{b}(q,\dq)(\u_h,\pi_h) \qquad&\forall\ \pi_h \in P_h\\
+%		\end{aligned}\right.\\
+%	\label{eq:dScheck}
+%	\end{equation}
+%	TENTIAMO DI NON USARE LA SECONDA\\
+	così da stimare separatamente l'errore dovuto alla diretta discretizzazione del problema in $S'(q)(\dq)$ e quello dovuto alla discretizzazione di $S(q)$:
+	$$ \|S'(q)(\dq)-S'_h(q)(\dq)\|_{V\times P} \leq \|S'(q)(\dq)-(\delta\hat{\u}_h,\delta\hat{p}_h)\|_{V\times P} + \|(\delta\hat{\u}_h,\delta\hat{p}_h)-S'_h(q)(\dq)\|_{V\times P} $$
+	Per quanto riguarda la stima in velocità, abbiamo, per una qualunque $\mathbf w_h\in V_{h,b(q_\sigma)}$
+	\beq\begin{split}
+		&\alpha_c\|\nabla\du - \nabla\delta\hat{\u}_h\|^2 \leq a(q_\sigma)(\du - \delta\hat{\u}_h,\du - \delta\hat{\u}_h) =\\
+		&=a(q_\sigma)(\du - \delta\hat{\u}_h,\du-\mathbf w_h) \leq M\|\nabla\du - \nabla\delta\hat{\u}_h\|\|\nabla\du-\nabla\mathbf w_h\|
+	\end{split}\label{eq:du-duinterm}
+	\eeq
+	dove l'uguaglianza è data da $\mathbf w_h,\delta\hat{\u}_h\in V_{h,b(\qs)}$, e
+	\beq\begin{split}
+		&\alpha_c\|\nabla\delta\hat{\u}_h-\nabla\du_h\|^2 \leq a(q_\sigma)(\delta\hat{\u}_h-\du_h,\delta\hat{\u}_h-\du_h) =\\
+		&= -\dot{a}(q_\sigma,\dq)(\u-\u_h,\delta\hat{\u}_h-\du_h)-\dot{b}(q_\sigma,\dq)(\delta\hat{\u}_h-\du_h,p-p_h) +\\
+			&\qquad - b(q_\sigma)(\delta\hat{\u}_h-\du_h,\delta\hat{p}_h-\delta p_h)\leq\\
+		&\leq c\|\dq\|_{H^2(I)}(\|\nabla\u-\nabla\u_h\|+\|p-p_h\|)\|\nabla\delta\hat{\u}_h-\nabla\du_h\| +\\
+			&\qquad +M_b\|\delta\hat{p}_h-\delta p_h\|\|\nabla\delta\hat{\u}_h-\nabla\du_h\|
+	\end{split}\label{eq:duinterm-duh}
+	\eeq
+	Per maggiorare la \eqref{eq:du-duinterm} con $ch^2\|\dq\|_{H^2(I)}$ è sufficiente passare all'estremo inferiore su $\mathbf w_h\in V_{h,b(q_\sigma)}$ e sfruttare la stima (10.46) del Teorema 10.6 \cite{Quarteroni2008} e il Lemma \ref{th:regolaritaS}.\\
+	Per la \eqref{eq:duinterm-duh}, invece, se per i primi due termini è sufficiente il punto 1 di questo lemma, per l'ultimo dobbiamo utilizzare la condizione LBB:
+	\beq\begin{split}
+		&\|\delta\hat{p}_h-\delta p_h\|\leq\sup_{\v_h\in V_h}\frac{b(q_\sigma)(\v_h,\delta\hat{p}_h-\delta p_h)}{\beta_h\|\nabla\v_h\|}=\\
+		&=\sup_{\v_h\in V_h}\frac{1}{\beta_h\|\nabla\v_h\|}\left[-\dot{a}(q_\sigma,\dq)(\u-\u_h,\v_h)-\dot{b}(q_\sigma,\dq)(\v_h,p-p_h) - a(q_\sigma)(\delta\hat{\u}_h-\du_h,\v_h)\right]\leq\\
+		&\leq\frac{1}{\beta_h}\left[c\|\dq\|_{H^2(I)}\left(\|\nabla\u-\nabla\u_h\|+\|p-p_h\|\right)+ M\|\nabla\delta\hat{\u}_h-\nabla\du_h\|\right]
+	\end{split}\label{eq:dpinterm-dph}
+	\eeq
+	Sotto l'ipotesi \eqref{eq:Hpcoeffh}, possiamo ora sommare \eqref{eq:du-duinterm} e \eqref{eq:duinterm-duh} e sfruttare la \eqref{eq:dpinterm-dph} e il punto 1 di questo lemma per ottenere
+	\beq
+		\|\nabla\du-\nabla\du_h\|\leq ch\|\dq\|_{H^2(I)}
+	\label{eq:du-duh}
+	\eeq
+
+	Per la stima in pressione cerchiamo di procedere nello stesso modo, utilizzando la condizione LBB al posto della coercività: poiché la LBB è valida solo negli spazi discreti, prendiamo una $\pi_h\in P_h$ e suddividiamo l'errore in pressione in tre termini, come segue
+	$$ \|\delta p -\delta p_h\| \leq \|\delta p - \pi_h\| + \|\pi_h-\delta\hat{p}_h\| + \|\delta\hat{p}_h-\delta p_h\| $$
+	Cominciando dal secondo, abbiamo
+	\beq
+		\begin{split}
+		& \|\delta\hat{p}_h-\pi_h\| \leq \sup_{\mathbf v_h \in V_h}\frac{b(q_\sigma)(\mathbf v_h,\delta\hat{p}_h-\pi_h)}{\beta_h\|\nabla\mathbf v_h\|} = \\ 
+		&=\sup_{\mathbf v_h \in V_h}\frac{b(q_\sigma)(\mathbf v_h,\delta p-\pi_h)+a(q_\sigma)(\du-\delta\hat{\u}_h,\mathbf v_h)}{\beta_h\|\nabla\mathbf v_h\|} \leq c(\|\nabla\du - \nabla\delta\hat{\u}_h\| + \|\delta p -\pi_h\|)
+		\end{split}
+	\label{eq:dpinterm-pih}
+	\eeq
+% IL PROSSIMO E' SOPPIANTATO DALLA \label{eq:dpinterm-dph}
+%	\begin{equation*}\begin{split}
+%		 &\|\delta\hat{p}_h-\delta p_h\| \leq \sup_{\mathbf v_h \in V_h}\frac{b(q_\sigma)(\mathbf v_h,\delta\hat{p}_h-\delta p_h)}{\beta_h\|\nabla\mathbf v_h\|} \\
+%		&= \sup_{\mathbf v_h \in V_h}\frac{1}{\beta_h\|\nabla\mathbf v_h\|}(-a(q_\sigma)(\delta\hat{\u}_h-\du_h,\mathbf v_h) - \dot{a}(q_\sigma,\dq)(\u-\u_h,\mathbf v_h) - \dot{b}(q_\sigma,\dq)(\mathbf v_h, p-p_h)) \leq\\
+%		&\leq c(\|\nabla\delta\hat{\u}_h-\nabla\du_h\|+\|\nabla\u-\nabla\u_h\|\|\dq\|_{H^2(I)}+\|p-p_h\|\|\dq\|_{H^2(I)}) \leq ch\|dq\|_{H^2(I)}
+%	\end{split}\end{equation*}
+	Passando all'estremo inferiore in $\pi_h$, possiamo utilizzare la stima dell'errore di interpolazione e il punto 2 del Teorema \ref{th:regolaritaS} per controllare $\|\delta p-\pi_h\|$. Con la \eqref{eq:dpinterm-dph} e la \eqref{eq:du-duh} concludiamo che
+	$$ \|\delta p -\delta p_h\| \leq ch\|\delta q\|_{H^2(I)} $$
+	per cui la tesi è verificata.
+
+	\item L'introduzione di una seconda ``derivata intermedia'' $(\delta\delta\hat{\u}_h,\delta\delta\hat{p}_h)$, che risolva nel discreto un problema con la stessa forzante di $S''(q)(\dq,\dq)$ nella prima equazione e 0 nella seconda, permette di seguire un procedimento analogo a quello del punto precedente, e così concludere la dimostrazione, purché valgano le seguenti richeste sui dati, per garantire che il funzionale a termine noto nella prima equazione di \eqref{eq:d2S} sia in $[H^{-1}(\O)]^2$:
+	$$ \eta,\nu\in W^{2,\infty}(\hat{\Omega}),\quad \mathbf f \in [H^1(\hat{\Omega})]^2 $$\qedhere
+	\end{enumerate}
+\end{proof}
+%
+
+%Analoghe stime possono essere trovate, grazie a questi risultati, anche per l'errore di discretizzazione in $j$ e $j'$.
+\begin{lemma}
+	$\forall q_\sigma\in\Q_\sigma,\dq\in H^2(I)\cap H^1_0(I)$ valgono le stime
+	\begin{enumerate}
+	\item $|j(q_\sigma)-j_h(q_\sigma)|\leq ch^2$
+	\item $|j'(\qs)(\dq)-j_h'(\qs)(\dq)|\leq ch^2\|\dq\|_{H^2(I)}$
+	\item $|j''(\qs)(\dq,\dq)-j_h''(\qs)(\dq,\dq)|\leq ch^{1/4}\|\dq\|_{H^2(I)}^2$
+	\end{enumerate}
+\label{th:j-jh}
+\end{lemma}
+\begin{proof}
+	Fissiamo $\qs\in\Q_\sigma,\ \dq\in H^2(I)\cap H^1_0(I)$ e siano $(\u,p)=S(\qs),\ (\du,\delta p)=S'(\qs)(\dq),\ (\delta\du,\delta\delta p)=S''(\qs)(\dq,\dq)$.
+\begin{enumerate}
+\item
+	\begin{equation*}\begin{split}
+		&|j(\qs)-j_h(\qs)| = \frac{1}{2}|((\nabla\u-\nabla\u_h)\,A_q,\nabla\u+\nabla\u_h)|\leq\\
+		&\leq\frac{1}{2}\|A_q\|_\infty(\|\nabla\u\|+\|\nabla\u_h\|)\|\nabla\u-\nabla\u_h\|\leq ch^2
+	\end{split}\end{equation*}
+	avendo usato, nell'ultima disuguaglianza, la limitatezza di $A_q,\u,\u_h$ e il punto 1 del Lemma \ref{th:SShcont}.
+\item
+	\begin{equation*}\begin{split}
+	&|j'(\qs)(\dq)-j_h'(\qs)(\dq)|\leq\\
+	&\leq\frac{1}{2}|((\nabla\u-\nabla\u_h)\,A'_{q,\dq},\nabla\u+\nabla\u_h)|+\\
+	&+|((\nabla\du-\nabla\du_h)\,A_q,\nabla\u)| + |(\nabla\du_h\,A_q,\nabla\u-\nabla\u_h)|\leq\\
+	&\leq ch^2\|\dq\|_{H^2(I)}
+	\end{split}\end{equation*}
+	infatti, $A'_{q,\dq}\leq c\|\dq\|_{H^2(I)}$ (Lemma 1.7 \cite{Kinigera}) e valgono i Lemmi \ref{th:regolaritaS}, \ref{th:SShcont}.
+\item
+	\begin{equation*}\begin{split}
+	&|j''(\qs)(\dq,\dq)-j_h''(\qs)(\dq,\dq)|\leq\frac{1}{2}|((\nabla\u-\nabla\u_h)\,A''_{q,\dq,\dq},\nabla\u+\nabla\u_h)|+\\
+	&+2|((\nabla\du-\nabla\du_h)\,A'_{q,\dq},\nabla\u)| + 2|(\nabla\du_h\,A'_{q,\dq},\nabla\u-\nabla\u_h)|+\\
+	&+|((\nabla\du-\nabla\du_h)\,A'_{q,\dq},\nabla\du+\nabla\du_h)|+\\
+	&+|((\nabla\delta\du-\nabla\delta\du_h)\,A_q,\nabla\u)| + |(\nabla\delta\du_h\,A_q,\nabla\u-\nabla\u_h)|
+	\end{split}\end{equation*}
+	Dove non compaiono $\delta\du,\delta\du_h$, possiamo ancora usare il Lemma 1.7 \cite{Kinigera} per $A''_{q,\dq,\dq}$ e i risultati utilizzati nei punti precedenti per maggiorare con $ch^2\|\dq\|_{H^2(I)}^2$. Per gli ultimi due termini, invece, usiamo anche il punto 3 del Lemma \ref{th:SShcont}, sia per la stima, sia per le ipotesi sui dati che permettono di avere $\|\nabla\delta\du_h\|\leq c\|\dq\|_{H^2(I)}^2$.
+\end{enumerate}\end{proof}
+\ \\ \ \\
+
+Con il lemma appena dimostrato, unitamente al Lemma 3.14 di \cite{Kinigera} di coercività di $j''(\overline{q})(\cdot,\cdot)$ e al Teorema \ref{th:regolaritaS} di regolarità della soluzione del problema di stato, valgono senza alcuna modifica le dimostrazioni dei Lemmi 3.42--3.43 di \cite{Kinigera}. Di conseguenza, per l'errore di discretizzazione del controllo si ha l'ordine di convergenza indicato nel seguente teorema. La convergenza delle variabili di stato segue, poi, direttamente dalla convergenza del controllo, insieme ai Lemmi \ref{th:SLip}, \ref{th:SShcont} (si noti che il secondo abbassa di un ordine la convergenza in $h$).
+\begin{teor}
+	Sia $\overline{q}$ una soluzione locale di \eqref{eq:minJ} che soddisfi le Ipotesi \ref{ass:noeps}, \ref{ass:jpos}. Allora esiste una successione $\{\overline{q}_{\sigma,h}\}_{\sigma,h>0}$ di ottimi locali del problema discreto
+	\beq
+		\text{Minimizzare } j_h(\qs)\text{ su }\qs\in\Q_\sigma
+	\label{eq:minJsigmah}
+	\eeq
+tale che
+	$$\|\overline{q}-\overline{q}_{\sigma,h}\|_{H^2(I)}=\mathcal{O}(\sigma^2+h^2)$$
+	$$\|S(\overline{q})-S_h(\overline{q}_{\sigma,h})\|_{V\times P}=\mathcal{O}(\sigma^2+h)$$
+\label{th:convq}
+\end{teor}
+% COMMENTATO PERCHE' IN L2 E PER ORA NON HO AUBIN-NITSCHE
+%Da questo risultato, grazie rispettivamente al Lemma \ref{th:SLip} e al COROLLARIO 3.37 DI \cite{Kinigera}, seguono i due punti del prossimo teorema:
+%\begin{teor}
+%	Sotto le ipotesi del teorema \ref{th:convq} abbiamo
+%	\begin{enumerate}
+%	\item $\|S(\overline{q})-S_h(\overline{q}_{\sigma,h})\|=\mathcal{O}(\sigma^2+h^2)$
+%	\item $\|S^0(\overline{q})\circ T_{\overline{q}}^{-1}-S_h^0(\overline{q}_{\sigma,h})\circ T_{\overline{q}_{\sigma,h}}^{-1}\|_{L^2(\hat{\Omega})} = \mathcal{O}(\sigma^2+h^2)$
+%	\end{enumerate}
+%	dove l'apice $\cdot^0$ indica l'estensione a zero.
+%\label{th:convS}
+%\end{teor}

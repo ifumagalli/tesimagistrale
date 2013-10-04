@@ -1,0 +1,291 @@
+\documentclass[a4paper,11pt,twoside]{article}
+%\documentclass{report}
+% Per encoding dei caratteri: così com'è permette lettere accentate in input
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+
+\usepackage{multicol, caption}
+\usepackage{booktabs}
+\usepackage{gensymb}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{xfrac}
+\usepackage{footnote}
+\usepackage{textcomp}
+\usepackage{dsfont}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{vmargin}
+%\usepackage{multicol}
+% \usepackage{subfigure}
+\usepackage{caption}
+% \usepackage{subcaption}
+% \usepackage{upgreek}
+\usepackage{rotating}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{lscape}
+%\usepackage{subfig}
+\usepackage{subfigure}
+\usepackage{pgfplots}
+\usepackage{tikz}
+
+% Comodità da eliminare alla stampa
+%\usepackage{showkeys}
+%\usepackage[pdftex]{hyperref} 
+
+% Comandi utili ( ridefiniti: \u,\v,\O )
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+\newcommand{\Q}{Q^{ad}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\v}{\mathbf{v}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\du}{\mathbf{\delta u}}
+\newcommand{\tu}{\mathbf{\tau u}}
+\newcommand{\dq}{{\delta q}}
+%\newcommand{\dp}{\delta p}	% ridefinirlo dà problemi
+\newcommand{\qs}{{q_\sigma}}
+\newcommand{\weak}{\rightharpoonup}
+\renewcommand{\O}{{\Omega_0}}
+\newcommand{\Oq}{{\Omega_q}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
+% Teoremi & co.
+\theoremstyle{plain}
+\newtheorem{teor}{Teorema}[section]
+\newtheorem{cor}[teor]{Corollario}
+\newtheorem{lemma}[teor]{Lemma}
+\newtheorem{prop}[teor]{Proposizione}
+
+\theoremstyle{definition}
+\newtheorem{assunzione}[teor]{Ipotesi}
+
+\theoremstyle{remark}
+\newtheorem{oss}{Osservazione}
+
+%\graphicspath{{C:\Users\Ivan\Documents\Polimi\AA 2012-13\I Semestre\PACS\Condivisa_con_xubuntu-pacs\per_Fis_Tec}}
+%\graphicspath{C:\Users\Ivan\Dropbox\FisicaTecnica_gruppo6\Elaborato3}
+%\DeclareGraphicsExtensions{.pdf,.ps,.eps,.png,.jpeg,.mps}
+%
+%\bibliographystyle{plain}
+%\bibliography{C:/Users/Ivan/Documents/library}
+
+%\setmarginsrb{10mm}{5mm}{10mm}{10mm}%
+%             {0mm}{10mm}{0mm}{10mm}
+
+%%%%%%%
+%G%		è il commento nel caso di Stokes generalizzato (avevo sbagliato: avevo messo il dato di Dirichlet in rhs anche all'eq della div)
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analisi di un problema di controllo per flusso di Stokes}
+
+\begin{oss}
+	Quando nelle stime che seguono comparirà una costante $c$, la si intenderà dipendente solo dai dati, e non dal controllo $q$, dalle variabili di stato $\u,p$, né da loro variazioni e nemmeno dai parametri di discretizzazione $\sigma,h$. Ciò varrà anche dove vi sia un utilizzo della disuguaglianza di Poincaré, dal momento che le costanti relative a ciascun $\Omega_q$ sono tutte controllate da quella relativa a quel dominio $\hat{\Omega}$ che li contiene tutti.
+\end{oss}
+%SISTEMARE TUTTO CIO' CHE PARLA DEL RILEVAMENTO E VEDERE SE C'E' RILEVAMENTO ANCHE NELL'EQ DI CONTINUITA'
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Definizione del problema}\label{sec:def}
+
+%%%%%%%%%%%%%%%%%%%%%%
+\input{Domini}
+%%%%%%%%%%%%%%%%%%%%%%
+Siano $q:I=(0,1)\to\mathds{R}$, $\Omega_q =\{(x,y)\in \mathds{R}^2\ |\ x\in I\ ,\ y\in (q(x),1)\}$ e partizioniamo il bordo di $\Omega_q$ come indicato in Figura \ref{fig:domini}: $\partial\Omega_q=\Gamma_q\cup\Gamma_1\cup\Gamma_2\cup\Gamma_3$.\\
+Per evitare domini degeneri, fissiamo a priori $\varepsilon\in(0,1)$ e definiamo come insieme dei controlli $\overline{Q}^{ad}=\{q\in H^2(I)\cap H^1_0(I)\ |\ q(x)\leq 1-\varepsilon \ \forall x\in I \}$.\\
+Consideriamo il problema di Stokes in $\mathbf{u}=(u,v)$ e $p$
+\begin{equation}
+\left\{
+\begin{aligned}
+	\eta \mathbf{u} - div(\nu\nabla\mathbf{u}) + \nabla p &= \mathbf{f} \qquad &in\ \Omega_q\\
+	div\ \mathbf{u} &= 0 \qquad &in\ \Omega_q\\
+	\mathbf{u} &= 0 \qquad &su\ \Gamma_q\\
+	\nu\partial_\mathbf{n }\mathbf{u} - p \mathbf{n} &= \mathbf{g}_N\qquad &su\ \Gamma_1\\%=\partial\Omega_q\backslash\Gamma_D
+	\partial_\mathbf{n} u = 0,\quad v&=0\qquad &su\ \Gamma_2\\
+	\mathbf{u} &= \mathbf{g}_D\qquad &su\ \Gamma_3\\% \subset\partial\Omega_q\\
+\end{aligned}
+\right.
+\label{eq:Stokes}
+\end{equation}
+dove i dati $\eta,\nu,\mathbf{f}$ siano definiti su $\hat{\Omega}: \Omega_q\subseteq\hat{\Omega}\quad\forall q\in \overline{Q}^{ad}$.\\
+Definendo $\widetilde{\mathcal{R}}\mathbf{g}_D$ come un rilevamento continuo di $\mathbf{g}_D$ su $\Omega_q$ e gli spazi
+\begin{equation*}\begin{split}
+	\widetilde{V}&=\{\v\in[H^1(\Oq)]^2\colon \v=(v_x,v_y)=\mathbf 0\text{ su }\Gamma_3\cup\Gamma_q\text{ e }v_y=0\text{ su }\Gamma_2\}\\
+	\widetilde{P}&=L^2(\Oq)
+\end{split}\end{equation*}
+la formulazione debole del problema \`e
+\begin{equation}
+\begin{split}
+	\text{Trovare }\mathbf{u} = \mathbf{\hat{u}}+\widetilde{\mathcal{R}}\mathbf{g}_D \ ,\ \mathbf{\hat{u}}\in V=[H^1_{\Gamma_3}(\Omega_q)]^2 \text{ e } p\in P=L^2(\Omega_q)\text{ tali che } \\
+	\left\{
+	\begin{aligned}
+		a_q(\mathbf{\hat{u}},\mathbf{v}) + b_q(\mathbf{v},p) &= F_q(\mathbf{v})\qquad&\forall\ \mathbf{v}\in  [H^1_{\Gamma_3}(\Omega_q)]^2\\
+		b_q(\mathbf{\hat{u}},\pi) &= -b_q(\widetilde{\mathcal{R}}\mathbf g_D,\pi)
+				\qquad&\forall\ \pi \in L^2(\Omega_q)\\
+	\end{aligned}\right.\\
+	\begin{split}
+	\text{dove } a_q(\mathbf{u},\mathbf{v}) &=\int_{\Omega_q}{\eta \mathbf{u}\mathbf{v}+\nu\nabla \mathbf{u}:\nabla\mathbf{v}}\\
+		b_q(\mathbf{v},\pi) &= -\int_{\Omega_q}{\pi\ div\ \mathbf{v}}\\
+		F_q(\mathbf{v}) &= \int_{\Omega_q}{ \mathbf{f}\cdot \mathbf{v}}-a_q(\widetilde{\mathcal{R}}\mathbf{g}_D,\mathbf{v}) + \int_{\Gamma_1}{\mathbf{g}_N\cdot\mathbf{v}\,d\Gamma}\\
+		%G%G_q(\pi)=-b_q(\mathcal{R}\mathbf{g}_D,\pi)\\
+	\end{split}
+\end{split}
+\label{eq:Stokesdeb}
+\end{equation}
+Affinch\'e questo problema sia ben posto sono necessarie alcune condizioni sui dati, che qui riportiamo:\footnote{A $q$ fissato, basterebbe che le condizioni fossero verificate relativamente ad $\Omega_q$, ma per non dover dipendere dal controllo, consideriamo $\hat{\Omega}$.}
+\begin{itemize}
+	\item $\nu(x,y)\geq\nu_0>0\ \ \forall (x,y)\in\hat{\Omega}$ \ per assicurare la coercivit\`a di $a_q$
+	\item $\nu,\eta\in L^\infty(\hat{\Omega})$ per avere la continuit\`a di $a_q$ (quella di $b_q$ non necessita di richieste sui dati)
+	\item $\mathbf{f}^q\in H^{-1}(\hat{\Omega}),\ \mathbf g_D\in H^{1/2}(\Gamma_3),\ \mathbf g_N\in L^2(\Gamma_1)$ per la continuità del funzionale a termine noto
+\end{itemize}
+Queste condizioni garantiscono anche, attraverso le classiche stime di stabilità, che\\$\|(\u,p)\|_{[H^1_0(\Oq)]^2\times L^2(\Oq)}$ sia limitata da una costante dipendente dai dati, uniformemente rispetto a $q$. Inoltre permettono che sia ben definito l'operatore soluzione $\widetilde{S}(q)$, che associa ad ogni $q\in\overline{Q}^{ad}$ la corrispondente soluzione $(\mathbf{u},p)=\widetilde{S}(q)$ del problema di stato.
+
+Definito il problema di stato \eqref{eq:Stokes}, fissiamo due costanti $\alpha,\beta>0$ per penalizzare rispettivamente la derivata seconda di $q$ e il vincolo di volume costante sotteso a $q$. Il problema di ottimizzazione di forma che vogliamo affrontare \`e il seguente:
+\begin{equation}
+	\begin{aligned}
+	\text{Minimizzare } J(q,\mathbf{u},p) = \frac{1}{2}\int_{\Omega_q}{|\nabla \mathbf{u}|^2} + \frac{\alpha}{2}\|q''\|_{L^2(I)}^2 +	\frac{\beta}{2}\left(\int_I {q(x)dx} - \overline{V}\right)^2\\
+	\text{soggetto al vincolo \eqref{eq:Stokes}}
+	\end{aligned}
+\label{eq:minJ}
+\end{equation}
+Utilizzando l'operatore soluzione appena introdotto, possiamo considerare anche il funzionale di costo ridotto $j:\overline{Q}^{ad}\rightarrow\mathds{R}:q\mapsto j(q)=J(q,\widetilde{S}(q))$.
+
+Considerando $q_0\equiv 0 \in \overline{Q}^{ad}$, possiamo affermare che una condizione necessaria affinch\'e una $q\in\overline{Q}^{ad}$ sia soluzione ottima del problema \`e che sia $j(q)\leq j(q_0)$, il che implica
+$$ \|q''\|_{L^2(I)}^2 \leq \frac{2}{\alpha}\left[j(q_0)-  \frac{1}{2}\int_{\Omega_q}{|\nabla \mathbf{u}|^2} - \frac{\alpha}{2}\|q''\|_{L^2(I)} - \frac{\beta}{2}\left(\int_I {q(x)dx} - \overline{V}\right)^2\right] \leq \frac{2}{\alpha}j(q_0)$$
+Poich\'e in $H^2(I)\cap H^1_0(I)$ la seminorma $H^2(I)$ \`e equivalente alla norma completa (Lemma 1.2 \cite{Kinigera}), ne risulta che possiamo considerare come insieme dei controlli ammissibili anche solo il sottoinsieme di $\overline{Q}^{ad}$ definito come
+$$ Q^{ad} = \{q\in \overline{Q}^{ad}\ |\ \|q\|_{H^2(I)}\leq C=\frac{2}{\alpha}j(q_0)\} $$
+Per gli studi di regolarit\`a, richiediamo anche che
+\beq
+	\exists d_1,d_2>0 \text{ tali che } \|q''\|_{L^\infty(I)}\leq d_1,\ |q'(0)|\leq d_2
+\label{eq:Bad}
+\eeq
+%mentre per seguire le indicazioni di \cite{Kinigera} assumiamo anche che
+%$$ \exists \varepsilon\in(0,1)\text{ tale che } q(x)\leq 1-\varepsilon \quad \forall x\in I $$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Esistenza}\label{sec:esistenza}
+
+Per mostrare l'esistenza di una soluzione del problema \eqref{eq:minJ}, cominciamo con l'osservare che
+$$J(q,\mathbf{u},p)\geq 0,\ Q^{ad}\neq\emptyset\quad\Rightarrow\quad \exists \{q_n\}_{n\in\mathds{N}} :\ \overline{j}:=\inf_{q\in Q^{ad}}j(q) = \lim_{n\in\mathds{N}}j(q_n)$$
+La limitatezza di $\Q$ garantisce che, a meno di sottosuccessioni, $q_n\weak \overline{q}$ in $H^2(I)$; inoltre, dal momento che $\Q$ è anche convesso e chiuso, $\overline{q}\in\Q$.\\
+% PARTE NON NECESSARIA SE J E' DEB.S.C.I.
+%%%per ragioni notazionali, introduciamo l'operatore complessivo
+%%% $$ \mathcal{A}_q:  [[H^1_0(\Omega_q)]^2\times L^2(\Omega_q)]^2 \rightarrow \mathds{R}:(\mathbf{u},p,\mathbf{v},\pi) \mapsto
+%%%	\begin{pmatrix}
+%%%		a_q(\mathbf{u},\mathbf{v}) + b_q(\mathbf{v},p)\\
+%%%		b_q(\mathbf{u},\pi)
+%%%	\end{pmatrix}
+%%%$$
+%%%e verifichiamo la validit\`a delle seguenti propriet\`a:		
+%%%\begin{itemize}
+%%%	\item[A1] Uniforme continuit\`a di $\mathcal{A}_q(\mathbf{u},p,\mathbf{v},\pi)\ \forall q\in Q$\\
+%%%		Basta richiedere che siano $\eta,\nu\in L^\infty(\hat\Omega)$
+%%%	\item[A2] Uniforme coercivit\`a di $\mathcal{A}_q(\mathbf{u},p,\mathbf{v},\pi)\ \forall q\in Q$\\
+%%%		Basta richiedere che sia $\nu\geq\nu_0>0$.
+%%%		\textcolor{red}{CONSIDERIAMO $\Gamma_n=\emptyset$}
+%%%	\item[A3] Simmetria di $\mathcal{A}_q(\mathbf{u},p,\mathbf{v},\pi)\ \forall q\in Q$\\Non \`e verificata, ma non \`e necessaria (cfr. \emph{Remark 2.9}).
+%%%	\item[A4] Continuit\`a di $q\mapsto \mathcal{A}_q$ (cfr. \emph{Remark 2.9})\\
+%%%		Conseguenza della uniforme continuit\`a, della dipendenza continua dell'integrale dal dominio e della limitatezza di $\|q\|_{H^2(I)}$: si verifica la continuit\`a rispetto a $q$ di $a_q$ e $b_q$ separatamente come nel caso ellittico, e quella di $A_q$ \`e implicata.
+%%%\end{itemize}
+%%%Sotto queste ipotesi, possiamo formulare per il nostro problema un analogo del Lemma 2.12 [Haslinger]
+%%%\begin{lemma}
+%%%	Siano $\{q_n\}\in Q^{ad}: q_n\to_{L^\infty(I)} q\in Q^{ad}$ e $(\mathbf{u}_n,p_n)=\widetilde{S}(q_n)\in [H^1_0(\Omega_q)]^2\times L^2(\Omega_q)$.
+%%%	Sotto le ipotesi (A1)--(A4) si ha che $\exists (\mathbf{\hat{u}},\hat{p}) \in [H^1_0(\Omega_q)]^2\times L^2(\Omega_q): (\mathbf{u}_n,p_n)\to (\mathbf{\hat{u}},\hat{p})\text{ in }[H^1_0(\Omega_q)]^2\times L^2(\Omega_q)$ e $(\mathbf{\hat{u}},\hat{p})
+%%%\end{lemma}
+La dimostrazione del Teorema 2.1 \cite{Gunzburger2000}, poi, a partire dall'uniforme limitatezza di $\widetilde{S}(q_n)$ in $[H^1(\hat{\Omega})]^2\times L^2(\hat{\Omega})$, ci assicura che $\widetilde{S}(q_n)$ converga debolmente ad una coppia $(\overline{\u},\overline{p})$ che sia proprio $\widetilde{S}(\overline{q})$.\\
+Per poter passare al limite nel funzionale, poich\'e la successione \`e minimizzante, \`e sufficiente che $J(q,\mathbf{u},p)$ sia debolmente semicontinuo inferiormente su $H^2(I)\times [H^1_0(\Omega_q)]^2\times L^2(\Omega_q)$: ci\`o \`e garantito dalla debole semicontinuit\`a inferiore delle norme, dal Teorema 1.2 \cite{Gunzburger2000} e dal Teorema della Convergenza Dominata (quest'ultimo per passare al limite nel termine di penalizzazione del volume).%@%\textcolor{red}{FORSE CONVIENE AMPLIARE UN PO' QUESTA PARTE.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Trasformazione da $\Omega_q$ a $\Omega_0$}\label{sec:trasformazione}
+
+Consideriamo come dominio di rifermento $\Omega_0=(0,1)^2$, che corrisponde a prendere $q\equiv 0$: \`e cos\`i possibile definire una mappa
+$$T_q :\Omega_0\rightarrow\Omega_q:(x,y)\mapsto \begin{pmatrix}x\\y+(1-y)q(x)\end{pmatrix}$$
+Per le espressioni delle altre grandezze legate a questa mappa ($V_q=T_q-\mathds{1},DT_q,\gamma_q=det(DT_q),A_q=\gamma_qDT_q^{-1}DT_q^{-T}$) si vedano le definizioni a pagina 6 di \cite{Kinigera}.\\
+\begin{itemize}
+\item[\underline{NB}]%Qualora non vi siano dubbi sulla $q$ scelta, indichiamo con $\widetilde{\cdot}$ le grandezze con dominio in $\Omega_q$, mentre non diamo alcuna notazione particolare a quelle con dominio in $\Omega_0$.
+Indichiamo con apice $\cdot^q$ la composizione con la mappa $T_q$, mentre, qualora non vi siano dubbi sulla $q$ utilizzata, indichiamo con $\widetilde{\cdot}$ la composizione con $T_q^{-1}$; in altre parole, data una qualsiasi $\varphi:\Omega_q\rightarrow\mathds{R}$, definiamo $\varphi^q=\varphi \circ T_q:\Omega_0\to\mathds{R}\text{, mentre sarà ad esempio }\widetilde{\u}=\u\circ T_q^{-1}$ quando $\u$ sarà la soluzione del problema trasformato.\\
+Inoltre, con $(\cdot,\cdot)$ intendiamo il prodotto scalare in $[L^2(\Omega_0)]^d$ (con $d$ che si pu\`o evincere dal contesto) e con $(\cdot,\cdot)_I$ e $(\cdot,\cdot)_\Oq$ rispettivamente quello in $L^2(I)$ e quello in $L^2(\Oq)$.
+\end{itemize}
+Possiamo dunque trasformare il nostro problema variazionale di partenza utilizzando spazi che non dipendono pi\`u da $q$, in quanto definiti su $\Omega_0$:\footnote{Nel caso \emph{fully Dirichlet} la dipendenza da $q$ rimane comunque, in quanto nella formulazione iniziale bisogna utilizzare $L^2_0(\Omega_q)$, che nella trasformata diventa $L^2_{\gamma_q^2}(\Omega_0)$, ossia il complemento ortogonale di $span\{\gamma_q^2\}$ in $L^2(\Omega_0)$.}\\
+\begin{equation}
+\begin{split}
+	\text{Trovare }(\mathbf{u},p)\in V\times P, \text{ tale che } \\
+	\left\{
+	\begin{aligned}
+		a(q)(\mathbf{u},\mathbf{v}) + b(q)(\mathbf{v},p) &= F(q)(\mathbf{v})\qquad&\forall\ \mathbf{v}\in  V\\
+		b(q)(\mathbf{u},\pi) &= G(q)(\pi)
+			\qquad&\forall\ \pi \in P\\
+	\end{aligned}\right.\\
+	\begin{split}
+		\text{dove } a(q)(\mathbf{u},\mathbf{v})&=\int_{\Omega_0}{\eta^q \mathbf{u}\cdot\mathbf{v}\gamma_q+\nu^q\ tr(\nabla \mathbf{u}A_q\nabla\mathbf{v}^T)}\\
+		b(q)(\mathbf{v},\pi) &= -\int_{\Omega_0}{\pi\ tr(\nabla\mathbf{v}DT_q^{-1})\gamma_q}\\
+		F(q)(\mathbf{v}) &= \int_{\Omega_0}{ \mathbf{f}\cdot \mathbf{v}\ \gamma_q}-a(q)(\mathcal{R}\mathbf{g}_D,\mathbf{v}) + \int_{\Gamma_1}{\mathbf{g}_N\cdot\mathbf{v}\,d\Gamma}\\
+		G(q)(\pi)&=-b(q)(\mathcal{R}\mathbf{g}_D,\mathbf{v})\\
+		V&=\{\v\in[H^1(\O)]^2\colon \v=(v_x,v_y)=\mathbf 0\text{ su }\Gamma_3\cup\Gamma_0\text{ e }v_y=0\text{ su }\Gamma_2\}\\
+		P&=L^2(\O)
+	\end{split}\\
+\end{split}
+\label{eq:StokesdebT}
+\end{equation}
+Risulterà utile anche la definizione del seguente spazio (il corrispettivo discreto sarà analogo):
+$$ V_{b(q)} = \{\v\in V\colon b(q)(\v,\pi) = 0\quad\forall q\in\Q\} $$
+\begin{oss}[Rilevamento]
+	Con $\mathcal{R}\mathbf g_D$ indichiamo un rilevamento continuo del dato di Dirichlet sul dominio $\O$. Notiamo che non è necessario trasformare $\mathbf g_D$ per riportarlo nel dominio di riferimento, dal momento che è definito sul bordo $\Gamma_3$, su cui la mappa $T_q$ è uguale all'identità. Ovviamente, a priori $\mathcal{R}\mathbf g_D\neq\widetilde{\mathcal{R}}\mathbf g_D\,\circ\,T_q$, ma ciò non importa, in quanto non utilizzeremo mai la forma del rilevamento.
+\end{oss}
+Per la buona positura del problema possiamo rifarci ancora alla teoria dei problemi di punto-sella ed affermare che sono sufficienti le richieste fatte per il problema non trasformato, dal momento che $A_q$ è in $[L^\infty(\O)]^{2\times2}$, simmetrica, definita positiva e il minimo autovalore è limitato inferiormente da $\overline{\lambda}=2\left(1+\frac{1+(d_1+d_2)^2}{\varepsilon} + \sqrt{\left(1+\frac{1+(d_1+d_2)^2}{\varepsilon}\right)^2-4}\right)^{-1}$
+%E SUPPONIAMO CHE ABBIA AUTOVALORE MINIMO INFERIORMENTE LIMITATO DA UNA COSTANTE $\overline{\lambda}$ INDIPENDENTE DA q (TESTO IN ROSSO E' FALSO) \textcolor{red}{e con autovalori inferiormente limitati dalla costante $1+\frac{d_2}{\varepsilon}$ (indipendentemente da $q$)}
+: in effetti, il problema trasformato \eqref{eq:StokesdebT} è semplicemente una riscrittura del problema \eqref{eq:Stokesdeb}. Queste ipotesi si traducono nelle seguenti disuguaglianze, valide $\forall \u,\v\in H^1_0(\O), \forall \pi\in L^2(\O)$
+\begin{subequations}\begin{align}
+	a(q)(\v,\v)&\geq\nu_0\overline{\lambda}\|\nabla\v\|^2=:\alpha_c\|\nabla\v\|^2 \label{eq:acoerc}\\
+	\begin{split}
+		|a(q)(\u,\v)|&\leq(\|\eta\|_{L^\infty(\hat{\Omega})}\|\gamma_q\|_\infty+\|\nu\|_{L^\infty(\hat{\Omega})}\|A_q\|_\infty)\|\nabla\u\|\|\nabla\v\|\leq\\
+		&\leq(\|\eta\|_{L^\infty(\hat{\Omega})}(1+d_1+d_2)+\|\nu\|_{L^\infty(\hat{\Omega})}\frac{1}{\overline{\lambda}})\|\nabla\u\|\|\nabla\v\|=:M\|\nabla\u\|\|\nabla\v\|
+	\end{split}\label{eq:acont}\\
+	|b(q)(\v,\pi)|&\leq\|\gamma_qDT_q^{-T}\|_\infty\|\nabla\v\|\|\pi\|\leq (1+d_1+d_2)\|\nabla\v\|\|\pi\|=:M_b\|\nabla\v\|\|\pi\| \label{eq:bcont}\\
+	\begin{split}
+	|F(q)(\v)|&\leq\|\gamma_q\|_\infty\|\mathbf f\|_{[L^2(\hat{\Omega})]^2}\|\v\|+Mc_\mathcal{R}\|\mathbf g_D\|_{H^{1/2}(\Gamma_3)}\|\nabla\v\|+\|\mathbf g_N\|_{[H^{-1/2}(\Gamma_1)]^2}c_{tr}\|\nabla\v\|\leq\\
+	&\leq[c_{\hat{\Omega}}(1+d_1+d_2)\|\mathbf f\|_{[L^2(\hat{\Omega})]^2}+Mc_\mathcal{R}\|\mathbf g_D\|_{H^{1/2}(\Gamma_3)}+\|\mathbf g_N\|_{[H^{-1/2}(\Gamma_1)]^2}c_{tr}]\|\nabla\v\| =\\
+	&=: M_F\|\nabla\v\|
+	\end{split}\label{eq:Fcont}\\
+	|G(q)(\pi)|&\leq M_b c_{\mathcal{R}}\|\mathbf g_D\|_{[H^{1/2}(\Gamma_3)]^2}\|\pi\|\label{eq:Gcont}
+\end{align}\label{eq:contcoerc}\end{subequations}
+Risulta così definito l'operatore $S:Q^{ad}\rightarrow V\times P$, che ad ogni $q\in Q^{ad}$ associa la soluzione $(\mathbf{u},p)=S(q)$ del problema \eqref{eq:StokesdebT}.\\
+Inoltre, possiamo ridefinire anche il funzionale di costo ridotto come $j(q)=J(q,S(q)\circ T_q^{-1})$.
+\\
+
+Con le assunzioni sull'insieme dei controlli ammissibili fatte nel paragrafo \ref{sec:def}, possiamo dimostrare un risultato utile:
+\begin{lemma}
+	Siano $k\in\{0,1\}$ fissato, $\varphi\in H^{k}(\O)$ e $q\in\Q$. Si ha che
+	$$\varphi\circ T_q^{-1}\in H^k(\Oq),\quad c_1\|\varphi\circ T_q^{-1}\|_{H^k(\Oq)}\leq\|\varphi\|_{H^k(\O)}\leq c_2\|\varphi\circ T_q^{-1}\|_{H^k(\Oq)}$$
+	Vale anche il viceversa, ossia $\widetilde{\varphi}\in H^k(\Oq)\Rightarrow\widetilde{\varphi}\circ T_q\in H^k(\O)$, con analoghe disuguaglianze.\\
+	Se, inoltre, $q\in H^3(I)$, si ha un risultato analogo anche con $k=2$.
+\label{th:HkTq}
+\end{lemma}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{IntroStime}
+\include{Regolarita}
+\include{Stime}
+%\include{Altro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\newpage
+%\bibliographystyle{IEEEtran}
+\bibliographystyle{alpha}
+\bibliography{library}
+
+\end{document}

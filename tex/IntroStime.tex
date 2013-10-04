@@ -1,0 +1,201 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Stime a priori dell'errore}
+
+Innanzitutto, riportiamo dei risultati di differenziabilit\`a per l'operatore soluzione e il funzionale di costo ridotto, che ci saranno utili per le stime degli errori di discretizzazione.
+\begin{teor}
+	L'operatore soluzione $S$ \`e due volte continuamente differenziabile secondo Fr\'echet e le sue variazioni prima e seconda rispetto a $\delta q, \tau q \in Q^{ad}$ sono definite come segue:
+	\begin{enumerate}
+		\item $(\delta \u, \delta p) = S'(q)(\delta q) \in V\times P$ \`e soluzione del problema
+			\begin{equation}
+			\left\{
+			\begin{aligned}
+			a(q)(\du,\mathbf{v}) + b(q)(\mathbf{v},\delta p) = \dot{F}(q,\dq)(\mathbf{v}) - \dot{a}(q,\dq)(\u,\mathbf v) - \dot{b}(q,\dq)(\mathbf v, p)\qquad&\forall\ \mathbf{v}\in  V\\
+			b(q)(\du,\pi) = \dot{G}(q,\dq)(\pi)-\dot{b}(q,\dq)(\u,\pi)\qquad&\forall\ \pi \in P\\
+			\end{aligned}\right.\\
+			\label{eq:dS}
+			\end{equation}
+		\item $(\tau\du,\tau\delta p)=S''(q)(\dq,\tau q) \in V\times P$ \`e soluzione del problema
+			\begin{equation}
+			\left\{
+			\begin{aligned}
+			&\begin{aligned}
+			a(q)&(\tau\du,\mathbf{v}) + b(q)(\mathbf{v},\tau \delta p) = \\
+			&=\ddot{F}(q,\dq,\tau q)(\mathbf{v}) - \ddot{a}(q,\dq,\tau q)(\u,\mathbf v) - \ddot{b}(q,\dq,\tau q)(\mathbf v, p)+\\
+			&- \dot{a}(q,\dq)(\tu,\mathbf v) - \dot{b}(q,\dq)(\mathbf v, \tau p) - \dot{a}(q,\tau q)(\du,\mathbf v) - \dot{b}(q,\tau q)(\mathbf v, \delta p)
+			\end{aligned}\quad&\forall\ \mathbf{v}\in  V\\
+			&\begin{aligned}
+			b(q)&(\tau\du,\pi) = \ddot{G}(q,\dq,\tau q)(\pi)-\ddot{b}(q,\dq,\tau q)(\u,\pi) +\\
+			&- \dot{b}(q,\dq)(\tu,\pi) - \dot{b}(q,\tau q)(\du,\pi)
+			\end{aligned}\quad&\forall\ \pi \in P\\
+			\end{aligned}\right.
+			\label{eq:d2S}
+			\end{equation}
+			dove $(\tu,\tau p) = S'(q)(\tau q)$.
+	\end{enumerate}
+	dove i punti indicano la derivazione secondo Fr\'echet operata sui soli coefficienti del funzionale o della forma, ossia:
+	\begin{equation}
+	\begin{split}
+	\dot{F}(q,\dq)(\mathbf v) &= \int_{\Omega_0}[\gamma'_{q,\dq}\mathbf{f}^q\cdot\mathbf v + \gamma_q\nabla\mathbf f^q V_\dq\cdot\mathbf v]-\dot{a}(q,\dq)(\mathcal{R}\mathbf g_D,\mathbf v)\\% + \int_{\Gamma_1}{\mathbf{g}_N\cdot\mathbf{v}\,d\Gamma}\\
+	\dot{G}(q,\dq)(\pi) &= -\dot{b}(q,\dq)(\mathcal{R}\mathbf g_D,\pi)\\
+	\dot{a}(q,\dq)(\u,\mathbf v) &= \int_\O\left(\gamma_q\nabla\eta^q\cdot V_\dq + \eta^q\gamma'_{q,\dq}\right)\u\cdot\mathbf v +\\
+			&+ \nabla\nu^q\cdot V_\dq tr(\nabla\u A_q\nabla\mathbf v^T) + \nu^q tr(\nabla\u A'_{q,\dq}\nabla\v^T)]\\
+	\dot{b}(q,\dq)(\mathbf v,\pi) &= -\int_\O\pi\nabla\v\cdot cof(DV_\dq)\\
+	\ddot{F}(q,\dq,\tau q)(\mathbf{v}) &= \int_\O[\gamma''_{q,\dq\tau q}\mathbf{f}^q\cdot\mathbf v + \gamma'_{q,\dq}\nabla\mathbf f^q V_{\tau q}\cdot\mathbf v + \gamma'_{q,\tau q}\nabla\mathbf f^q V_\dq\cdot\mathbf v +\\
+			&+ \gamma_q(\widetilde{\nabla^2}\mathbf f^q V_{\tau q} + \nabla\mathbf f^qDV_{\tau q})V_\dq\,\cdot\v]-\ddot{a}(q,\dq)(\mathcal{R}\mathbf g_D,\mathbf v)\\% + \int_{\Gamma_1}{\mathbf{g}_N\cdot\mathbf{v}\,d\Gamma}\\
+	\ddot{G}(q,\dq,\tau q)(\pi) &= -\ddot{b}(q,\dq,\tau q)(\mathbf v, \pi) = 0\\
+	\ddot{a}(q,\dq,\tau q)(\u,\mathbf v) &= \int_\O\{[\gamma'_{q,\tau q}\nabla\eta^q\cdot V_\dq + (\nabla^2\eta^q V_{\tau q} + DV_{\tau q}^T\nabla\eta^q)\cdot V_\dq\gamma_q + \\
+			&+ \eta^q\gamma''_{q,\dq,\tau q})\u\cdot\mathbf v + \gamma'_{q,\dq}\nabla\eta^q\cdot V_{\tau q}]\u\cdot\v +\\
+			&+ (\nabla^2\nu^q\,V_\dq + DV_{\tau q}^T\nabla\nu^q)\cdot V_\dq\, tr(\nabla\u A_q\nabla\mathbf v^T) +\\
+			&+ \nabla\nu^q\cdot V_\dq\, tr(\nabla\u A'_{q,\tau q}\nabla\mathbf v^T) + \nu^q\, tr(\nabla\u A''_{q,\dq,\tau q}\nabla\v^T)\\
+			&+ \nabla\nu^q\cdot V_{\tau q}\,tr(\nabla\u A'_{q,\dq}\nabla\v^T)\}\\
+	\ddot{b}(q,\dq,\tau q)(\mathbf v, \pi) &= 0
+	\end{split}
+	\label{eq:formedot}	
+	\end{equation}
+\end{teor}
+\begin{proof}
+	Utilizziamo il teorema delle funzioni implicite nella formulazione del Teorema 3.3 di \cite{Kinigera}, con $X=H^2(I)\cap H^1_0(I), Y=V\times P, Z=Y^*$, che sono tutti spazi Hilbert, $X^{ad}=int(\Q), F:X^{ad}\times Y \to Z:(q,\u,p)\mapsto
+	\begin{pmatrix}
+		a(q)(\u,\cdot)+b(q)(\cdot,p)-F(q)(\cdot)\\
+		b(q)(\u,\cdot)-G(q)(\cdot)
+	\end{pmatrix}$.\\
+	Da un calcolo diretto delle derivate si trovano i problemi differenziali di cui nella tesi, la cui buona positura, discussa nella successiva Proposizione \ref{th:dotcont}, permette di affermare la doppia differenziabilit\`a dell'operatore $S$.\\
+Si noti che il termine di bordo dovuto al dato di Neumann scompare: esso, infatti, non dipende da $q$. %Anche $\dot{b}(q,\dq)$ in realtà non dipende da $q$, per cui abbiamo $\ddot{b}(q,\dq,\tau_q)=0$. \qedhere
+\end{proof}
+Dal teorema precedente segue che anche $j$ \`e due volte Fr\'echet-differenziabile con continuit\`a, con la seguente forma e le seguenti derivate (si noti che $A_q$ e le sue derivate sono matrici simmetriche)
+%\begin{subequations}
+%\begin{align}
+\begin{enumerate}
+	\item $j(q)=\frac{1}{2}(\nabla\u\, A_q,\nabla\u) + \frac{\alpha}{2}\|q''\|_I^2 + \frac{\beta}{2}\left(\int_Iq(x)dx\ - \ \overline{V}\right)^2$
+	\item \begin{equation*}
+		\begin{split} 
+		j'(q)(\dq) &= \frac{1}{2}(\nabla\u\, A'_{q,\dq},\nabla\u) + (\nabla\du\, A_q,\nabla\u) + \alpha(\dq'',q'')_I +\\
+		&+ \beta\left(\int_I{q(x)dx}-\overline{V}\right)\int_I{\dq(x)dx}
+		\end{split}
+		\end{equation*}
+	\item  \begin{equation*}
+		\begin{split}
+		j''(q)(\dq,\tau q) &= \frac{1}{2}(\nabla\u\, A''_{q,\dq,\tau_q},\nabla\u) + (\nabla\tau\u\, A'_{q,\dq}+\nabla\du\, A'_{q,\tau q},\nabla\u) +\\
+		&+ (\nabla\du\,A_q,\nabla\tau\u) + (\nabla\tau\du\,A_q,\nabla\u)+\\
+		&+ \alpha(\dq'',\tau q'')_I + \beta\int_I{\dq(x)dx}\int_I{\tau q(x)dx}
+		\end{split}
+		\end{equation*}
+\end{enumerate}
+%\end{align}
+%\end{subequations}
+dove abbiamo utilizzato le abbreviazioni $\u,\du,\tau\u, \tau\du$ come nel teorema precedente.
+\begin{oss}
+	La mappa $T_q$ scelta porta ad avere $\gamma'_{q,\dq}=\gamma_\dq=1-\dq$ e dunque $\gamma''_{q,\dq,\tau q} = 0$. Nelle espressioni precedenti, tuttavia, questi termini sono lasciati non esplicitati, affinché siano validi anche in seguito ad un cambio di mappa.
+\end{oss}
+
+%A partire dai lemmi 1.6, 1.7 di \cite{Kinigera}, in cui sono maggiorate le norme di alcune grandezze dipendenti dalla sola mappa $T_q$, possiamo dimostrare alcuni risultati di limitatezza e dipendenza continua dal controllo $q$ per l'operatore $S$, il funzionale $j$ e le loro derivate prima e seconda, che sono gli analoghi dei lemmi 3.6--3.12 di \cite{Kinigera}.\\
+%Per ottenere questi risultati, utilizziamo l'assunzione di limitatezza di $q''$ introdotta all'inizio e dobbiamo aggiungere anche altre ipotesi sui dati: per avere i risultati relativi alla derivata $k$--esima di $S$ e $j$ servono
+$$ \eta^q,\nu^q\in W^{k,\infty}(\Omega_0)\quad\mathbf f^q\in [W^{k,\infty}(\Omega_0)]^2 $$
+
+Per concludere i risultati preliminari, nella seguente proposizione raccogliamo i risultati di continuità di tutti i termini forzanti, mostrando che le costanti di continuità non dipendono da $q,\dq$ e dunque, in seguito, non dipenderanno dalla discretizzazione.
+\begin{prop}
+	Nell'ipotesi che i dati soddisfino i requisiti di regolarità 
+	$$\eta,\nu\in W^{1,\infty}(\hat{\Omega}),\quad \mathbf f\in [H^1(\hat{\Omega})]^2$$
+	si ha che $\forall\ q\in\Q,\dq\in H^2(I)\cap H^1_0(I),\u,\v\in V,\pi\in P$
+	\begin{subequations}\begin{align}
+	\dot{a}(q,\dq)(\u,\v)&\leq \dot{M}\|\dq\|_{H^2(I)}\|\nabla\u\|\|\nabla\v\|\\
+	\dot{b}(q,\dq)(\v,\pi)&\leq c\|\dq\|_{H^2(I)}\|\nabla\v\|\|\pi\|\\
+	\dot{F}(q,\dq)(\v)&\leq \left(c\|\mathbf f\|_{[H^1(\hat{\Omega})]^2}\|\dq\|_{H^2(I)}+\dot{M}c\|\mathbf g_D\|_{[H^{1/2}(\Gamma_3)]^2}\right)\|\v\|\\
+	\dot{G}(q,\dq)(\pi) &\leq c\|\dq\|_{H^2(I)}c_{\mathcal{R}}\|\mathbf g_D\|_{[H^{1/2}(\Gamma_3)]^2}\|\pi\|
+	\end{align}\end{subequations}
+	dove $\dot{M} = c_1\|\eta\|_{W^{1,\infty}}+c_2\|\nu\|_{W^{1,\infty}}$.\\
+	Analoghe stime si possono trovare per i funzionali e le forme con due punti, con un maggiorante che dipende quadraticamente da $\|\dq\|_{H^2(I)}$, purché siano
+	$$\eta,\nu\in W^{2,\infty}(\hat{\Omega})$$
+\label{th:dotcont}
+\end{prop}
+\begin{oss}
+	In realtà, la richiesta $\mathbf f\in [H^1(\hat{\Omega})]^2$ serve solo per le stime legate al problema \eqref{eq:d2S}: nel primo basterebbe avere $\mathbf f\in [L^2(\hat{\Omega})]^2$ e $\nabla\mathbf f$ sarebbe controllato in $[H^{-1}(\hat{\Omega})]^2$. Tuttavia, scegliamo di richiederlo fin da subito per semplicità, e anche perché per arrivare alle stime dell'errore finali ci serviranno le ipotesi della seconda parte della proposizione.
+\end{oss}
+Con il classico risultato di stabilità per problemi di punto-sella, presentato nel Teorema 10.4 di \cite{Quarteroni2008}, si dimostra il seguente
+\begin{cor}
+	Sotto le ipotesi della precedente Proposizione, si ha $\forall q\in\Q,\dq\in Q$
+	$$\|S(q)\|_{V\times P}\leq c\quad\|S'(q)(\dq)\|_{V\times P}\leq c\|\dq\|_{H^2(I)}\quad\|S''(q)(\dq,\dq)\|_{V\times P}\leq c\|\dq\|_{H^2(I)}^2$$
+\label{th:SLim}
+\end{cor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Condizioni di ottimalità}
+
+Per i risultati di regolarità che verranno mostrati nel prossimo paragrafo (in particolare per la regolarità del controllo) risulta utile riscrivere la condizione di ottimalità del prim'ordine
+\begin{equation}
+	j'(\overline{q})(\dq)=0\qquad\forall\dq\in H^2(I)\cap H^1_0(I)
+\label{eq:ottimalita}
+\end{equation}
+facedo comparire esplicitamente la dipendenza da $\dq$, mediante la formula di Hadamard. Partendo dall'espressione di $j(q)$ in termini della soluzione $\widetilde{S}(q)$ e derivando questa rispetto a $q$, si ha
+\beq
+	j'(q)(\dq) = \alpha(q'',\dq'')_I + \beta\left(\int_I{q(x)dx}-\overline{V}\right)\int_I{\dq(x)dx} + (\nabla\widetilde{\u},\nabla\widetilde{\du})_\Oq + \frac{1}{2}\int_{\partial\Oq}{|\nabla\widetilde{\u}|^2V_{q,\dq}\cdot\mathbf n\,d\Gamma}
+\label{eq:preHad}
+\eeq
+dove, $V_{q,\dq}=\begin{pmatrix}0\\(1-y)\frac{\dq}{1-q}\end{pmatrix}$ è il campo di velocità che identifica la trasformazione da $\Oq$ a $\Omega_{q,\dq}$. Osserivamo che $V_{q,\dq}=0$ su $\partial\Oq\setminus\Gamma_q$, dunque l'integrale di bordo può essere ristretto a $\Gamma_q$.\\
+Per eliminare $\widetilde{\du}$, introduciamo $(\z,s)$, soluzione debole del problema aggiunto
+\begin{equation}
+	\begin{cases}
+		-div(\nu\nabla\mathbf z) +\eta\z+\nabla s= -\Delta\widetilde\u\qquad &in\ \Oq\\
+		div\,\mathbf z = 0\qquad &in\ \Oq\\
+		\nu\partial_{\mathbf n}\z -s\mathbf n= 0\qquad &su\ \Gamma_1\\
+		\partial_{\mathbf n}z_x = 0\qquad z_y=0 &su\ \Gamma_2\\
+		\mathbf z = \mathbf 0,\quad &su\ \Gamma_q\cup\Gamma_3
+	\end{cases}
+\label{eq:PAHad}
+\end{equation}
+così da poter sfruttare il problema di cui è soluzione $\widetilde{\du}$ per avere
+\beq
+	\begin{split}
+	&(\nabla\widetilde{\u},\nabla\widetilde{\du})_\Oq = (\widetilde{\du},-\Delta\widetilde{\u})_\Oq+\int_{\partial\Oq}\widetilde{\du}\cdot\partial_{\mathbf n}\widetilde{\u}\,d\Gamma =\\
+	&=(\widetilde{\du},-div(\nu\nabla\z))_\Oq-(\widetilde{\delta p},div\,\z)_\Oq+\int_{\partial\Oq}\widetilde{\du}\cdot\partial_{\mathbf n}\widetilde{\u}\,d\Gamma =\\
+	&=(-div(\nu\nabla\widetilde{\du})+\nabla\widetilde{\delta p},\z)_\Oq+\int_{\partial\Oq}\left[\widetilde{\du}\cdot\partial_{\mathbf n}\widetilde{\u}-\nu\widetilde{\du}\cdot\partial_{\mathbf n}\z+\nu\z\cdot\partial_{\mathbf n}\widetilde{\du}-\widetilde{\delta p}\,\z\cdot\mathbf n\right]d\Gamma =\\
+	&= \int_{\Gamma_q}\partial_{\mathbf n}\widetilde{\u}\cdot(\partial_{\mathbf n}\widetilde{\u}-\nu\partial_{\mathbf n}\z + s\mathbf n)(V_{q,\dq}\cdot\mathbf n)
+	\end{split}
+\label{eq:2bordo}
+\eeq
+dove, oltre alla prima equazione di \eqref{eq:dS}, abbiamo sfruttato le condizioni al bordo su $\z$ in \eqref{eq:PAHad} e quelle su $\widetilde{\du}$:
+\beq
+	\begin{aligned}
+	\nu\partial_{\mathbf n}\widetilde{\du}-\widetilde{\delta p}\mathbf n &= \mathbf 0 \qquad &su\ \Gamma_1\\
+	\partial_{\mathbf n}\widetilde{\delta u} =0,\quad\widetilde{\delta v}&=0\qquad &su\ \Gamma_2\\
+	\widetilde{\du} &= \mathbf 0\qquad &su\ \Gamma_3\\
+	\widetilde{\du} &= (V_{q,\dq}\cdot\mathbf n)\partial_{\mathbf n}\widetilde{\u}\qquad &su\ \Gamma_q\\
+	\end{aligned}
+\label{eq:BCdu}
+\eeq
+%
+%\underline{Problema} Al momento non ho trovato un problema aggiunto che mi consenta di applicare la formula di Hadamard a questo funzionale, poiché non riesco a far comparire il termine $\eta\du$ che mi servirebbe. Per risolvere questo problema si possono percorrere due strade
+%\begin{enumerate}
+%	\item \underline{Sia $\eta=0$ già nella formulazione iniziale \eqref{eq:Stokes}}\\
+%		Introducendo $\z$, soluzione debole del problema aggiunto
+%		\begin{equation*}
+%		\begin{cases}
+%			-div(\nu\nabla\mathbf z) = -\Delta\widetilde\u\qquad &in\ \Oq\\
+%			div\,\mathbf z = 0\qquad &in\ \Oq\\
+%			\mathbf z = \mathbf 0\qquad &su\ \Gamma_q\cup\Gamma_3\\
+%			\partial_{\mathbf n}z_x = 0\qquad z_y=0 &su\ \Gamma_2\\
+%			\nu\partial_{\mathbf n}\z = \partial_{\mathbf n}\widetilde{\u}\qquad &su\ \Gamma_1
+%		\end{cases}
+%		\label{eq:PAHadeta0}
+%		\end{equation*}
+%		possiamo riscrivere il termine su $\Oq$ in \eqref{eq:preHad} nel modo seguente
+%		\beq\begin{split}
+%			(\nabla\widetilde{\u},\nabla\widetilde{\du})_{\Omega_{\overline{q}}} = (\widetilde{\du},-\Delta\widetilde{\u})_{\Omega_{\overline{q}}} + \int_{\partial\Oq}\widetilde{\du}\cdot\partial_{\mathbf n}\widetilde{\u}\,d\Gamma =\\
+%= (\nabla\widetilde{\du},-div(\nu\nabla\z)) +\int_{\partial\Oq}\widetilde{\du}\cdot\partial_{\mathbf n}\widetilde{\u}\,d\Gamma \ -(\widetilde{\delta p},div\z)_\Oq =\\
+%= -div(\nu\nabla\widetilde{\du}+\nabla\widetilde{\delta p},\z)_\Oq + \int_{\partial\Oq}[\widetilde{\du}\cdot\partial_{\mathbf n}\widetilde{\u}-\nu\widetilde{\du}\cdot\partial_{\mathbf n}\z+\nu\z\cdot\partial_{\mathbf n}\widetilde{\du}-\widetilde{\delta p}\z\cdot\mathbf n]\,d\Gamma = 0
+%		\end{split}\label{eq:Hadeta0}
+%		\eeq
+%	\item \underline{Aggiungiamo al funzionale un termine di tipo $L^2$, come $\int_\Oq(\widetilde{\u}-\u_d)^2$}\\
+%
+%\end{enumerate}
+
+Possiamo andare anche oltre e riscrivere $j'(q)(\dq)$ come un integrale sull'intervallo $I$.\\
+Osserviamo che $\Gamma_q$ è parametrizzabile secondo l'ascissa $x$ con una curva $\gamma(x)=\begin{pmatrix}x\\q(x)\end{pmatrix}$ e si ha $\mathbf n(x) = \frac{1}{\sqrt{q'(x)^2+1}}\begin{pmatrix}q'(x)\\-1\end{pmatrix}$, da cui $(V_{q,\dq}\cdot\mathbf n)|\gamma'(x)|=-\dq$.
+Di conseguenza, con il cambio di variabile indotto dalla parametrizzazione, possiamo riscrivere
+\beq
+\begin{split}
+	&j'(q)(\dq) = \alpha(q'',\dq'')_I+(\beta\left(\int_Iq(x)dx + \overline{V}\right)-\frac{1}{2}|\nabla\widetilde{\u}(x,q(x))|^2+\\&-\partial_{\mathbf n}\widetilde{\u}(x,q(x))\cdot(\partial_{\mathbf n}\widetilde{\u}(x,q(x))-\nu\partial_{\mathbf n}\z(x,q(x))+s\mathbf n(x))\ ,\ \dq)_I
+\end{split}
+\label{eq:HadamardI}
+\eeq

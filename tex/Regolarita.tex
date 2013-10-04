@@ -1,0 +1,169 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Regolarit\`a aggiuntiva}
+
+Il primo risultato che mostriamo riguarda la regolarità e la limitatezza della soluzione del problema di stato e delle sue derivate rispetto al controllo, e utilizza la seguente
+\begin{prop}
+	{\scriptsize\ \\}
+	\begin{itemize}
+	\item $\|\gamma'_{q,\dq}\|_\infty=\|div(V_\dq)\|_\infty\leq c\|\dq\|_{L^\infty(I)}\leq \bar{c}\|\dq\|_{H^1(I)}$
+	\item $\|V_\dq\|_\infty\leq c\|\dq\|_{H^1(I)}$
+	\item $\|cof(DV_\dq)\|_\infty=\|DV_\dq\|_\infty\leq c\|\dq\|_{H^2(I)}$
+	\item $\|A'_{q,\dq}\|_\infty\leq c\|\dq\|_{H^2(I)}$
+	\item $\|div(A'_{q,\dq})\|_\infty\leq c\|\dq\|_{H^2(I)}$
+	\item $\|A'_{q,\dq}\|_2\leq c\|\dq\|_{H^1(I)}$
+%	\item $\|A'_{q,\dq}\|_{[L^2(\O)]^{2\times2}}\leq c\|\dq\|_{H^1(I)}$
+	\end{itemize}
+\label{th:come17}
+\end{prop}
+\begin{proof}
+	{\scriptsize\ \\}
+	\begin{itemize}
+	\item $\gamma'_{q,\dq}=div(V_\dq)=-\dq\quad\Rightarrow\quad c=1$
+	\item $V_\dq=\begin{pmatrix}0\\(1-y)\dq(x)\end{pmatrix} \quad\Rightarrow\quad c=c_0$\\
+	dove $c_0$ è la costante di continuità dell'immersione $L^2(I)\hookrightarrow L^1(I)$, infatti $H^2(I)\subset AC(\overline{I})$, dunque possiamo usare il Teorema Fondamentale del Calcolo, e $|I|=1$.
+	\item Per una matrice $2\times 2$ il cofattore è semplicemente una permutazione degli elementi della matrice, dunque basta stimare $\|DV_\dq\|_\infty$
+$$DV_\dq=\begin{pmatrix}0&0\\(1-y)\dq'(x)&-\dq(x)\end{pmatrix}\quad\Rightarrow\quad c=max\{0,0,2c_0,c_0\}=2c_0$$
+	infatti, per il terzo elemento, il teorema di Rolle su $\dq$ assicura che esista un punto in I dove $\dq'=0$, dunque, dal momento che $H^1(I)\subset AC(\overline{I})$, $|\dq'|\leq 2\|\dq''\|_{L^1(I)}$.
+	\item Dall'espressione (11) di \cite{Kinigera} per la matrice $A'_{q,\dq}$ si hanno stime analoghe al punto precedente, utilizzando anche che $|y|\leq1$, $\|q\|_{W^{1,\infty}(\O)}\leq c\ \forall q\in\Q$, $1-q\geq\varepsilon$.
+	\item Come ai punti precedenti, dal momento che non compare $\dq''$.
+	\item Si procede come sopra, senza la necessità del Teorema Fondamentale del Calcolo, che portava alla comparsa di $dq''$ a secondo membro.
+	\end{itemize}
+\end{proof}
+
+\begin{teor}
+	$\exists c_0,c_1$ tali che $\forall q\in\Q$
+	\begin{enumerate}
+		\item $S(q)\in[H^2(\Omega_0)]^2\times H^1(\Omega_0),\quad \|S(q)\|_{[H^2(\Omega_0)]^2\times H^1(\Omega_0)}\leq c_0$
+		\item $S'(q)(\dq)\in[H^2(\Omega_0)]^2\times H^1(\Omega_0),\quad \|S'(q)(\dq)\|_{[H^2(\Omega_0)]^2\times H^1(\O)}\leq c_1\|\dq\|_{H^2(I)}\ \ \forall\dq\in H^2(I)\cap H^1_0(I)$
+	\end{enumerate}
+\label{th:regolaritaS}
+\end{teor}
+\begin{proof}
+\begin{enumerate}
+\item
+Osserviamo innanzitutto che, fissato un certo $q\in\Q$, per ogni coppia $(\u,p)=S(q)$ si ha che $\u$ \`e soluzione anche del problema ridotto
+\begin{equation}
+	a(q)(\u,\mathbf v) = F(q)(\mathbf v) \qquad \forall \mathbf v \in V_{b(q)}=\{\mathbf v \in V\ |\ b(q)(\mathbf v, \pi)=0\quad\forall\pi\in P\}
+\label{eq:PR}
+\end{equation}
+Questo problema risulta essere ellittico, in quanto \`e la formulazione debole di un sistema di due equazioni del tipo
+\begin{equation}
+	\eta^q\gamma_q u_i - div(\nu A_q\nabla u_i) = \gamma_q f^q_i \qquad (i=1,2)
+\label{eq:StokesT1i}
+\end{equation}
+in cui la matrice $A_q$ \`e simmetrica e definita positiva, con $\rho(A_q)\geq 1$.\\
+\`E pertanto possibile applicare a ciascuna delle due equazioni il Teorema 1.12 (3) \cite{Kinigera}: per avere $\u\in[H^2(\Omega_0)]^2$ aggiungiamo le seguenti ipotesi \footnote{Per utilizzare i risultati di regolarità ellittica in problemi con condizioni al bordo miste dovrebbero essere verificate delle condizioni di compatibilità nei punti di giunzione tra tratti di bordo con condizioni differenti: per ora non me ne sono occupato.}
+\begin{itemize}
+	\item $\eta\in C^1(\overline{\hat{\Omega}})$, cosicch\'e sia $\eta^q\gamma_q\in C^1(\overline{\Omega_0})$ ($\gamma_q\in C^1(\overline{\Omega_0})$)
+	\item $\nu\in C^1(\overline{\hat{\Omega}})$, cos\`i da avere $\nu^qA_q$ con coefficienti lipschitziani ($A_q$ lo \`e gi\`a grazie alla richiesta di limitatezza di $q''$)
+	\item $\mathbf f \in[L^2(\hat{\Omega})]^2$, affinch\'e $\gamma_q\mathbf f\in [L^2(\Omega_0)]^2$
+	\item $\mathbf g_D \in [H^{3/2}(\hat{\Omega})]^2$ e $\mathbf g_N \in [H^{1/2}(\hat{\Omega})]^2$
+\end{itemize}
+Il teorema ci garantisce anche che $\|\u\|_{[H^2(\Omega_0)]^2}\leq c\|\mathbf f^q\|_{[L^2(\Omega_0)]^2}\leq c\|\mathbf f\|_{[L^2(\hat{\Omega})]^2}$.\\
+
+
+Possiamo ora tornare al problema completo e utilizzare i risultati appena ottenuti per aumentare di un ordine anche la regolarit\`a di $p$. Controintegrando per parti la prima equazione di \eqref{eq:StokesdebT}, otteniamo (senza considerare i termini di bordo, che semplicemente definiscono le condizioni al bordo)
+\beq
+	\eta^q\gamma^q(\u+\mathcal R\mathbf g_D) - div(\nu^q\nabla(\u+\mathcal R\mathbf g_D) A_q) + div(\gamma_q p DT_q^{-T}) = \gamma_q\mathbf f^q
+\label{eq:StokesT1}
+\eeq
+Essendo tutti gli altri termini in $L^2(\Omega_0)$, abbiamo che lo \`e anche $div(\gamma_q p DT_q^{-T})= p\, div(\gamma_q DT_q^{-T}) + \gamma_q DT_q^{-T}\nabla p$. Con il tipo di mappa $T_q$ che consideriamo, $div(\gamma_q DT_q^{-T})=\mathbf 0$; in ogni caso, basterebbe che fosse in $[C^0(\overline{\O})]^2$, per avere l'addendo corrispondente in $[L^2(\Omega_0)]^2$.\\
+Ciò che rimane da dimostrare, dunque, è che anche $\nabla p\in[L^2(\Omega_0)]^2$:
+$$\gamma_qDT_q^{-T}\nabla p = \begin{pmatrix} (1-q)\partial_xp-(1-y)q'\partial_yp\\ \partial_yp\end{pmatrix}\quad\Rightarrow \partial_yp\in L^2(\O)$$
+D'altra parte, moltiplicando ambo i membri dell'uguaglianza appena scritta per $\frac{1}{\gamma_q}\in C^0(\overline{\O})$ e osservando che $\frac{1-y}{1-q}q'\in C^0(\overline{\O})$, si ottiene che anche $\partial_xp\in L^2(\Omega_0)$, dunque $p\in H^1(\O)$.
+
+Infine, vogliamo mostrare che $\|p\|_{H^1(\O)}$ è uniformemente limitata rispetto a $q$.\\
+Per prima cosa, utilizziamo ancora l'equazione \eqref{eq:StokesT1} per esprimere $\nabla p$ in funzione dei coefficienti e di $\u$, così da avere per il gradiente di pressione un'espressione che risulta limitata in $L^2$ uniformemente rispetto a $q$, grazie alla limitatezza di $\|\u\|_{[H^2(\O)]^2}$, dei coefficienti e dei loro gradienti.\footnote{Oltre alle ipotesi già addotte, qui utilizziamo anche che $|q'(0)|\leq d_2$ per avere $div(A_q)\in [L^\infty(\O)]^2$.}\\
+La stima di $\|p\|_{L^2(\O)}$, invece, fa uso della condizione \emph{inf-sup}, %@% FORSE E' UTILE MOSTRARE COM'E' FATTA LA BETA DELLA INF-SUP
+%in particolare del fatto che $\exists \mathbf v\in[H^1_0(\O)]^2$ opportuno tale che
+%$$ c\|p\|\|\nabla \mathbf v\| \leq b(q)(\mathbf v,p)=F(q)(\mathbf v)-a(q)(\u,\mathbf v) \leq \|\nabla \mathbf v\|(c+c\|\nabla\u\|)$$
+$$ \beta_{B}\|p\| \leq \sup_{\v\in V} \frac{b(q)(\mathbf v,p)}{\|\nabla\v\|}=\sup_{\v\in V}\frac{F(q)(\mathbf v)-a(q)(\u,\mathbf v)}{\|\nabla\v\|} \leq M_F+M\|\nabla\u\|$$
+
+Abbiamo dunque dimostrato la regolarità della soluzione $S(q)\ \forall q\in\Q$ e la sua uniforme limitatezza in $[H^2(\Omega_0)]^2\times H^1(\Omega_0)$.\\
+
+\item
+Per quanto riguarda la velocità $\du$ la dimostrazione ricalca quella del punto precedente, con l'unica differenza data dalla forzante del problema ridotto: invece di $\gamma_q\mathbf f^q$ abbiamo (definendo $\hat{\u}:=\u+\mathcal{R}\mathbf g_D$)
+\begin{equation*}\begin{split}
+	\gamma'_{q,\dq}\mathbf f^q+\gamma_q\nabla\mathbf f^q V_\dq-(\gamma_q\nabla\eta^q\cdot V_\dq+\eta^q\gamma'_{q,\dq})\hat{\u}+\\
+	-div(\nabla\nu^q\cdot V_\dq\nabla\hat{\u} A_q+\nu^q\nabla\hat{\u} A'_{q,\dq}+p\gamma_q\,cof(DV_\dq))
+\end{split}\end{equation*}
+di conseguenza, dobbiamo richiedere ulteriore regolarità dei dati per avere la forzante in $L^2$, in particolare ($\eta\in C^1(\overline{\hat{\Omega}})$ già basta, e sui dati di bordo non servono altre richieste)
+$$\nu\in C^{1,1}(\overline{\hat{\Omega}})\subseteq C^1(\hat{\Omega})\cap W^{2,\infty}(\hat{\Omega}),\ \mathbf f \in[H^1(\hat{\Omega})]^2$$ %,\ \mathbf g_D \in [H^{5/2}(\hat{\Omega})]^2,\ \mathbf g_N \in [H^{1/2}(\hat{\Omega})]^2 $$
+%FORSE SERVONO RESTRIZIONI SU $\dq$ PER AVERE $\gamma'_{q,\dq},A'_{q,\dq},div(A'_{q,\dq})\in L^\infty$\\
+La forzante, poi, risulta controllata in $L^2(\O)$ da un multiplo di $\|\dq\|_{H^2(I)}$, grazie al Lemma 1.7 di \cite{Kinigera}, insieme alla Proposizione \ref{th:come17}.
+
+Tornando al problema completo, si può mostrare che $\delta p\in H^1(\O)$, utilizzando la prima equazione. La stima di $\|\delta p\|_{H^1(\O)}$ si basa ancora sulla \emph{inf-sup} e, analogamente al punto precedente, si arriva a
+$$\beta_B\|\delta p\|_{H^1(\O)}\leq \dot{M_F}+M\|\nabla\du\|$$
+dove $\dot{M_F}$ è la costante di continuità del funzionale a secondo membro dell'equazione del momento. Con la Proposizione \ref{th:dotcont} e il Teorema \ref{th:regolaritaS} si ottiene la tesi.
+% UNA STIMA IN CUI COMPAIA a secondo membro $\|\dq\|_{H^2(I)}$ NON CI SERVE, E FORSE E' UN CASINO TROVARLA. O FORSE NO? DIPENDE DALLE COSTANTI DI CONTINUITA' DI F,dotF,a,dota...
+
+\end{enumerate}
+\end{proof}
+
+Prima di enunciare il secondo risultato di regolarità, mostriamo un risultato di continuità per $j'(q)$, che sfrutta la seguente
+\begin{prop}[LA SUPPONIAMO VALIDA]
+%	Sia $r\in(1,\infty)$ fissato e sia $\widehat{\u}$ soluzione di un analogo del problema ridotto di \eqref{eq:dS}, dove come spazio test, invece di $V\times P$, si consideri $\widehat{V}\times\widehat{P}=[W^{1,r'}_{\Gamma_0}(\O)]^2\times L^{r'}(\O)$ ($\frac{1}{r}+\frac{1}{r'}=1$).Allora, detto $B(q,\dq)(\v,\pi)$ ciò che è a secondo membro nel sistema \eqref{eq:dS}, si ha
+%	$$\|\widehat{S'}(q)(\dq)\|_{\widehat{V}\times\widehat{P}}\leq c\|B(q,\dq)\|_{(\widehat{V}\times\widehat{P})^*}$$
+	Sia $r\in(1,\infty)$ e sia $\widehat{\dot{F}}(q,\dq)(\v)$ il termine noto della prima equazione di \eqref{eq:dS}.\\
+	Se $\widehat{\dot{F}}(q,\dq)$ è uniformemente limitato in $[W^{-1,r}(\O)]^2$, allora $\du$ è soluzione di
+	$$a(q)(\du,\mathbf{v}) = \widehat{\dot{F}}(q,\dq)(\v)\qquad \forall\v\in \widehat{V}_{b(q)}$$
+	dove $\widehat{V}_{b(q)} = \{\v\in [W^{1,r'}(\O)]^2\colon\ b(q)(\v,\pi)=0\ \forall \pi\in L^{r'}(\O)\}$. Inoltre
+	$$\|\du\|_{[W^{1,r}(\O)]^2}\leq c\|\widehat{\dot{F}}(q,\dq)\|_{[W^{-1,r}(\O)]^2}$$
+
+\label{th:8/7}
+\end{prop}
+\begin{proof}[Motivazioni per la validità]
+	In \cite{Kinigera}, nella dimostrazione del Lemma 3.18 viene usato un risultato analogo per problemi ellittici, con $r=8/7$, indicato come Teorema 1 dell'articolo di Y. A. Alkhutov e V. A. Kondrat'ev ``Solvability of the Dirichlet problem for second-order elliptic equations in a convex domain'' - Differentsial'nye Uravneiya, 28 (1992). Non ho trovato questo articolo, né un altro da cui potessi verificare se si possa estendere al nostro problema, ma come esistono risultati di regolarità, immagino ne esistano anche in spazi $L^r\colon r\neq2$.
+\end{proof}
+\begin{teor}
+	$\forall q\in\Q,\dq\in H^2(I)\cap H^1_0(I)\quad |j'(q)(\dq)-\alpha(\dq'',q'')_I|\leq c\|\dq\|_{H^1_0(I)}$
+\label{th:j1continuoH1}
+\end{teor}
+\begin{proof}
+	Considerando separatamente i contributi dovuti alla variabile di stato $\u$ e quelli legati alla penalizzazione del volume sotteso a $q$, maggioriamo nel modo seguente:
+%	\begin{equation*}\begin{split}
+	$$ \left|\frac{1}{2}(\nabla\u\,A'_{q,\dq},\nabla\u) + (\nabla\du\,A_q\nabla,\u)\right| \leq \frac{1}{2}\|A'_{q,\dq}\|_2\|\nabla\u\|_4^2 + \|A_q\|_\infty\|\nabla\u\|_8\|\nabla\du\|_{8/7} $$
+	$$ \left|\beta\left(\int_I{q(x)dx}-\overline{V}\right)\int_I{\dq(x)dx}\right| \leq \beta(\|q\|_{L^1(I)}+\overline{V})\|\dq\|_{L^1(I)} $$
+	Per il primo addendo della prima stima osserviamo che $H^1(\O)\hookrightarrow L^4(\O)$, da cui $\|\nabla\u\|_4\leq c\|\u\|_{[H^2(\O)]^2}$, dunque con il Teorema \ref{th:regolaritaS} e la Proposizione \ref{th:come17} otteniamo la maggiorazione che ci serve.\\
+	Per controllare opportunamente la seconda stima, invece, è sufficiente l'immersione continua $L^2(I)\hookrightarrow L^1(I)$ e la limitatezza di $\Q$ in $H^2(I)$.\\
+	La parte più complessa è la stima di $(\nabla\du A_q,\nabla\u)$, in particolare ci serve una stima per $\|\nabla\du\|_{8/7}$ (l'esponente $8/7$ è scelto per semplificare i passaggi che seguono). Grazie alla Proposizione \ref{th:8/7}, ci basta controllare opportunamente il secondo membro del sistema \eqref{eq:dS}:
+	\begin{equation*}\begin{split}
+	|(\gamma'_{q,\dq}\mathbf f^q,\v)|&\leq \|\gamma'_{q,\dq}\|_\infty\|\mathbf f^q\|_{8/7}\|\v\|_8\\
+%	|(\gamma_q\nabla\mathbf f^q V_\dq,\v)|&\leq\|\gamma_q\|_\infty\|V_\dq\|_\infty\|\mathbf f^q\|_{1,8/7}\|\v\|_8\\
+	&\dots\\
+	|(p\:cof(DV_\dq),\nabla\v)|&\leq\|DV_\dq\|_2\|p\|_{8/3}\|\nabla\v\|_8
+%	|(\pi\,cof(DV_\dq),\nabla\u)|&\leq\|DV_\dq\|_2\|\nabla\u\|_{8/3}\|\pi\|_8
+	\end{split}\end{equation*}
+	Con la Proposizione \ref{th:come17} e con il Teorema \ref{th:regolaritaS}, utilizzabile grazie all'immersione $H^1(\O)\hookrightarrow L^r(\O)\ \forall r\in[1,\infty)$, possiamo utilizzare la Proposizione \ref{th:8/7} con $r=8/7$ e
+	$$\|\widehat{\dot{F}}(q,\dq)\|_{[W^{-1,r}(\O)]^2}\leq c\|\dq\|_{H^1_0(I)}$$
+	da cui otteniamo la tesi \qedhere
+%	DIMOSTRAZIONE FINITA\\
+%	\textcolor{red}{Grazie al Teorema \ref{th:regolaritaS}, alla stima $\|A'_{q,\dq}\|_\infty\leq c\|\dq\|_{H^1(I)}$ riportata in \cite{Kinigera}} e all'immersione continua di $L^2(I)$ in $L^1(I)$, otteniamo la tesi.\\
+%	LA PARTE IN ROSSO NO: \ref{th:regolaritaS} DA' $\leq c\|\dq\|_{H^2(I)}$, MENTRE QUI SERVE $\leq c\|\dq\|_{H^1(I)}$. INOLTRE LA A' IN $L^\infty$ E' CTRLATA DA $\|\dq\|_{H^2(I)}$, MENTRE PER AVERE H1 SERVE LA STIMA DI $\|A'_{q,\dq}\|_{[L^2(\O)]^{2\times2}}$. \qedhere
+\end{proof}
+
+Ora possiamo enunciare un teorema di regolarità anche per i punti di stazionarietà di $j(q)$:
+\begin{teor}
+	$\forall \overline{q}\in\Q$ che soddisfi la condizione di ottimalità \eqref{eq:ottimalita} si ha la regolarità aggiuntiva $\overline{q}\in H^4(I)$.
+\label{th:regolaritaq}
+\end{teor}
+\begin{proof}
+Grazie al Teorema \ref{th:j1continuoH1}, possiamo applicare il Teorema di Rappresentazione di Riesz al funzionale $j'(q)(\cdot)-\alpha(q'',\cdot'')_I$ ed affermare che
+$$\exists r\in H^1_0(I)\text{ tale che } j'(q,\dq)=\int_I(r'\dq'+\alpha q''\dq'')dx \quad\forall\dq\in H^2(I)\cap H^1_0(I)$$
+Prendendo una $\overline{q}$ che soddisfi la condizione di ottimalità \eqref{eq:ottimalita}, osservando che la \eqref{eq:ottimalita} vale $\forall \dq \in C_0^\infty(\overline{I})$ e integrando per parti otteniamo
+$$ \int_I(\alpha \overline{q}'' - r)\dq'' dx = 0 \qquad\forall\dq \in C_0^\infty(\overline{I})$$
+e pertanto $\alpha \overline{q}'' - r=0$ in $H^2_0(I)\subset H^1_0(I)$. Poich\'e $r\in H^1_0(I)$ e $\alpha$ è costante, concludiamo che $\overline{q}\in H^3(I)$.\\
+
+Utilizzando l'espressione di $j'(q)(\dq)$ presentata in \eqref{eq:HadamardI}, possiamo ottenere un ulteriore ordine di regolarità, secondo il ragionamento seguente.\\
+Osserviamo che $\beta(\int_Iq(x)dx - \overline{V})$ è una costante, dunque certamente appartiene a $L^2(I)$.\\
+Grazie al Teorema \ref{th:regolaritaS}, applicabile anche al problema aggiunto \eqref{eq:PAHad} qualora riscritto rispetto a $\O$, e al Lemma \ref{th:HkTq} possiamo affermare che
+\begin{equation*}\begin{split}
+\u,\z\circ T_q\in [H^2(\O)]^2,\ s\circ T_q\in H^1(\O)\ \Rightarrow\ \widetilde{\u},\z\in [H^2(\Oq)]^2,\ s\in H^1(\Oq)\ \Rightarrow\\
+\Rightarrow\ \nabla\widetilde{\u},\nabla\z\in [H^{1/2}(\Gamma_q)]^{2\times2},\ s\in H^{1/2}(\Gamma_q)\ \Rightarrow\\
+\Rightarrow\ \nabla\widetilde{\u}(x,q(x)),\nabla\z(x,q(x))\in [H^{1/2}(I)]^{2\times2},\ s(x,q(x))\in H^{1/2}(I)
+\end{split}\end{equation*}
+e grazie all'immersione continua di $H^{1/2}(I)$ in $L^4(I)$ possiamo concludere che tutto ciò che moltiplica $\dq$ nel secondo prodotto scalare è in $L^2(I)$.\\
+Per una $\overline{q}$ che soddisfi la condizione di ottimalità \eqref{eq:ottimalita}, l'espressione in \eqref{eq:HadamardI} è uguale a zero, e perciò si ottiene la definizione di derivata quarta debole
+$$ \int_I\overline{q}''\dq'' dx = \int_I \frac{1}{\alpha}(\dots) \dq\, dx \qquad \forall \dq\in C^\infty_0(\overline{I})$$
+con $(\dots)\in L^2(I)$, come appena mostrato, da cui si può concludere che $\overline{q}\in H^4(I)$.
+\end{proof}
