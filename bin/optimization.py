@@ -3,6 +3,7 @@
 """
 
 from math import *
+from functions import *
 
 """class OptimizationAlgorithm:
 	def __init__(self,optTol,stateSolver,optMethod,linearSystemTol=1.e-3*optTol):
@@ -65,18 +66,21 @@ class GradientMethod(OptimizationMethod):
 	def apply(self):
 		while !self._stop_criterion():
 			self._xold = self._xk
-			# TODO qui mettere come si aggiorna l'alphak
-			self._xk = self._xk + self._alphak*self._f.derivative(xk)
+			self._alphak = self._update_alphak()
+			self._xk = self._xk + self._alphak*self._f.gradient(xk)
 			self._fxold = self._fxk
 			self._fxk = self._f(xk)
 			self._iter += 1
 		return xk
 	
-	# TODO
+	# TODO updating techniques
 	# def linear_search(self,...):
 	#	...
 	#	return alphak
-	#
+	# per il momento non aggiorniamo, con il seguente
+	def _update_alphak():
+		return self._alphak
+	
 	# ...set,get,info...
 
 #=====================
