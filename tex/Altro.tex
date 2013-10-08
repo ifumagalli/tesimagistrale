@@ -1,5 +1,36 @@
-\section{Altro}
-\subsection{Dubbi}
+\section{Proprietà spettrali di $A_q$}
+Discutiamo qui le proprietà spettrali della matrice
+$$A_q(x,y) = (\gamma_qDT_q^{-1}DT_q^{-T})(x,y) = \begin{pmatrix} 1-q(x) & -(1-y)q'(x) \\ -(1-y)q'(x) & \frac{1+(1-y)^2(q'(x))^2}{1-q(x)}\end{pmatrix}$$
+Osserviamo che la matrice è simmetrica, dunque ha autovalori reali, e poiché $det\,A_q=1$, non possiamo ridurre a piacere $\|\rho(A_q)\|_\infty$, se non semplicemente avvicinando i due autovalori al valore di 1.\\
+Cerchiamo dunque una stima della traccia di $A_q$, così da trovare perlomeno un maggiorante di $\max_{q\in\Q}\|\rho(A_q)\|_\infty$, infatti, detto $\lambda$ il massimo dei due autovalori, abbiamo:
+\beq
+	\lambda + \frac{1}{\lambda} = tr\,A_q\quad\Rightarrow\quad \lambda = \frac{1}{2}\left(tr\,A_q+\sqrt{(tr\,A_q)^2-4}\right)
+\label{eq:lambda12}
+\eeq
+Innanzitutto osserviamo che il discriminante del polinomio caratteristico è sempre positivo in $\Q$, in quanto basta che sia $q\leq1$:
+\begin{equation*}\begin{split}
+	&(tr\,A_q)^2\geq 4, \ \ tr\,A_q\geq 0 \quad\Leftrightarrow\quad tr\,A_q \geq 2,\ \ q(x)\leq1\quad\Leftrightarrow\\
+	&\Leftrightarrow\quad \frac{1+(1-y)^2q'(x)^2}{1-q(x)}\geq 1+q(x),\ \ q(x)\leq1\\
+	&\Leftrightarrow\quad (1-y)^2q'(x)^2+1\geq1-q(x)^2,\ \ q(x)\leq1\\
+	&\Leftrightarrow\quad (1-y)^2q'(x)^2+q(x)^2\geq 0,\ \ q(x)\leq1\qquad\qquad\checkmark
+\end{split}\end{equation*}
+Ora passiamo a cercare una dipendenza di $tr\,A_q$ dalle costanti che definiscono $\Q$:
+$$tr\,A_q(x,y) = 1-q(x)+\frac{1+(1-y)^2q'(x)^2}{1-q(x)}\leq1+\frac{1}{\varepsilon}\left[1+(1-y)^2(d_1+d_2)^2\right]$$
+dove abbiamo usato la definizione di $\overline{Q}^{ad}$ all'inizio di queste note, la richiesta \eqref{eq:Bad} e il Teorema Fondamentale del Calcolo su $q'\in H^1(\overline{I})$.
+Pertanto
+\beq
+	\|\rho(A_q)\|_\infty\leq\frac{1}{2}\left(1+\frac{1+(d_1+d_2)^2}{\varepsilon}+\sqrt{\frac{\left(1+(d_1+d_2)^2\right)^2}{\varepsilon^2}-4}\right)\qquad \forall q\in\Q
+\label{eq:rhoinfty}
+\eeq
+Poiché l'espressione trovata è crescente in $d_1+d_2$, vediamo cosa succede quando al limite imponiamo $d_1=d_2=0$ (il che vorrebbe dire $q\equiv0$):
+$$\|\rho(A_q)\|_\infty|_{d_1=d_2=0}\leq\frac{1}{2}\left(1+\frac{1}{\varepsilon}+\sqrt{\frac{1}{\varepsilon}-4}\right)$$
+e per avere una stima sensata dobbiamo richiedere $\varepsilon\leq\frac{1}{2}$. Imponendo questo valore limite, otteniamo
+$$\|\rho(A_q)\|_\infty|_{d_1=d_2=0,\ \varepsilon=\frac{1}{2}}\leq\frac{3}{2}$$
+In conclusione, possiamo avvicinarci abbastanza bene al valore minimo del raggio spettrale, agendo sui parametri di $\Q$, ma non possiamo sperare di ridurlo ad un valore minore di 1.
+
+
+\newpage
+\section{Dubbi}
 \begin{itemize}
 \item
 	Prima della Proposizione \ref{th:dotcont}, servono anche delle condizioni sul tipo di rilevamento che si effettua?
