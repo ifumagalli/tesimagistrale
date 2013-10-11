@@ -4,47 +4,36 @@
 
 from math import *
 from functions import *
-
-"""class OptimizationAlgorithm:
-	def __init__(self,optTol,stateSolver,optMethod,linearSystemTol=1.e-3*optTol):
-		self._optTol = optTol
-			# serviranno anche altre tolleranze come linearSystemTol
-		self._stateSolver = stateSolver
-		self._optMethod = optMethod
-			# Has to be an OptimizationMethod
-		
-	def setMethod(self,optMethod):
-		self._optMethod = optMethod
-	def getMethod(self):
-		return self._optMethod
-	def infoMethod(self):
-		return self._optMethod.info
-	# ...
-	# analoghi metodi per gli altri attributi della classe
+import copy
 
 #=====================
-"""
+
 class OptimizationMethod(object):
 	""" Abstract class defining an iterative method for optimize a "function" f(x)
 		starting from x0, with a tolerance and a maximum number of iterations
 	"""
-	def __init__(self,f,x0,tol,maxit):
-		self._f = f
-		self._x0 = x0
+	def __init__(self,tol,maxit):
+		# self._f = f
+		# self._x0 = x0
 		self._tol = tol
 		self._maxit = maxit
 		# serviranno altre tolleranze in altri oggetti
-		self._iter = 0
-		self._xk = x0
-		self._fxk = self._f(x0)
-		self._xold = None
-		self._fxold = None
+		# self._iter = 0
+		# self._xk = x0
+		# self._fxk = self._f(x0)
+		# self._xold = None
+		# self._fxold = None
 
-	def apply(self):
+	def apply(self,f,x0):
 		pass
 	
+	# stop criteria
 	def stop_normx(self):
-		return (self._iter > self._maxit) or (abs(self.xk-self.xold) < self.tol)
+		iter_check = (self._iter > self._maxit)
+		if iter_check:
+			print "  ***MAXIMUM NUMBER OF ITERATIONS EXCEEDED***"
+			print "  ***in OptimizationMethod.stop_normx()***"
+		return iter_check or (sum(abs(self._xk-self._xold)) < self._tol)
 		# returns True if stop is needed
 	
 	_stop_criterion = stop_normx
@@ -52,35 +41,68 @@ class OptimizationMethod(object):
 	# TODO
 	# ...set,get,info...
 
-#=======
+#=====================
 	
 class GradientMethod(OptimizationMethod):
 	""" The "function" f(x) to be optimized need to be a class with a method derivative(x) that returns the derivative of f applied in x.
-		With 'derivative' we mean the gradient or, in general, the Riesz element of the (Fréchet-)differential
+		With 'derivative' we mean the gradient or, in general, the Riesz element of the (Frechet-)differential
 	"""
-	def __init__(self,f,x0,tol,maxit,alpha0):
-		OptimizationMethod.__init__(self,f,x0,tol,maxit)
-		#?# non si può evitare di chiamarlo?
-		self._alphak = _alpha0
+	def __init__(self,tol,maxit):
+		OptimizationMethod.__init__(self,tol,maxit)
+		# self._alphak = _alpha0
+		# self._gradf = gradf		# TODO il gradiente sara' un metodo dell'oggetto f
 
-	def apply(self):
-		while !self._stop_criterion():
-			self._xold = self._xk
+	def apply(self,f,x0,alpha0=1.0):
+		self._xk = x0
+		self._fxk = f(x0)
+		#f.eval(self._fxk,x0)
+		self._alphak = alpha0
+		self._xold = 0*x0			# ??? metto 0*stesso_oggetto affinche' funzioni il criterio di arresto, ma preferirei un bel None
+		self._fxold = 0*self._fxk	# idem
+		self._iter = 1
+		while not(self._stop_criterion()):
+			print "iter =",self._iter
+			print "xk =",self._xk,"xold = ",self._xold
+			print "f(xk) =",self._fxk,"f(xold) =",self._fxold
+			print "f'(xk) =",f.gradient(self._xk),"f'(xold) =",f.gradient(self._xold)
+			# print abs(self._xk-self._xold),self._stop_criterion()
+			# print "-------"
+			# self._xold = copy.deepcopy(self._xk)	# ??? DEEPCOPY
+			self._xold = self._xk					# shallow copy, but it's fine
 			self._alphak = self._update_alphak()
-			self._xk = self._xk + self._alphak*self._f.gradient(xk)
-			self._fxold = self._fxk
-			self._fxk = self._f(xk)
+			self._xk = self._xk - (self._alphak*f.gradient(self._xk))	# DO NOT use -= because so far _xold and _xk share the same object
+			self._fxold = self._fxk					# shallow copy, but it's fine
+			self._fxk = f(self._xk)
 			self._iter += 1
-		return xk
+			# print self._xk,self._xold,abs(self._xk-self._xold),self._stop_criterion()
+			print "-------"
+		return self._xk
 	
 	# TODO updating techniques
 	# def linear_search(self,...):
 	#	...
 	#	return alphak
 	# per il momento non aggiorniamo, con il seguente
-	def _update_alphak():
+	def _update_alphak(self):
 		return self._alphak
 	
 	# ...set,get,info...
 
-#=====================
+
+#############################################################################
+# class OptimizationAlgorithm:
+	# def __init__(self,optTol,stateSolver,optMethod,linearSystemTol=1.e-3*optTol):
+		# self._optTol = optTol
+			# # serviranno anche altre tolleranze come linearSystemTol
+		# self._stateSolver = stateSolver
+		# self._optMethod = optMethod
+			# # Has to be an OptimizationMethod
+		
+	# def setMethod(self,optMethod):
+		# self._optMethod = optMethod
+	# def getMethod(self):
+		# return self._optMethod
+	# def infoMethod(self):
+		# return self._optMethod.info
+	# # ...
+	# # analoghi metodi per gli altri attributi della classe

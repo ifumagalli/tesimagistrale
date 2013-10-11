@@ -10,6 +10,8 @@ tex/!*.tex
 	# DON'T exclude any .pdf file
 # I don't know how to introduce logical OR, and this is the only working way I have found
 
+bin/*.pyc
+
 # From here to the end of file there are comments: they can be useful in the future
 
 # #################
