@@ -45,9 +45,9 @@ class CostFunctional(object):
 			of the functional J'(q)(.) expressed as an integral on the interval I
 		"""
 		# per ora glielo passiamo al costruttore: magari poi glielo si puo' far calcolare
-		self._solver.assemble(nu,f,bc,q)
+		self._solver.assemble(self.nu,self.f,self.bc,q)
 		self._u,self._p = self._solver.solve()
-		self._solver.assemble(nu,f,bc,q)
+		self._solver.assemble(self.nu,self.f,self.bc,q)
 		self._z,self._s = self._adjoint_solver.solve()
 		grad_assembled = assemble(self._grad_form)
 		return grad_assembled

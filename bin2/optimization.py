@@ -35,7 +35,9 @@ class OptimizationMethod(object):
 			print "  ***in OptimizationMethod.stop_normx()***"
 			return iter_check
 		# return iter_check or (sum(abs(self._xk-self._xold)) < self._tol)
-		return iter_check or (abs(self._xk-self._xold) < self._tol)
+		elif self._iter==0:
+			return True
+		return iter_check or sum(numpy.abs(self._xk.vector()-self._xold.vector())) < self._tol
 			# ??? come fare per tenere generalizzazione al caso di x vettoriale? Perche' gli scalari non hanno un metodo length
 		# returns True if stop is needed
 	
@@ -60,14 +62,22 @@ class GradientMethod(OptimizationMethod):
 		self._fxk = f(x0)
 		#f.eval(self._fxk,x0)
 		self._alphak = alpha0
-		self._xold = 0*x0			# ??? metto 0*stesso_oggetto affinche' funzioni il criterio di arresto, ma preferirei un bel None
+		self._xold = x0
+		#self._xold = copy.deepcopy(self._xk)
+		#self._xold = x0.__init__(x0)
+		#self._xold = copy.deepcopy(x0)
+		#self._xold.vector()[:] *= DOLFIN_EPS
+			# ??? metto 0*stesso_oggetto affinche' funzioni il criterio di arresto, ma preferirei un bel None
+			# !!! e non posso neanche mettere 0* perche' altrimenti mi diventa _xold=Zero e l'oggetto Zero non ha un metodo vector()
 		self._fxold = 0*self._fxk	# idem
-		self._iter = 1
+		self._iter = 0
 		# while not self._stop_criterion():
-		while conditional(Not(self._stop_criterion()),True,False):
+		print self._xk,self._xold
+		while self._iter==0 or self._iter==0 or  conditional(Not(self._stop_criterion()),True,False):
 			# ??? non c'e' un modo per far si' che _stop_criterion restituisca un bool di Python?
 			# perche' usando la riga sopra commentata da' l'errore seguente: 
 			# " UFL conditions cannot be evaluated as bool in a Python context "
+			self._iter += 1
 			print "iter =",self._iter
 			print "xk =",self._xk,"xold = ",self._xold
 			print "f(xk) =",self._fxk,"f(xold) =",self._fxold
@@ -80,11 +90,12 @@ class GradientMethod(OptimizationMethod):
 			self._xk = self._xk - (self._alphak*f.gradient(self._xk))	# DO NOT use -= because so far _xold and _xk share the same object
 			self._fxold = self._fxk					# shallow copy, but it's fine
 			self._fxk = f(self._xk)
-			self._iter += 1
 			# print self._xk,self._xold,abs(self._xk-self._xold),self._stop_criterion()
 		# DEBUG	
 			# plot(self._xk,mesh=UnitIntervalMesh(20),title="qk(x)")
 			print [self._xk.vector()[i] for i in range(0,len(self._xk.vector()))]
+			print [self._xold.vector()[i] for i in range(0,len(self._xold.vector()))]
+			print numpy.abs(self._xk.vector()-self._xold.vector())
 			raw_input("Press ENTER to continue")
 			print "-------"
 		return self._xk
