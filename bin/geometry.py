@@ -3,12 +3,20 @@
 """
 
 from dolfin import *
+from numpy import array
 
 # ===== Boundaries =====
 
 class MovingBoundary(SubDomain):
 	def inside(self,x,on_boundary):
 		return on_boundary and x[1] < DOLFIN_EPS
+
+class StillBoundary(SubDomain):
+    def __init__(self,moving_boundary):
+        SubDomain.__init__(self)
+        self._moving_boundary=moving_boundary
+	def inside(self,x,on_boundary):
+		return on_boundary and not self._moving_boundary.inside(x,on_boundary)
 
 
 # ===== MapTq: Omega->Omega_q =====
@@ -31,7 +39,8 @@ class MapTq(Expression):	# inheriting from class dolfin.functions.expression.Exp
 			it returns in 'values' the point Tq(x) in the ACTUAL domain Omega_q
 		"""
 		values[0] = x[0]
-		values[1] = x[1]+(1-x[1])*self.q(x[0])
+		tmp = self.q(x[0])
+		values[1] = x[1]+(1-x[1])*tmp
 		
 	def value_shape(self):
 		return (2,)

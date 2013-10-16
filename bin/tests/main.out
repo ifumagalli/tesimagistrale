@@ -1,0 +1,45 @@
+*** -------------------------------------------------------------------------
+*** Warning: UnitInterval has been deprecated in DOLFIN version 1.1.0.
+*** The class UnitInterval has been replaced by UnitIntervalMesh.
+*** -------------------------------------------------------------------------
+
+*** -------------------------------------------------------------------------
+*** Warning: UnitSquare has been deprecated in DOLFIN version 1.1.0.
+*** The class UnitSquare has been replaced by UnitSquareMesh.
+*** -------------------------------------------------------------------------
+
+Solving linear system of size 3362 x 3362 (PETSc Krylov solver).
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "main.py", line 122, in <module>
+    solver.assemble(nu,f,bc,q)
+  File "/u/ifumagalli/tests/bin_mod/myschur.py", line 89, in assemble
+    self.A, self.b = assemble_system(a, L, bc)
+  File "/opt/libs/dolfin/1.2.0/gcc/4.8.0/lib/python2.7/site-packages/dolfin/fem/assembling.py", line 317, in assemble_system
+    x0)
+  File "/u/ifumagalli/tests/bin_mod/geometry.py", line 42, in eval
+    tmp = self.q(x[0])
+  File "/opt/libs/dolfin/1.2.0/gcc/4.8.0/lib/python2.7/site-packages/dolfin/functions/function.py", line 382, in __call__
+    self.eval(values, x)
+RuntimeError: 
+
+*** -------------------------------------------------------------------------
+*** DOLFIN encountered an error. If you are not able to resolve this issue
+*** using the information listed below, you can ask for help at
+***
+***     https://answers.launchpad.net/dolfin
+***
+*** Remember to include the error message listed below and, if possible,
+*** include a *minimal* running example to reproduce the error.
+***
+*** -------------------------------------------------------------------------
+*** Error:   Unable to create intersection operator.
+*** Reason:  IntersectionOperatorImplementation is not available, DOLFIN has been compiled without CGAL.
+*** Where:   This error was encountered inside IntersectionOperator.cpp.
+*** Process: 0
+*** -------------------------------------------------------------------------
+

@@ -1,41 +1,53 @@
 """ Functions to be optimized by an OptimizationMethod
 	NB: classes beginning with MY need to be reviewed in Fenics environment
+
+	TODO: far dipendere da q anche i problemi di stato e aggiunto
 """
 
 from dolfin import *
 import numpy	# finora serve solo per CostFunction
 
 class CostFunctional(object):
-	def __init__(self,form,solver,adjoint_solver=None,grad_form=None):
+	def __init__(self,nu,f,bc,form,solver,adjoint_solver=None,grad_form=None):
+		# ??? per ora tengo dentro anche nu,f,bc che servono per l'assemble del solver
 		# TODO: completare
+		self.nu = nu
+		self.f = f
+		self.bc = bc
 		self._form = form
 		self._solver = solver
-		if adjoint_solver is None:
+		if (adjoint_solver == None):
+			print "***adjoint_solver is None***"
 			self._adjoint_solver = solver
 		else:
 			self._adjoint_solver = adjoint_solver
-		self._adjoint_solver = adjoint_solver
-		self._u = Function(solver.V)	# state velocity
-		self._p = Function(solver.P)	# state pressure
-		self._z = Function(solver.V)	# adjoint state velocity
-		self._s = Function(solver.P)	# adjoint state pressure
+		if (grad_form == None):
+			print "***grad_form is None***"
+		self._u = Function(solver.Vh)	# state velocity
+		self._p = Function(solver.Qh)	# state pressure
+		self._z = Function(solver.Vh)	# adjoint state velocity
+		self._s = Function(solver.Qh)	# adjoint state pressure
+			# !!! per ora ho messo Vh,Qh per non dover cambiare il solutore: poi lo cambieremo per poter mettere V,P
 		self._grad_form = grad_form
 	
 	def __call__(self,q):
 		""" Given a control function q, it returns J(q): the functional evaluated in q
 		"""
+		self._solver.assemble(self.nu,self.f,self.bc,q)
 		self._u,self._p = self._solver.solve()
 		self._z = None			# to evaluate the functional we don't need the adjoint state
 		self._s = None
 		value = assemble(self._form)	# TODO controllare che calcoli effettivamente J(q)(u,p,z,s)
 		return value
 
-	def gradient(self):
+	def gradient(self,q):
 		""" Returns the gradient of the functional, intended as the Riesz representative
 			of the functional J'(q)(.) expressed as an integral on the interval I
 		"""
 		# per ora glielo passiamo al costruttore: magari poi glielo si puo' far calcolare
+		self._solver.assemble(self.nu,self.f,self.bc,q)
 		self._u,self._p = self._solver.solve()
+		self._solver.assemble(self.nu,self.f,self.bc,q)
 		self._z,self._s = self._adjoint_solver.solve()
 		grad_assembled = assemble(self._grad_form)
 		return grad_assembled
