@@ -1,0 +1,32 @@
+38c38,40
+< 		return iter_check or (abs(self._xk-self._xold) < self._tol)
+---
+> 		elif self._iter==0:
+> 			return True
+> 		return iter_check or sum(numpy.abs(self._xk.vector()-self._xold.vector())) < self._tol
+63c65,71
+< 		self._xold = 0*x0			# ??? metto 0*stesso_oggetto affinche' funzioni il criterio di arresto, ma preferirei un bel None
+---
+> 		self._xold = x0
+> 		#self._xold = copy.deepcopy(self._xk)
+> 		#self._xold = x0.__init__(x0)
+> 		#self._xold = copy.deepcopy(x0)
+> 		#self._xold.vector()[:] *= DOLFIN_EPS
+> 			# ??? metto 0*stesso_oggetto affinche' funzioni il criterio di arresto, ma preferirei un bel None
+> 			# !!! e non posso neanche mettere 0* perche' altrimenti mi diventa _xold=Zero e l'oggetto Zero non ha un metodo vector()
+65c73
+< 		self._iter = 1
+---
+> 		self._iter = 0
+67c75,76
+< 		while conditional(Not(self._stop_criterion()),True,False):
+---
+> 		print self._xk,self._xold
+> 		while self._iter==0 or self._iter==0 or  conditional(Not(self._stop_criterion()),True,False):
+70a80
+> 			self._iter += 1
+83d92
+< 			self._iter += 1
+87a97,98
+> 			print [self._xold.vector()[i] for i in range(0,len(self._xold.vector()))]
+> 			print numpy.abs(self._xk.vector()-self._xold.vector())

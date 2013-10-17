@@ -1,0 +1,21 @@
+38,39c38
+< 		# return iter_check or (abs(self._xk-self._xold) < self._tol)
+< 		return iter_check or (errornorm(self._xk,self._xold) < self._tol)
+---
+> 		return iter_check or (abs(self._xk-self._xold) < self._tol)
+64c63
+< 		self._xold = x0			# ??? metto 0*stesso_oggetto affinche' funzioni il criterio di arresto, ma preferirei un bel None
+---
+> 		self._xold = 0*x0			# ??? metto 0*stesso_oggetto affinche' funzioni il criterio di arresto, ma preferirei un bel None
+66,68c65,67
+< 		self._iter = 0
+< 		while self._iter==0 or (not self._stop_criterion()):
+< 		# while conditional(Not(self._stop_criterion()),True,False):
+---
+> 		self._iter = 1
+> 		# while not self._stop_criterion():
+> 		while conditional(Not(self._stop_criterion()),True,False):
+72d70
+< 			self._iter += 1
+84a83
+> 			self._iter += 1
