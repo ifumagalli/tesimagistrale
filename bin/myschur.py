@@ -51,7 +51,7 @@ class StokesSolver(object):
     self.Wh = Vh * Qh
 
   # assemble matrix
-  def assemble(self, mu, f, bc, ctrl):
+  def assemble(self, mu, f, bc, control):
     # # Dirichlet bc
     # # u0_boundary = lambda x, on_boundary : on_boundary
     # # bc = DirichletBC(self.Vh, u0, u0_boundary)
@@ -72,7 +72,7 @@ class StokesSolver(object):
 
     # coefficients due to control
     Tq = MapTq(element=self.Vh.ufl_element())
-    Tq.q = ctrl
+    Tq.q = control
     DTq = grad(Tq)
     gammaq = det(DTq)
     DTq_invT = transpose(inv(DTq))
@@ -104,6 +104,9 @@ class StokesSolver(object):
 	solver.solve(x.vector(), self.b)
 	
 	return x.split()
+	
+  def mesh(self):
+	return self.Vh.mesh()
 
 # =====================
 

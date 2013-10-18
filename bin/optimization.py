@@ -2,6 +2,7 @@
     NB ??? Per ora GradientMethod eredita da OptimizationMethod, ma essendo una policy forse sara' meglio cambiare il legame tra le due classi
 """
 
+from dolfin import *
 from math import *
 from functions import *
 import copy
@@ -29,7 +30,7 @@ class OptimizationMethod(object):
 	
 	# stop criteria
 	def stop_normx(self):
-		iter_check = (self._iter > self._maxit)
+		iter_check = (self._iter >= self._maxit)
 		if iter_check:
 			print "  ***MAXIMUM NUMBER OF ITERATIONS EXCEEDED***"
 			print "  ***in OptimizationMethod.stop_normx()***"
@@ -78,14 +79,16 @@ class GradientMethod(OptimizationMethod):
 			self._iter += 1
 			print "iter =",self._iter
 			print "xk =",self._xk,"xold = ",self._xold
-			print "f(xk) =",self._fxk,"f(xold) =",self._fxold
+			print "f(xk) =",f(self._xk),"f(xold) =",self._fxold
 			print "f'(xk) =",f.gradient(self._xk),"f'(xold) =",f.gradient(self._xold)
 			# print abs(self._xk-self._xold),self._stop_criterion()
 			# print "-------"
 			# self._xold = copy.deepcopy(self._xk)	# ??? DEEPCOPY
 			self._xold = self._xk					# shallow copy, but it's fine
 			self._alphak = self._update_alphak()
-			self._xk = self._xk - (self._alphak*f.gradient(self._xk))	# DO NOT use -= because so far _xold and _xk share the same object
+			# self._xk = self._xk - self._alphak*f.gradient(self._xk)	# DO NOT use -= because so far _xold and _xk share the same object
+			self._xk = project(self._xk - (self._alphak*f.gradient(self._xk)), self._xold.function_space())
+			print("new xk = {0}".format(self._xk))
 			self._fxold = self._fxk					# shallow copy, but it's fine
 			self._fxk = f(self._xk)
 			# print self._xk,self._xold,abs(self._xk-self._xold),self._stop_criterion()

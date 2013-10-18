@@ -9,7 +9,7 @@ from numpy import array
 
 class MovingBoundary(SubDomain):
 	def inside(self,x,on_boundary):
-		return on_boundary and x[1] < DOLFIN_EPS
+		return on_boundary and near(x[1],0)#x[1] < DOLFIN_EPS
 
 class StillBoundary(SubDomain):
     def __init__(self,moving_boundary):
