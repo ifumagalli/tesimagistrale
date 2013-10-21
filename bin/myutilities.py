@@ -3,16 +3,16 @@
 
 from dolfin import *
 
+# ===== "macro" for debugging =====
+MYDEBUG = True
+
+# ===== Class to restrict a Function =====
 class MyRestrictedFunction(Expression):
 	""" Class to allow restriction of a Function to the bottom boundary
 	"""
-	# DEVO USARE Expression PERCHE' SE NO NON POSSO SOVRASCRIVERE eval
-	# def __init__(self,*args,**kwargs):
-		# Function.__init__(self,*args)#,**kwargs)
-	# def __init__(self,func_space,**kwargs):
+	# DEVO USARE Expression PERCHE' CON Function NON POSSO SOVRASCRIVERE eval
+	# TODO cosi' com'e' mi sa di espediente sporco
 	def __init__(self,*args,**kwargs):
-		# # first argument MUST be passable to a Function
-		# self._function = Function.__init__(self,args[0])
 		self._to_be_restricted = kwargs.get('to_be_restricted',None)
 		if self._to_be_restricted == None:
 			exit("@@@ Missing the function to restrict")

@@ -1,5 +1,5 @@
 """ Classes implementing optimization methods.
-    NB ??? Per ora GradientMethod eredita da OptimizationMethod, ma essendo una policy forse sara' meglio cambiare il legame tra le due classi
+    ??? Per ora GradientMethod eredita da OptimizationMethod, ma essendo una policy forse sara' meglio cambiare il legame tra le due classi
 """
 
 from dolfin import *
@@ -10,37 +10,47 @@ import copy
 #=====================
 
 class OptimizationMethod(object):
-	""" Abstract class defining an iterative method for optimize a "function" f(x)
-		starting from x0, with a tolerance and a maximum number of iterations
+	""" Abstract class defining an iterative method to optimize a "function" f(x)
+		starting from x0, with a tolerance and a maximum number of iterations.
+		No hypotheses are set on f or x0.
 	"""
 	def __init__(self,tol,maxit):
-		# self._f = f
-		# self._x0 = x0
 		self._tol = tol
 		self._maxit = maxit
-		# serviranno altre tolleranze in altri oggetti
-		# self._iter = 0
-		# self._xk = x0
-		# self._fxk = self._f(x0)
-		# self._xold = None
-		# self._fxold = None
+		self._xk = None
+		self._xold = None
+		self._fxk = None
+		self._fxold = None
 
 	def apply(self,f,x0):
 		pass
 	
 	# stop criteria
-	def stop_normx(self):
+		# le righe commentate sono da usare se x e' un vettore, non una Function
+	def _stop_normx(self):
+		# return (sum(abs(self._xk-self._xold)) < self._tol)
+		return (errornorm(self._xk,self._xold,'l2') < self._tol)
+	def _stop_normf(self):
+		# return (sum(abs(self._fxk-self._fxold)) < self._tol)
+		return (errornorm(self._fxk,self._fxold,'l2') < self._tol)
+
+	_criterion = _stop_normx
+	
+	def _stop_criterion(self):
+		""" Returns True if stop is needed. False otherwise.
+			It use one of the above stop criteria.
+		"""
 		iter_check = (self._iter >= self._maxit)
 		if iter_check:
-			print "  ***MAXIMUM NUMBER OF ITERATIONS EXCEEDED***"
-			print "  ***in OptimizationMethod.stop_normx()***"
+			print "@@@ WARNING: Maximum number of optimization iterations exceeded"
 			return iter_check
-		# return iter_check or (sum(abs(self._xk-self._xold)) < self._tol)
-		return iter_check or (errornorm(self._xk,self._xold,'l2') < self._tol)
-			# ??? come fare per tenere generalizzazione al caso di x vettoriale? Perche' gli scalari non hanno un metodo length
-		# returns True if stop is needed
+		return self._criterion()
+		# ??? appesantisco troppo a fare una chiamata di funzione in piu', oppure in Python non cambia nulla?
 	
-	_stop_criterion = stop_normx
+	def set_stop_criterion(self,criterion):
+		""" To set possible user defined stop criterion.
+		"""
+		self._criterion = criterion
 
 	# TODO
 	# ...set,get,info...
@@ -48,55 +58,40 @@ class OptimizationMethod(object):
 #=====================
 	
 class GradientMethod(OptimizationMethod):
-	""" The "function" f(x) to be optimized need to be a class with a method derivative(x) that returns the derivative of f applied in x.
-		With 'derivative' we mean the gradient or, in general, the Riesz element of the (Frechet-)differential
+	""" The "function" f(x) to be optimized need to be a class with a method gradient(x) that returns the gradient of f applied in x.
+		By 'gradient', in general we mean the Riesz element of the (Frechet-)differential.
 	"""
 	def __init__(self,tol,maxit):
 		OptimizationMethod.__init__(self,tol,maxit)
-		# self._alphak = _alpha0
-		# self._gradf = gradf		# TODO il gradiente sara' un metodo dell'oggetto f
-
+		
 	def apply(self,f,x0,alpha0=1.0):
 		self._xk = x0
 		self._fxk = f(x0)
-		#f.eval(self._fxk,x0)
 		self._alphak = alpha0
-		self._xold = x0
-		#self._xold = 0*x0
-		#self._xold = copy.deepcopy(self._xk)
-		#self._xold = x0.__init__(x0)
-		#self._xold = copy.deepcopy(x0)
-		#self._xold.vector()[:] *= DOLFIN_EPS
-			# ??? metto 0*stesso_oggetto affinche' funzioni il criterio di arresto, ma preferirei un bel None
-			# !!! e non posso neanche mettere 0* perche' altrimenti mi diventa _xold=Zero e l'oggetto Zero non ha un metodo vector()
-		self._fxold = 0*self._fxk	# idem
+		# self._xold = x0
+		# self._fxold = self._fxk
 		self._iter = 0
 		while self._iter==0 or (not self._stop_criterion()):
-		# while self._iter==0 or conditional(Not(self._stop_criterion()),True,False):
-			# ??? non c'e' un modo per far si' che _stop_criterion restituisca un bool di Python?
-			# perche' usando la riga sopra commentata da' l'errore seguente: 
-			# " UFL conditions cannot be evaluated as bool in a Python context "
+			# !!! At first iteration, self._stop_criterion is not called
 			self._iter += 1
-			print "iter =",self._iter
-			print "xk =",self._xk,"xold = ",self._xold
-			print "f(xk) =",f(self._xk),"f(xold) =",self._fxold
-			print "f'(xk) =",f.gradient(self._xk),"f'(xold) =",f.gradient(self._xold)
-			# print abs(self._xk-self._xold),self._stop_criterion()
-			# print "-------"
-			# self._xold = copy.deepcopy(self._xk)	# ??? DEEPCOPY
-			self._xold = self._xk					# shallow copy, but it's fine
+			print("iter = {0}".format(self._iter))
+			self._xold = self._xk				# shallow copy, but it's fine
+			self._fxold = self._fxk				# shallow copy, but it's fine
+			print("xold = {0} \t f(xold) = {1}".format(self._xold,self._fxold))
+			print("f'(xold) = {0}".format(f.gradient(self._xold)))
 			self._alphak = self._update_alphak()
-			# self._xk = self._xk - self._alphak*f.gradient(self._xk)	# DO NOT use -= because so far _xold and _xk share the same object
-			self._xk = project(self._xk - (self._alphak*f.gradient(self._xk)), self._xold.function_space())
-			print("new xk = {0}".format(self._xk))
-			self._fxold = self._fxk					# shallow copy, but it's fine
+			gradfxk = f.gradient(self._xk)
+			self._xk = project(self._xk - (self._alphak*gradfxk), self._xold.function_space())
 			self._fxk = f(self._xk)
-			# print self._xk,self._xold,abs(self._xk-self._xold),self._stop_criterion()
+			print("xk = {0} \t f(xk) = {1}".format(self._xk,self._fxk))
+			print("f'(xk) = {0}".format(gradfxk))
 	# DEBUG	
-			# plot(self._xk,mesh=UnitIntervalMesh(20),title="qk(x)")
-			print [self._xk.vector()[i] for i in range(0,len(self._xk.vector()))]
-			print [self._xold.vector()[i] for i in range(0,len(self._xold.vector()))]
-			print numpy.abs(self._xk.vector()-self._xold.vector())
+			if MYDEBUG == True:
+				# plot(self._xk,mesh=UnitIntervalMesh(20),title="qk(x)")
+				print [self._xk.vector()[i] for i in range(0,len(self._xk.vector()))]
+				print [self._xold.vector()[i] for i in range(0,len(self._xold.vector()))]
+				print numpy.abs(self._xk.vector()-self._xold.vector())
+	# END DEBUG
 			raw_input("Press ENTER to continue")
 			print "-------"
 		return self._xk
@@ -105,27 +100,9 @@ class GradientMethod(OptimizationMethod):
 	# def linear_search(self,...):
 	#	...
 	#	return alphak
-	# per il momento non aggiorniamo, con il seguente
+	# per il momento non aggiorniamo: usiamo il seguente
 	def _update_alphak(self):
 		return self._alphak
 	
+	# TODO
 	# ...set,get,info...
-
-
-#############################################################################
-# class OptimizationAlgorithm:
-	# def __init__(self,optTol,stateSolver,optMethod,linearSystemTol=1.e-3*optTol):
-		# self._optTol = optTol
-			# # serviranno anche altre tolleranze come linearSystemTol
-		# self._stateSolver = stateSolver
-		# self._optMethod = optMethod
-			# # Has to be an OptimizationMethod
-		
-	# def setMethod(self,optMethod):
-		# self._optMethod = optMethod
-	# def getMethod(self):
-		# return self._optMethod
-	# def infoMethod(self):
-		# return self._optMethod.info
-	# # ...
-	# # analoghi metodi per gli altri attributi della classe

@@ -3,138 +3,135 @@
 from dolfin import *
 from geometry import *
 
-#parameters['linear_algebra_backend'] = 'PETSc'
-
-# class IterativeInverse(LinearOperator):
-  # # constructor
-  # def __init__(self, vector, matrix, solver, preconditioner=None):
-    # LinearOperator.__init__(self, vector, vector)
-    # self.matrix = matrix
-    # self.solver = solver
-    # self.preconditioner = preconditioner
-
-    # if preconditioner is None:
-      # self.solver.set_operator(self.matrix)
-    # else:
-      # self.solver.set_operators(self.matrix, self.preconditioner)
-
-  # def size(self, dim):
-    # return self.matrix.size(dim)
-
-  # # matrix-vector product
-  # def mult(self, src, dst):
-    # self.solver.solve(dst, src)
-
-
-# class SchurComplement(LinearOperator):
-  # # constructor
-  # def __init__(self, vector, Ainv, B):
-    # LinearOperator.__init__(self, vector, vector)
-    # self.Ainv = Ainv
-    # self.B = B
-
-    # self.tmp1 = Vector(Ainv.size(1));
-    # self.tmp2 = Vector(Ainv.size(1));
-
-  # # matrix-vector product
-  # def mult(self, src, dst):
-    # self.B.transpmult(src, self.tmp1)
-    # self.Ainv.mult(self.tmp1, self.tmp2)
-    # self.B.mult(self.tmp2, dst)
-
+# parameters['linear_algebra_backend'] = 'PETSc'
+parameters['linear_algebra_backend'] = 'uBLAS'
 
 class StokesSolver(object):
   # constructor
-  def __init__(self, Vh, Qh):
-    self.Vh = Vh
-    self.Qh = Qh
-    self.Wh = Vh * Qh
+  def __init__(self, V, P):
+    self.V = V
+    self.P = P
+    self.W = V * P
+
+  def set_data(self,eta,nu,f,bc,g=None,boundaries=None):
+    # TODO forse meglio un generico passaggio per kwargs?
+    # si potrebbe tenere un self._kwargs da cui estrarre al momento dell'assemble
+    self._eta = eta
+    self._nu = nu
+    self._f = f
+    self._bc = bc
+    self._g = g
+    self._boundaries = boundaries
 
   # assemble matrix
-  def assemble(self, mu, f, bc, control):
-    # # Dirichlet bc
-    # # u0_boundary = lambda x, on_boundary : on_boundary
-    # # bc = DirichletBC(self.Vh, u0, u0_boundary)
-    # Gamma_moving = MovingBoundary()
-    # Gamma_still = StillBoundary(Gamma_moving)
-    # # Dirichlet bc
-    # u_in = Expression(('sqrt(x[1])','0'))		# inflow velocity
-    # noslip = DirichletBC(self.Vh,Expression(('0','0')),lambda x, on_boundary : Gamma_moving.inside(x,on_boundary))
-    # inflow = DirichletBC(self.Vh,u_in,lambda x, on_boundary : (not Gamma_moving.inside(x,on_boundary)) and x[0] < DOLFIN_EPS)
-    # # noslip2 = DirichletBC(V,Expression(('0','0')),lambda x, on_boundary : Gamma_still.inside(x,on_boundary) and x[1] > 1-DOLFIN_EPS)
-    # symmetry = DirichletBC(self.Vh.sub(1),Expression('0'),lambda x, on_boundary : (not Gamma_moving.inside(x,on_boundary)) and x[1] > 1-DOLFIN_EPS)
-	# # ??? DA VERIFICARE
-    # bc = [noslip,inflow,symmetry]
-
-
-    u,p = TrialFunctions(self.Wh)
-    v,q = TestFunctions(self.Wh)
+  def assemble(self, q):
+    if self._eta==None or self._nu==None or self._f==None or self._bc==None:
+        exit("@@@ EXITING: data setting is required before assembling")
+    if self._g == None and self._boundaries != None:
+        print("@@@ WARNING: 'boundaries' FacetFunction passed won't be used")
+    if self._g != None and self._boundaries == None:
+        exit("@@@ EXITING: Neumann data need a FacetFunction ('boundaries')")
+    
+    u,p = TrialFunctions(self.W)
+    v,r = TestFunctions(self.W)
 
     # coefficients due to control
-    Tq = MapTq(element=self.Vh.ufl_element())
-    Tq.q = control
+    Tq = MapTq(element=self.V.ufl_element(),q=q)
+        # ??? meglio fare un membro Tq anche in questa classe? in CostFunctional c'e' gia'
     DTq = grad(Tq)
     gammaq = det(DTq)
     DTq_invT = transpose(inv(DTq))
     Aq = gammaq*DTq*DTq_invT
 
     # assemble A matrix
-    # eps = lambda u: sym(grad(u))
-    # a = 2 * mu * inner(eps(u), eps(v)) * dx
-    a = mu*inner(grad(u)*Aq,grad(v)) * dx \
-      - inner(grad(u),DTq_invT)*q*gammaq * dx \
+    a = self._nu*inner(grad(u)*Aq,grad(v)) * dx \
+      - inner(grad(u),DTq_invT)*r*gammaq * dx \
       - inner(grad(v),DTq_invT)*p*gammaq * dx
-    L = dot(f, v)*gammaq * dx
-	# TODO inserire dato di Neumann
-    self.A, self.b = assemble_system(a, L, bc)
+    L = dot(self._f, v)*gammaq * dx #+ dot(self._g,v) * ds(10)
+    self.A, self.b = assemble_system(a, L, self._bc, exterior_facet_domains=self._boundaries)
 
     # assemble A preconditioner
-    # !!! tengo lo stesso...
-    a = mu * inner(grad(u),grad(v)) * dx \
-	  + p * q / mu * dx
-    self.Ap = assemble_system(a, L, bc)[0]
+    a = self._nu * inner(grad(u),grad(v)) * dx \
+        + p * r / self._nu * dx
+    self.Ap = assemble_system(a, L, self._bc, exterior_facet_domains=self._boundaries)[0]
 
   def solve(self):
-	x = Function(self.Wh)
-	
-	#solver = KrylovSolver('gmres', 'ilu')
-	#solver.set_operators(self.A, self.Ap)
-	solver = LUSolver()
-	solver.set_operator(self.A)
-	solver.solve(x.vector(), self.b)
-	
-	return x.split()
-	
+    x = Function(self.W)
+    
+    #solver = KrylovSolver('gmres', 'ilu')
+    #solver.set_operators(self.A, self.Ap)
+    solver = LUSolver()
+    solver.set_operator(self.A)
+    solver.solve(x.vector(), self.b)
+
+    return x.split()
+	# Se vuoi che u,p siano modificabili all'esterno senza dover fare deep copies, usa invece le righe seguenti
+    # u = Function(self.V)
+    # p = Function(self.P)
+    # u = assign(x.split()[0])
+    # p = assign(x.split()[1])
+    # return u,p
+    
   def mesh(self):
-	return self.Vh.mesh()
+    return self.V.mesh()
 
 # =====================
 
-# N = 10
-# mesh = UnitSquareMesh(N,N,'crossed')
 
-# Vh = VectorFunctionSpace(mesh, 'CG', 2)
-# Qh = FunctionSpace(mesh, 'CG', 1)
+# ===== Test code =====
 
-# stokes = StokesSolver(Vh, Qh)
+if __name__=="__main__":
 
-# # viscosity and force
-# mu = Constant(1)
-# f = Expression(('0.5 * sin(2*x[0]) - 2 * cos(x[0]) * sin(x[1])',
-#                '0.5 * sin(2*x[1]) + 2 * sin(x[0]) * cos(x[1])'))
+  N = 10
+  mesh = UnitSquare(N,N,'crossed')
+  V = VectorFunctionSpace(mesh, 'CG', 2)
+  P = FunctionSpace(mesh, 'CG', 1)
 
-# # solution
-# u0 = Expression(('- cos(x[0]) * sin(x[1])',
-#                'sin(x[0]) * cos(x[1])'))
-# p0 = Expression('0.25 * (cos(2*x[0]) + cos(2*x[1]))')
+  # problem data
+  eta = Constant(0.0)
+  nu = Constant(1.e-6)
+  f = Expression(('0.0','0.0'))
 
-# stokes.assemble(mu, f, u0)
-# u,p = stokes.solve()
+  # Dirichlet bc
+  u_in = Expression(('sqrt(x[1])','0.0'))       # inflow velocity
+  Gamma_moving = MovingBoundary()
+  noslip = DirichletBC(V,Constant(('0.0','0.0')),lambda x, on_boundary : Gamma_moving.inside(x,on_boundary))
+  inflow = DirichletBC(V,u_in,lambda x, on_boundary : (not Gamma_moving.inside(x,on_boundary)) and near(x[0],0))
+  symmetry = DirichletBC(V.sub(1),Expression('0.0'),lambda x, on_boundary : (not Gamma_moving.inside(x,on_boundary)) and near(x[1],1))
+  bc = [noslip,inflow,symmetry]
 
-# u_x,u_y = u.split()
-# plot(u,title=("Velocity vector u"))
-# plot(u_x,title=("Velocity x component"))
-# plot(u_y,title=("Velocity y component"))
-# plot(p,title=("Pressure"))
-# interactive()
+  # Neumann bc
+  g = Expression(('0.0','0.0'))# boundary conditions
+  class NeuBoundary(SubDomain):
+    def inside(self,x,on_boundary):
+		return on_boundary and near(x[0],1.0)
+            # ??? c'e' un modo per far chiamare DirBoundary.inside senza creare un'istanza?
+            # perche' altrimenti dovrei fare l'override di qualche metodo affinche' NeuBoundary abbia un oggetto DirBoundary...
+  boundaries = FacetFunction("uint",mesh)
+  neu_boundary = NeuBoundary()
+  neu_boundary.mark(boundaries,10)
 
+  # control
+  Q = FunctionSpace(UnitInterval(N),'CG',2)
+  q = Function(Q)
+  # q0 = Expression('0.0')
+  # q0 = Expression('sin(2*pi*x[0])')
+  q0 = Expression('0.2-0.2*4*(x[0]-0.5)*(x[0]-0.5)')
+  q = project(q0,Q)
+  
+  # solver initializing
+  stokes = StokesSolver(V,P)
+  stokes.set_data(eta, nu, f, bc, g, boundaries)
+  
+  # solution
+  stokes.assemble(q)
+  u,p = stokes.solve()
+
+  # post-processing
+  u_x,u_y = u.split()
+  plot(u,title=("Velocity vector u"))
+  plot(u_x,title=("Velocity x component"))
+  plot(u_y,title=("Velocity y component"))
+  plot(p,title=("Pressure"))
+  interactive()
+  raw_input("Press ENTER to finish")

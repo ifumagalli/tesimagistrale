@@ -20,6 +20,7 @@ Branches:
 
 ==============
 
+Commit messages: se non è indicato niente, ci si riferisce ai codici .py; se ci sono modifiche alla parte .tex, si segnalano con 'tex:' nel commit message.
 Struttura descrizioni commit (ogni sezione può esserci o meno):
 	<descrizione delle modifiche importanti>
 	TODO:
