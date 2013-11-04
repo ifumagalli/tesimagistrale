@@ -1,0 +1,220 @@
+Script iniziato su lun 04 nov 2013 13:07:34 CET
+rm -f *.pyc *.pvd *.vtu *.png *.eps *.h
+python main.py
+# ======================================================================
+# initial settings
+# ======================================================================
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Penalty coefficients =  [1000.0, 0.0]
+Solving linear system of size 101 x 101 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Vbar = 0.133333333333
+# ======================================================================
+# optimization method applying
+# ======================================================================
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Initial functional value f(x0) = 1.40316398733
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Calling FFC just-in-time (JIT) compiler, this may take some time.
+Calling FFC just-in-time (JIT) compiler, this may take some time.
+[1;37;34m  WARNING: The number of integration points for each cell will be: 676[0m
+[1;37;34m           Consider using the option 'quadrature_degree' to reduce the number of points[0m
+
+@ gradient trace problem solving
+penalty [1000.0, 0.0]
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+-------------------------------------------------------
+iter = 1
+xold = w_9 	 f(xold) = 1.40316398733
+f'(xold) = w_{49}
+
+@ gradient trace problem solving
+penalty [1000.0, 0.0]
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+@@@ Applying back tracking on descent pace
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.05 ,   f(xk) = 3.81719379024
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.025 ,   f(xk) = 1.56915862373
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.0125 ,   f(xk) = 1.35026448833
+  @ End of back tracking
+xk = w_{90} 	 f(xk) = 1.35026448833
+f'(xk) = w_{68}
+Volume increase = -0.0147819478141 (relative increase = -11.0864608606 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+iter = 2
+xold = w_{90} 	 f(xold) = 1.35026448833
+f'(xold) = w_{68}
+
+@ gradient trace problem solving
+penalty [1000.0, 0.0]
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+@@@ Applying back tracking on descent pace
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.05 ,   f(xk) = 1.64505271834
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.025 ,   f(xk) = 1.44053900772
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.0125 ,   f(xk) = 1.38080755593
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.00625 ,   f(xk) = 1.36184025645
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.003125 ,   f(xk) = 1.35512210548
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.0015625 ,   f(xk) = 1.352459913
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.00078125 ,   f(xk) = 1.35130375087
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.000390625 ,   f(xk) = 1.35076949407
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 0.0001953125 ,   f(xk) = 1.35051333317
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 9.765625e-05 ,   f(xk) = 1.35038799604
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 4.8828125e-05 ,   f(xk) = 1.35032601348
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 2.44140625e-05 ,   f(xk) = 1.35029519373
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 1.220703125e-05 ,   f(xk) = 1.35027982673
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+ alpha = 6.103515625e-06 ,   f(xk) = 1.35027215396
+  @ End of back tracking
+xk = w_{220} 	 f(xk) = 1.35027215396
+f'(xk) = w_{121}
+Volume increase = -0.0147842817908 (relative increase = -11.0882113431 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+@@@ WARNING: alpha_k reached alpha_min
+# ======================================================================
+# post-processing
+# ======================================================================
+*** Warning: Ignoring unknown parameter "basename" in parameter set "parameters" when updating parameter set "vtk_plotter".
+Object cannot be plotted directly, projecting to piecewise linears.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Press ENTER to continue
+
+Bien: On a fini Normalement!
+
+Script effettuato su lun 04 nov 2013 13:21:14 CET

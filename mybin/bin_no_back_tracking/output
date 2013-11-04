@@ -1,0 +1,515 @@
+rm -f *.pyc *.pvd *.vtu *.png *.eps *.h
+python main.py
+*** -------------------------------------------------------------------------
+*** Warning: UnitSquare has been deprecated in DOLFIN version 1.1.0.
+*** The class UnitSquare has been replaced by UnitSquareMesh.
+*** -------------------------------------------------------------------------
+
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+# ======================================================================
+# initial settings
+# ======================================================================
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+*** -------------------------------------------------------------------------
+*** Warning: UnitInterval has been deprecated in DOLFIN version 1.1.0.
+*** The class UnitInterval has been replaced by UnitIntervalMesh.
+*** -------------------------------------------------------------------------
+
+*** -------------------------------------------------------------------------
+*** Warning: UnitSquare has been deprecated in DOLFIN version 1.1.0.
+*** The class UnitSquare has been replaced by UnitSquareMesh.
+*** -------------------------------------------------------------------------
+
+
+@@@ setting Vbar
+Solving linear system of size 101 x 101 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Vbar = 0.133333333333
+# ======================================================================
+# optimization method applying
+# ======================================================================
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+
+@@@@@@@ functions.CostFunctional.gradient
+
+@@@ solver assembling
+
+@@@ state solution computing
+
+@@@ adjoint state problem setting
+
+@@@ adjoint state problem assembling
+
+@@@ adjoint state solution computing
+
+@@@ Gradient assembling
+
+@ gradient trace problem solving
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+gradiente (senza penalizzazione) in 0.7 -0.0872854758898
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 0 iterations.
+
+@ gradient projecting
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+-------------------------------------------------------
+iter = 1
+xold = w_9 	 f(xold) = 2.16228826827
+f'(xold) = w_{51}
+
+@@@@@@@ functions.CostFunctional.gradient
+
+@@@ solver assembling
+
+@@@ state solution computing
+
+@@@ adjoint state problem setting
+
+@@@ adjoint state problem assembling
+
+@@@ adjoint state solution computing
+
+@@@ Gradient assembling
+
+@ gradient trace problem solving
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+gradiente (senza penalizzazione) in 0.7 -0.0872854758898
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 0 iterations.
+
+@ gradient projecting
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+======== uscita gradiente in 0.7 -0.0876188092231
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+xk = w_{73} 	 f(xk) = 2.09397328457
+f'(xk) = w_{72}
+Volume increase = -0.00166004253504 (relative increase = -1.24503190128 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+iter = 2
+xold = w_{73} 	 f(xold) = 2.09397328457
+f'(xold) = w_{72}
+
+@@@@@@@ functions.CostFunctional.gradient
+
+@@@ solver assembling
+
+@@@ state solution computing
+
+@@@ adjoint state problem setting
+
+@@@ adjoint state problem assembling
+
+@@@ adjoint state solution computing
+
+@@@ Gradient assembling
+
+@ gradient trace problem solving
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+gradiente (senza penalizzazione) in 0.7 -0.0876617165609
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 0 iterations.
+
+@ gradient projecting
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+======== uscita gradiente in 0.7 -0.089321759096
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+xk = w_{107} 	 f(xk) = 2.07229702813
+f'(xk) = w_{106}
+Volume increase = -0.00296556484657 (relative increase = -2.22417363493 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+iter = 3
+xold = w_{107} 	 f(xold) = 2.07229702813
+f'(xold) = w_{106}
+
+@@@@@@@ functions.CostFunctional.gradient
+
+@@@ solver assembling
+
+@@@ state solution computing
+
+@@@ adjoint state problem setting
+
+@@@ adjoint state problem assembling
+
+@@@ adjoint state solution computing
+
+@@@ Gradient assembling
+
+@ gradient trace problem solving
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+gradiente (senza penalizzazione) in 0.7 -0.0880274185536
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 0 iterations.
+
+@ gradient projecting
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+======== uscita gradiente in 0.7 -0.0909929834002
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+xk = w_{141} 	 f(xk) = 2.08417433353
+f'(xk) = w_{140}
+Volume increase = -0.00425375853293 (relative increase = -3.1903188997 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+iter = 4
+xold = w_{141} 	 f(xold) = 2.08417433353
+f'(xold) = w_{140}
+
+@@@@@@@ functions.CostFunctional.gradient
+
+@@@ solver assembling
+
+@@@ state solution computing
+
+@@@ adjoint state problem setting
+
+@@@ adjoint state problem assembling
+
+@@@ adjoint state solution computing
+
+@@@ Gradient assembling
+
+@ gradient trace problem solving
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+gradiente (senza penalizzazione) in 0.7 -0.0883814056189
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 0 iterations.
+
+@ gradient projecting
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+======== uscita gradiente in 0.7 -0.0926351641518
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+xk = w_{175} 	 f(xk) = 2.12067267495
+f'(xk) = w_{174}
+Volume increase = -0.00552760319176 (relative increase = -4.14570239382 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+iter = 5
+xold = w_{175} 	 f(xold) = 2.12067267495
+f'(xold) = w_{174}
+
+@@@@@@@ functions.CostFunctional.gradient
+
+@@@ solver assembling
+
+@@@ state solution computing
+
+@@@ adjoint state problem setting
+
+@@@ adjoint state problem assembling
+
+@@@ adjoint state solution computing
+
+@@@ Gradient assembling
+
+@ gradient trace problem solving
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+gradiente (senza penalizzazione) in 0.7 -0.0887228201808
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 0 iterations.
+
+@ gradient projecting
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+======== uscita gradiente in 0.7 -0.0942504233725
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+xk = w_{209} 	 f(xk) = 2.17534516667
+f'(xk) = w_{208}
+Volume increase = -0.00678950208117 (relative increase = -5.09212656088 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+iter = 6
+xold = w_{209} 	 f(xold) = 2.17534516667
+f'(xold) = w_{208}
+
+@@@@@@@ functions.CostFunctional.gradient
+
+@@@ solver assembling
+
+@@@ state solution computing
+
+@@@ adjoint state problem setting
+
+@@@ adjoint state problem assembling
+
+@@@ adjoint state solution computing
+
+@@@ Gradient assembling
+
+@ gradient trace problem solving
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+gradiente (senza penalizzazione) in 0.7 -0.0890510247565
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 0 iterations.
+
+@ gradient projecting
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+======== uscita gradiente in 0.7 -0.0958405268377
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+xk = w_{243} 	 f(xk) = 2.24336342582
+f'(xk) = w_{242}
+Volume increase = -0.00804145452288 (relative increase = -6.03109089216 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+iter = 7
+xold = w_{243} 	 f(xold) = 2.24336342582
+f'(xold) = w_{242}
+
+@@@@@@@ functions.CostFunctional.gradient
+
+@@@ solver assembling
+
+@@@ state solution computing
+
+@@@ adjoint state problem setting
+
+@@@ adjoint state problem assembling
+
+@@@ adjoint state solution computing
+
+@@@ Gradient assembling
+
+@ gradient trace problem solving
+*** -------------------------------------------------------------------------
+*** Warning: uint-valued MeshFunction has been deprecated in DOLFIN version 1.1.0.
+*** Typename "uint" has been changed to "size_t".
+*** -------------------------------------------------------------------------
+
+gradiente (senza penalizzazione) in 0.7 -0.0893655459496
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 0 iterations.
+
+@ gradient projecting
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+======== uscita gradiente in 0.7 -0.0974070004725
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+
+@@@@@@@ functions.CostFunctional.__call__
+
+@@@ state problem assembling
+
+@@@ state solution computing
+
+@@@ Functional assembling
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+xk = w_{277} 	 f(xk) = 2.32102446869
+f'(xk) = w_{276}
+Volume increase = -0.00928516164681 (relative increase = -6.96387123511 %)
+*** Warning: Degree of exact solution may be inadequate for accurate result in errornorm.
+-------------------------------------------------------
+Press ENTER to continue
+
+@@@ WARNING: Maximum number of optimization iterations exceeded
+*** -------------------------------------------------------------------------
+*** Warning: UnitInterval has been deprecated in DOLFIN version 1.1.0.
+*** The class UnitInterval has been replaced by UnitIntervalMesh.
+*** -------------------------------------------------------------------------
+
+Calling FFC just-in-time (JIT) compiler, this may take some time.
+# ======================================================================
+# post-processing
+# ======================================================================
+*** Warning: Ignoring unknown parameter "basename" in parameter set "parameters" when updating parameter set "vtk_plotter".
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+Object cannot be plotted directly, projecting to piecewise linears.
+Calling FFC just-in-time (JIT) compiler, this may take some time.
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+Solving linear system of size 21 x 21 (uBLAS Krylov solver).
+*** Warning: Conjugate-gradient method not yet programmed for uBLASKrylovSolver. Using GMRES.
+Krylov solver converged in 1 iterations.
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+Xlib:  extension "NV-GLX" missing on display "localhost:11.0".
+Press ENTER to continue
+Bien: On a fini Normalement!

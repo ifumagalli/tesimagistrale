@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid"  version="0.1"  >
+<UnstructuredGrid>
+<Piece  NumberOfPoints="21" NumberOfCells="20">
+<Points>
+<DataArray  type="Float64"  NumberOfComponents="3"  format="ascii">0 0 0  0.05 0 0  0.1 0 0  0.15 0 0  0.2 0 0  0.25 0 0  0.3 0 0  0.35 0 0  0.4 0 0  0.45 0 0  0.5 0 0  0.55 0 0  0.6 0 0  0.65 0 0  0.7 0 0  0.75 0 0  0.8 0 0  0.85 0 0  0.9 0 0  0.95 0 0  1 0 0  </DataArray>
+</Points>
+<Cells>
+<DataArray  type="UInt32"  Name="connectivity"  format="ascii">0 1  1 2  2 3  3 4  4 5  5 6  6 7  7 8  8 9  9 10  10 11  11 12  12 13  13 14  14 15  15 16  16 17  17 18  18 19  19 20  </DataArray>
+<DataArray  type="UInt32"  Name="offsets"  format="ascii">2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 </DataArray>
+<DataArray  type="UInt8"  Name="types"  format="ascii">3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </DataArray>
+</Cells>
+<PointData  Scalars="u"> 
+<DataArray  type="Float64"  Name="u"  format="ascii">0.0000000000000000e+00  -5.9669083525945528e-02  -8.3682197727559846e-02  -9.1198445124642646e-02  -9.3581323555164256e-02  -9.3884501241318336e-02  -9.2618114104611834e-02  -8.9910679567690208e-02  -8.6044377743799222e-02  -8.1353265561633498e-02  -7.6081285304581567e-02  -7.0341456357428847e-02  -6.4132805977962240e-02  -5.7375697481864947e-02  -4.9950670549961537e-02  -4.1743831251485661e-02  -3.2733056770434768e-02  -2.3165415168320758e-02  -1.3945284351289125e-02  -6.5705128577510999e-03  0.0000000000000000e+00  </DataArray> 
+</PointData> 
+</Piece>
+</UnstructuredGrid>
+</VTKFile>

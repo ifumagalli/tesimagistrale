@@ -25,7 +25,7 @@ Struttura descrizioni commit (ogni sezione può esserci o meno):
 	<descrizione delle modifiche importanti>
 	TODO:
 	<cose da fare nel commit successivo>
-	DONE:
+	DONE_TODOs:
 	<conferma di aver evaso i TODO del commit precedente>
 	MINOR:
 	<modifiche non sostanziali>

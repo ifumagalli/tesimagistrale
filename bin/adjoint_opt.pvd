@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<VTKFile type="Collection" version="0.1">
+  <Collection>
+    <DataSet timestep="0" part="0" file="adjoint_opt000000.vtu" />
+    <DataSet timestep="10" part="0" file="adjoint_opt000001.vtu" />
+    <DataSet timestep="20" part="0" file="adjoint_opt000002.vtu" />
+    <DataSet timestep="100" part="0" file="adjoint_opt000003.vtu" />
+  </Collection>
+</VTKFile>
